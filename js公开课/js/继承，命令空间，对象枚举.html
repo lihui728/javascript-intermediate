@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	    /*
+		  继承发展史
+	1：传统形式 ----》 原型链
+	   *过多的继承了没用的属性。
+	2：借用构造函数
+	   *不能继承借用构造函数的原型
+	   *每次构造函数都要多走一个函数
+	3：共享原型
+	   *不能随便改动自己的原型
+	4：圣杯模式
+	 --------------------------------
+
+	 	   传统模式，原型链
+	Grand.prototype.name = 'li';
+	
+	function Grand(){
+
+	}
+	var grand =new Grand();
+
+	Father.prototype = grand; 
+
+	function Father(){
+	
+	}
+
+	var father = new Father();
+
+    Son.prototype = father;
+
+	function Son(){
+	
+	}
+	var son = new Son();
+	
+	---------------------------------
+
+    	 //借用构造函数
+	function Person(name,age,sex){
+         this.name = name;
+		 this.age = age;
+		 this.sex = sex;
+	}
+	function Student(name,age,sex,xing){
+		 Person.call(this,name,age,sex)
+	     this.xing = xing;
+	}
+
+	var student = new Student('li',22,'ana','xing');
+
+	--------------------------------------
+
+
+		 共享原型
+	Father.prototype.name = 'li'; 
+	function Father(){
+	    this.so = function (){
+			document.write('bbb');
+		}
+	}
+	
+	function Son(){
+          this.some = function (){
+			  document.write("aaa")
+		  }
+	}
+	Son.prototype = Father.prototype;
+	Son.prototype.age = 18;
+
+	var son = new Son();
+	var father = new Father();
+
+	----------------------------------
+           共享原型
+	Father.prototype.name = 'li';
+    function Father(){}
+	function Son(){}
+	function inherit(Tar,Ora){
+		Tar.prototype = Ora.prototype;
+	}
+    inherit(Son,Father)
+	var son = new Son();
+	var fathre = new Father();
+
+-----------------------------------------------
+		  圣杯模式
+	Father.prototype.name = 'li';
+	function inherit(Target,Origin){
+		
+		function F(){};
+
+		F.prototype = Target.prototype;
+
+		Origin.prototype = new F();
+
+	}
+	function Father(){}
+	function Son(){}
+	inherit(Father,Son);
+	var son = new Son();
+	var father = new Father();
+	
+	son.__proto__  ---》 new F().__proto__ ----->   Father.prototype
+		
+    --------------------------------------
+
+           圣杯模式
+	Son.prototype.name = 'li';
+	function inherit(Target,Origin){
+	   function F(){};
+       F.prototype = Target.prototype;
+	   Origin.prototype = new F();
+	   return new F();
+	}
+	
+	var f = inherit(Son,Father);
+	function Father(){}
+	function Son(){}
+	var son = new Son();
+	var father = new Father()
+   
+
+	------------------------------------
+        
+         // 圣杯模式继承方法
+    function inherit(Target,Origin){
+		function F(){};  //构造函数过度
+		F.prototype = Origin.prototype;  //F函数的原型 = 传进来的第二个参数的原型
+		Target.prototype = new F(); //第一个参数的原型 = new F();
+		Target.prototype.constructor = Target; //因以上的操作改变了constructor的创建此对象的数组函数，重新改变改回来原本的创建此对象的数组函数
+		Target.prototype.ubr = Origin.prototype;  //增加一个属性 = Origin的原型
+	}
+	inherit(Son,Father)
+	function Father(){};
+	function Son(){};
+	var son = new Son();
+	var father = new Father();
+
+	  //圣杯模式继承立即执行函数方法
+	 var inherit = (function (){
+		function F(){};
+		return function (Target,Origin){
+			F.prototype = Origin.prototype;
+			Target.prototype = new F();
+			Target.prototype.constuctor = Target;
+			Target.prototype.uber = Origin.prototype;
+		}
+
+	}());
+	function Son(){};
+	function Father(){};
+	var son = new Son();
+	var father = new Father();
+    Father.prototype.name = 'li';
+
+    inherit(Son,Father);
+	
+    --------------------------------------------------------
+
+	        //  闭包 
+	   //可以实现封装，属性私有化；
+	//在全局里访问不到prepareWife 变量，当执行deng.sayPraprewife()方法时，形成一个闭包，
+     //	 可以访问到deng.Ao{},return，得到prepareWife这个变量，
+	function Deng(name,wife){
+		var prepareWife = "xiaozhang";
+		this.name = name;
+		this.wife = wife;
+		this.divorce = function (){
+			this.wife = prepareWife;
+		}
+		this.changPrepareWife = function (Target){
+			prepareWife = target;
+		}
+		this.sayPraprewife = function (){
+			console.log(prepareWife);
+		}
+	}
+	var deng = new Deng('deng','xiao liu')
+
+	*/
+    
+  Father.prototype.name = 'li';
+   var inherit = (function (){
+		function F(){};
+		return function (Target,Origin){
+			F.prototype = Origin.prototype;
+			Target.prototype = new F();
+			Target.prototype.constructor = Target;
+			Target.prototype.uber = Origin.prototype;
+		}
+
+	}());
+	function Son(){};
+	function Father(){};
+	var son = new Son();
+	var father = new Father();
+    
+
+    inherit(Son,Father);
+      
+	
+	  
+	
+	</script>
+ </body>
+</html>

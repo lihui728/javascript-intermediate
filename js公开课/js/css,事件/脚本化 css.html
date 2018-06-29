@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+   <div style ="width:10em;height:100px;background-color:red;"></div>
+    <script>
+	 /*
+	    读写元素css属性
+
+		   *dom.style.prop
+
+		   *可读写行间样式，没有兼容性问题，碰到float这样的保留字属性，前面应加css  float--》cssFloat
+
+		   *复合属性必须拆解，组合单词变成小驼峰式写法
+
+		   *写入的值必须是字符串格式
+		
+	 查询计算样式
+
+	    *window.getComputedStyle(元素,null);
+		显示css所有样式表，null的值可以查询伪元素
+
+		*计算样式只读
+
+		*返回的计算样式的值都是绝对值，没有相对单位
+        window.getComputedStyle(div,null).backgroundColor
+		返回"rgb(255, 0, 0)"
+        
+		上面设置width是10em
+		window.getComputedStyle(div,null).width
+		返回"160px"
+
+		*IE8及IE8以下不兼容
+
+	 IE查询样式
+	    
+		*ele.currentStyle
+
+		*计算样式只读
+
+		*返回的计算样式的值不是经过转换的绝对值
+
+		*IE独有的属性
+
+
+	 */
+	 var div = document.getElementsByTagName('div')[0];
+	 function getStyle(elem,prop){
+		 if(window.getComputedStyle){
+		   return window.getComputedStyle(elem,null)[prop];
+		 }else{
+			 return elem.currentStyle[prop];
+		 }
+
+	 }
+	</script>
+ </body>
+</html>

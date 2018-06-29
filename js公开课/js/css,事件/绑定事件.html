@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+     <div style="width:100px;height:100px;background-color:red;"></div>
+     <script>
+	   /*
+	      绑定事件处理函数
+
+   1.ele.onxx = function (evnet){}
+	         
+        *兼容性很好，但是一个元素的同一个事件上只能绑定一个处理程序
+
+		*基本等同于卸载HTML行间上
+
+  2.obj.addEventListener(type,fn,false)
+
+       *IE9以下不兼容，可以为一个事件绑定多个处理程序
+
+	    var div = document.getElementsByTagName('div')[0];
+	  div.addEventListener('click',function(){
+		  div.style.backgroundColor = "green";
+	  },false);
+
+  3：obj.attachEvent('on' + type,fn);
+    
+	 IE独有，一个事件同样可以绑定多个处理程序
+
+	 =========================================
+
+        	 事件处理程序的运行坏境
+  
+    1：ele.onxxx = function (event){}
+
+	   *程序this指向是dom元素本身
+
+	2：obj.addEventListener(tyep,fn,false);
+	  
+	   *程序this指向是dom元素本身
+
+	3：obj.attachEvent('on' + type, fn);
+	   
+	   *程序this指向window
+
+	   如果要指向元素的如下方法
+
+	   obj.attachEvent('on'+ type,function(){
+		   test.call(obj);
+	   });   //在函数里面运行外部函数，真正运行的是外部函数，改变this指向
+	   
+	   function test(){
+	   }
+  
+     ========================================
+
+	          解除绑定事件
+	   
+	   *ele.onclick = false/''/null;
+
+       *ele.removeEventListener(type,fn,false);
+
+	   *ele.detachEvent("on"+type,fn);
+
+	   注：若绑定匿名函数，则无法解除
+	   */
+	  var div = document.getElementsByTagName('div')[0];
+	
+   
+
+	
+	 </script>
+ </body>
+</html>

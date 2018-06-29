@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+   <script>
+     /*function test(){
+		 var arr = [];
+		 for(var i = 0 ; i < 10 ;i++){
+			 arr[i]=function(){
+				 document.write(i + " ");
+			 }
+		 }
+		 return arr;
+	 }
+	 var demo = test();
+	 for(var j = 0 ; j < 10 ; j++){
+		 demo[j]();
+	 }*/
+	 function test(){
+		 var arr = []
+		 for (var i = 0; i < 10; i++){
+			 (function (j){
+				 arr[j] = function (){
+                 document.write(j + " ");
+				 }
+			 }(i));
+		 }
+		 var arr;
+	 }
+	 var demo = test();
+	 for(var j = 0 ; j < 10 ; j ++){
+		 demo();
+	 }
+   </script>
+
+  
+ </body>
+</html>

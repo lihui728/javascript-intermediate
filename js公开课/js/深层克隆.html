@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+
+	/*
+	            //深层克隆
+	 var obj = {
+		  name : 'li',
+		  age : 18,
+		  sex : [1,2,3,4],
+		  sei : {ng : 'w'},
+		  __proto__ : { l : 'i' }
+	  }
+	  var obj1 = {};
+	  function person(Target,Origin){
+		  var Target  = Target || {};
+		  var son = Object.prototype.toString;  
+       
+		  for(var prop in Target){  //遍历对象
+			  if(Target.hasOwnProperty(prop)){  //hasOwnProperty,判断是否自身的属性，排除原型的属性
+              if(typeof(Target[prop]) == 'object')//判断穿进来的参数是否为引用值，引用值typeof都是//object
+			  {
+				 // if(son.call(Target[prop]) == "[object Array]"){//利用//Object.prototype.toString.call()方法判断是否为数组
+                   //     Origin[prop] = []; //是数组创建[]
+				//  }
+				 // else{
+                  //     Origin[prop] = {};//否则是对象创建{}
+				 // }
+				  Origin[prop] = son.call(Target[prop]) == "[object Array]" ? [] : {};//三目运行符
+                person(Target[prop],Origin[prop])//利用递归再次运行该函数，出口为值是原始值；
+			  }
+			  else{
+				  Origin[prop] = Target[prop];
+			  }
+			  }
+		  }
+	  }
+	  person(obj,obj1);
+
+
+	  //1:判断是不是原始值
+	  //2:判断是引用值
+	  //3:判断是数组还是对象，
+	  //4：建立相应的数组和对象
+	 
+	  var num = 1 > 0 ? 2+2 : 1 +1;
+	   var num1 = 1 > 0 ? ("10" > 9 ?1 : 0) : 2;
+	  */
+	  
+
+
+	  
+ 	</script>
+ </body>
+</html>

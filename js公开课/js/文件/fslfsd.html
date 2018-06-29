@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+   <script>
+     var a = [1,2,3,9,10],
+	     b = [3,4,6,9,10];
+	function size(target,origin){
+		target.sort(function (a,b){
+			a - b;
+		})
+		origin.sort(function (a,b){
+			a - b;
+		})
+		for(var i =0;i<target.length;i++){
+             for(var j=origin.length;j>=0;j--){
+               if(target[i] == origin[j]){
+				  return target[i];
+			   }
+			 }
+		}
+
+	}
+	var b = size(a,b);
+
+	var str = 'abc123';
+	function son(target){
+		var prop = target.split('');
+		
+		prop.reverse();
+		
+		var s = prop.join('');
+		console.log(s);
+		
+	}
+	 son(str);
+   </script>
+ </body>
+</html>

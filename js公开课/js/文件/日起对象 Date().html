@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+   <style>
+     input{
+	  text-align: right;
+	  
+	 }
+   </style>
+ </head>
+ <body>
+   minutes:<input type = "text" value = "0">
+   secounds:<input type = "text" value = "0">
+    <script>
+	    /*
+		   日起对象 Date();
+		 *封装函数，打印当前是何年何月何日何时，几分几秒
+		*/
+/*	//	var date = new Date(); 
+  //  var date1 = new Date();
+	//	var firstTime = new Date().getTime();
+	//	for(var i = 0;i < 100000;i++){}
+		
+	//	var lastTime = new Date().getTime();
+	//	console.log(lastTime - firstTime);  */
+
+	
+	/*var date = new Date();  //闹钟
+	date.setMinutes(12);
+	setInterval(function (){
+		if(new Date().getTime() - date.getTime() > 1000){
+			console.log("a");
+		}
+	},1000);*/
+ //	var date = new Date();
+      var input = document.getElementsByTagName('input')[0];
+	  var inputa = document.getElementsByTagName('input')[1];
+       var count = 0;
+	   var i = 0;
+       var timer = setInterval(function (){
+          i++;
+		  if(i == 60){
+			  i = 0;
+			  count++;
+			if(count == 3){
+               clearInterval(timer);
+			}
+			
+			
+		  }
+		  inputa.value = i;
+		  input.value = count;
+	   },1000);
+	</script>
+ </body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+   <script>
+     var div = document.createElement('div');
+	 document.body.appendChild(div);
+	 var div1 = document.createElement('botton');
+	 document.body.appendChild(div1);
+	 div1.style.width = "40px";
+	 div1.style.height = "40px";
+	 div1.style.backgroundColor = "green";
+	 div1.style.position = "absolute";
+	 div1.style.left = "400px";
+	 div1.style.top = "100px";
+      var speed = 1;
+     div1.onclick = function (){
+        speed += speed/0.5;
+	 }
+
+	 div.style.width = "100px";
+	 div.style.height ="100px";
+	 div.style.backgroundColor = "red";
+	 div.style.position = "absolute";
+	 div.style.top = "0";
+	 div.style.left = "0";
+	
+	 document.onkeydown = function (e){
+		
+		 switch(e.which){
+			 case 38 && 39:
+			 div.style.top = parseInt(div.style.top) - speed + "px";
+			 break;
+			 case 40:
+			 div.style.top = parseInt(div.style.top) + speed + "px";
+			 break;
+			 case 37:
+			 div.style.left = parseInt(div.style.left) - speed + "px";
+			 break;
+			 case 39:
+             div.style.left = parseInt(div.style.left) + speed + "px";
+			 break;
+		 } 
+	 }
+
+   </script>
+  
+ </body>
+</html>

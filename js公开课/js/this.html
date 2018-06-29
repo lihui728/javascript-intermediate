@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	    /*
+		            this
+	    1.函数预编译过程this ————-》 window
+
+		2：全局作用域里this ———》 window
+		
+		3：call/apply 可以改变函数运行this指向
+
+		4：obj.func(); func()里面的this指向obj
+
+-------------------------------------------
+       
+	Y   function foo(x){
+			console.log(arguments);
+            return x;
+		}
+	    foo(1,2,3,4,5);
+
+	--------------------------
+
+  X	 function foo(x){
+			console.log(arguments);
+		}(1,2,3,4,5)
+
+--------------------------------
+
+Y (function foo(){
+		console.log(arguments);
+	}(1,2,3,4,5))
+
+--------------------------------------
+
+function foo(){
+	   bar.apply(null,arguments);
+   }   
+   function bar(a,b,c){
+	   console.log(arguments);
+   }
+ 
+   foo(1,2,3,4,5);
+
+     var x = 1;
+   if (function f(){}){
+	   x += typeof f;
+   }
+   console.log(x);
+		*/
+	
+ 
+
+		
+	</script>
+     
+ </body>
+</html>

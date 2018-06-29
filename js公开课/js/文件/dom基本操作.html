@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    #on{
+	  width: 200px;
+	  height: 200px;
+	  background-color: #663366;
+	}
+  </style>
+ </head>
+ <body>
+    <div>
+	<!-- <a href="#" date-log="0">hehe</a> -->
+	   <span></span>
+	   <strong></strong>
+	   <p></p>
+	</div>
+	<script>
+	  /*var div = document.getElementsByTagName('div')[0];
+      var text = document.createTextNode('123');
+	  div.appendChild(text);
+	  div.attributes;
+	  div.setAttribute('id','on');
+	  div.getAttribute('id');
+	  var a = document.getElementsByTagName('a')[0];
+	  a.onclick = function (){
+		  var log = this.getAttribute('date-log');
+		  console.log(log);
+	  }
+	  var all = document.getElementsByTagName('*');
+      for(var i = 0; i < all.length;i++){
+		  all[i].setAttribute('this-name',all[i].nodeName)
+	  }*/
+	/*  var div = document.createElement('div');
+	  var p = document.createElement('p');
+	  p.innerHTML = "aaa";
+	  document.body.appendChild(div);
+	  div.appendChild(p);
+	  div.setAttribute('class','example');
+	  p.setAttribute('class','slogan'); */
+	/*  var div = document.getElementsByTagName('div')[0];
+	  var span = document.getElementsByTagName('span')[0];
+	  var p = document.createElement('p');
+	   var strong = document.getElementsByTagName('strong')[0];
+	  HTMLElement.prototype.insertAfter = function (){
+		  var e = arguments[1].nextElementSibling;
+		  if(e != null){
+		  this.insertBefore(arguments[0],e);
+		  }
+		 
+		  else{
+			this.appendChild(arguments[0]);  
+		  }
+		//  console.log(e);
+	  }*/
+	  var div = document.getElementsByTagName('div')[0];
+	  function person(par){
+         var child = par.children;
+		 var len = child.length;
+		 for(var i=child.length;i>=0;i--){
+			 
+			 console.log(child[i]);
+		 }
+	  }
+	</script>
+ </body>
+</html>

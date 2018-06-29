@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script> 
+	  /*    
+	       命名空间
+	  管理变量，防止污染全局，适用于模块化开发
+	  1：在变量前面增加自己名字
+
+	  2：var org = {
+          department1 : {
+			  jicheng : {
+				  name : "abc",
+				  age : 123
+			  },
+              xuming : {
+			  }
+
+		  },
+		  department2 :{
+			  zhangsan : {
+		
+			  },
+			  
+			  lisi :{
+
+			  }
+		  }
+	  }
+
+	  var jicheng = org.department1.jicheng;
+
+	  jicheng.name;
+
+
+	  3. var init = (function (){
+		  var name = 'abc';
+		  function callName(){
+			  console.log(name);
+		  }
+		  return callName();
+	  }());
+
+	  var initd = (function (){
+		  var name = 123;
+		  function callName(){
+			  console.log(name);
+		  }
+			  return function(){
+				  callName();
+			  }
+		  
+	  }());
+	
+     -----------------------------------------
+	 
+	  var deng = {
+		 smoke:function (){
+		   document.write('a');
+		   return this;
+		 },
+		 drink:function (){
+			 document.write('b');
+			 return this;
+		 },
+		 perm:function (){
+			 document.write('c');
+			 return this;
+		 }
+	 }
+	  Number.prototype.Deng = deng;
+
+	  */
+	
+	var deng = {
+		wife1 : {name : "xiaoliu"},
+		wife2 : {name : "xiaozhang"},
+		wife3 : {name : "xiaomeng"},
+		wife4 : {name : "xiaowang"},
+		sayWife : function (num){
+		 return this['wife' + num];
+		 //this['wife'] == deng.wife 
+		 //this['wife' + num] ；传进来一个实参，
+		 //['wife' + 1] == ['wife1']
+		} 
+	}
+	
+    
+
+	</script>
+     
+ </body>
+</html>

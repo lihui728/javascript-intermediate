@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <div>
+	  <span></span>
+	</div>
+      <script>
+/*	    
+           增
+     *document.createElemet();   //创建元素节点
+     *document.createTextNode();  //创建文本节点
+	 *document.createComment();  //创建注释节点
+	 *document.createDocumentFragment();
+		   插
+     *parentNode.addendChild();   //插入节点
+     *parentNode.insertBefore(a,b); //插入在b之前的节点a
+	       删
+	*parent.removeChild();  //父节点删除子节点
+	*child.remove();   //节点删除自己
+          替换
+	parentNode.replaceChild(new,origin);//替换
+
+*/ 
+ //  var Div = document.getElementsByTagName('div')[0];
+//   var div = document.createElement('div');  //创建元素节点
+  // div.innerHTML = 123;  
+//   document.body.appendChild(div);     //插入节点  
+//  var text = document.createTextNode('aa');    //创建文本节点
+ //   var comment = document.createComment("fsfs") //创建注释节点
+ //  var text = document.createTextNode('aa');
+//   var span = document.createElement('span');
+//   Div.appendChild(text);
+//   Div.appendChild(span);
+//   var text1 = document.createTextNode('demo');
+//   span.appendChild(text1);
+//   span.appendChild(text); //append是剪切功能
+   // var div = document.getElementsByTagName('div')[0];
+//	var span = document.getElementsByTagName('span')[0];
+//	var strong = document.createElement('strong');
+//	var i = document.createElement('i');
+	//div.insertBefore(strong,span);
+//	div.insertBefore(i,strong);  //父节点的子节点i插入到子节点strong之前
+//=============================================
+   // var div = document.getElementsByTagName('div')[0];
+//	var span = document.getElementsByTagName('span')[0];
+//	var i = document.createElement('i');
+//	var Span = document.createElement('span');
+	
+//	div.insertBefore(i,span);
+//	div.insertBefore(Span,i);
+//	var ii = div.removeChild(i); //removeChild 剪切
+//	console.log(ii);
+ //   span.remove();   //自己调用方法 不带剪切功能，永久删除
+//	Span.remove();
+ //========================================
+ // var div = document.getElementsByTagName('div')[0];
+ // var i = document.createElement('i');
+//  var span = document.getElementsByTagName('span')[0];
+//  div.replaceChild(i,span);  //i替换span
+ //   var div = document.getElementsByTagName('div')[0];
+	//div.innerHTML = '123'; //innerHTML把div的内容都覆盖，包括其他标签
+//    div.innerHTML +="245";
+  div.innerHTML = "<span style='background-color:"red";font-size:20px;'>123</span>"
+ </script>
+ </body>
+</html>

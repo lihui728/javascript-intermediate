@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+     .c {
+	   width: 60px;
+	   height: 30px;
+    
+	 }
+	 .b{
+	    width: 200px;
+		height: 200px;
+		border : 2px solid;
+		background-color:#ff0066;
+	 }
+	 .tar{
+	     background-color:#ff0066;
+	 }
+  </style>
+ </head>
+ <body>
+    <button class= "c">11</button>
+     <button class = "c">22</button> 
+	  <button class = "c">33</button>
+    <div class = "b">11</div>
+	  <div class = "b">22</div>
+	  <div class = "b">33</div>
+
+	<script>
+	    /*
+		    DOm基本操作
+		1： 对节点的增删改查
+		   *查
+		   
+		     *查看元素节点
+			   *document代表整个文档
+               *document.getElementById()//元素id在ie8一下的浏览器，不区分id大小写，而且也返回匹配name属性的元素；
+			   *getElementsByTagName()//标签名
+			   *getElementsByName()//需注意，只有部分标签name可生效(表单，表单元素，img，ifname)，新版浏览器支持更多标签支持
+			   *.getElementsByClassName()//类名 --》ie8和ie8以下的版本中没有，可以多个class一起
+			   *.querySelector //css选择器 在ie7和ie7以下的版本没有
+			   *querySelectorAll //css 选择器在ie7和ie7的版本中没有；
+		----------------------------------------
+
+		 var div = document.getElementsByTagName('div')[0];
+		div.style.width = "100px";
+		div.style.height = "100px";
+		div.style.backgroundColor = "blue";
+		var count = 1 ;
+		div.onclick = function (){
+			count++;
+			
+			if(count % 2 == 0){
+				div.style.backgroundColor = "red";
+			}
+			
+			else{
+				div.style.backgroundColor = "blue";
+			}
+				
+			
+		}
+
+		-------------------------------------------
+
+		var div = document.getElementsByTagName('div')[0];
+	   div.style.width = "200px";
+	   div.style.height = "200px";
+	   div.style.backgroundColor = "red";
+	   div.onclick = function (){
+		   this.style.width = "100px";
+		   this.style.height = "100px";
+		   this.style.backgroundColor = "green";
+		   this.style.borderRadius = "50%";
+	   }
+		-------------------------------------------------------
+	   var div = document.getElementsByTagName('div')[0];
+	   var son = document.getElementsByTagName('div')[1];
+	   function person(n){
+	       n.style.width = "200px";
+	       n.style.height = "200px";
+	       n.style.backgroundColor = "red";
+		   var count = 1;
+	        return function (){
+				count ++;
+            if(count % 2 == 0){
+				this.style.backgroundColor = "green";
+			}
+			
+			else{
+				this.style.backgroundColor = "red";
+			}
+			console.log(count);
+	   }
+	   };
+	  son.onclick =new person(son);
+	  div.onclick= new person(div);
+	  son.style.marginLeft = "300px";
+
+	  =======================================
+	 function Person(){
+		  var count = 0;
+		
+		  this.name = 'li';
+          this.some = function (){
+			    count++
+			    document.write(count);
+		  }
+	  }
+	  var person = new Person();
+	   
+	  var son = new Person();*/
+	  
+	  function person(){
+          var butt = document.getElementsByTagName('button');
+          for(var i = 0 ; i < butt.length ; i++){
+			//  butt[0].style.backgroundColor = "red";
+			 console.log(i);
+			 butt[i].onclick = function (){
+				for(var j = 0;j<length;j++){
+					butt[j].style.backgroundColor = "blue";
+				}
+				this.style.backgroundColor =  "red";
+			 }
+				
+
+			
+		  }
+	  }
+	 person();
+	</script>
+ </body>
+</html>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+     <script>
+	    /*function fn(a){
+			console.log(a); //function a()
+			var a = 123;
+			console.log(a); //123
+			function a(){
+				var h = 1;
+				document.write(h);
+			}
+			console.log(a);  //123
+			var b = function (){}
+			console.log(b); //function ();
+			function d(){}
+			console.log(d);
+			var c=123;
+			console.log(c);
+			var a = 1;
+			function b(){
+			   }
+			 return function a();
+		}
+		fn(1);*/
+		
+		/*
+		 ao{
+			 a ：function a()
+			 b ：undefined
+			 d ： function d();
+	
+		 }
+		*/
+	   /*function test(a,b){
+		   console.log(a); //1
+		   c = 0;
+		   var c;
+		   a = 3;
+		   b = 2;
+		   console.log(b); //2
+		   function b(){}
+		   function d(){}
+		   console.log(b); //2
+		   console.log(d);
+		   console.log(c);
+	   }
+
+	  test(1);
+	  */
+	  /*
+	    ao{
+			a : 3
+			b : 2
+			c : 0
+			d ：functuon d(){}
+		}
+	  */
+    /* function test(a,b){
+		 console.log(a);//function a(){}
+		 console.log(b);//undefined
+		 var b = 234;
+		 console.log(b);//234
+		 a = 123;
+		 console.log(a);//123
+		 function a(){}
+		 var a;
+		 b =234;
+		 var b=function (){}
+		 console.log(a);//123
+		 console.log(b);//function (){}
+		 var h;
+		 h = 678;
+		 console.log(h);
+	 }
+	
+	  ao{
+		  a : function()
+		  b : undefined
+		  h : undefined
+	  }
+	 
+	 test(1);
+	 document.write(window.a);
+	 document.write(window.b);
+	 document.write(window.h);*/
+     /*console.log(test);//function test(test){}
+	 function test(test){
+		 console.log(test); //1
+		 var test = 234;
+		 console.log(test);//234
+	 }
+	 test(1);
+	 var test = 123;
+	 document.write(test);//123
+	 
+	     go{
+			 test : function a(){}
+		 }
+		 ao{
+			 test : 1
+		 }
+	 */
+	   /*var h=200;
+	  global = 100;
+	  function fn(){
+	    console.log(global);//undefined;
+		global = 200;
+		console.log(global);//200
+		var global = 300;
+		console.log(global);//300
+		console.log(h);
+		var h;
+	  }
+	  fn();
+	  var global;
+	 
+	    go{
+			global : 100
+			fn  : function fn(){}
+		}
+		ao{
+			global : undefined;
+		}
+	  */
+	 /* function test(){
+		  console.log(b); //undefined
+		  console.log(a); //undefined
+		  if(a){
+			  var b = 100;
+		  }
+		  c = 234;
+		  console.log(c);//234
+	  }
+	  var a;
+	  test();
+	  a = 10;
+	  console.log(c);//234
+	  
+	    go{
+			a : 10;
+			test : function test(){}
+		}
+		ao{
+			b : undefined 
+		}
+	  */
+	 /* a = 100;
+	  function demo(e){
+		  function e(){}
+		      
+			  arguments[0] = 2;
+			  console.log(e); //2
+			  if(a) {
+				  var b = 123;
+				  function c(){}
+			  
+		  }
+		  var c;
+		  a = 10;
+		  var a;
+		  var b;
+		  console.log(b); //undefined
+		  f = 123;
+		  console.log(c);//undefined
+		  console.log(a);//10
+	  }
+	  var a;
+	  demo(1);
+	  console.log(a); //100
+	  console.log(f);//123
+	  
+	   go{
+		   a : 100;
+		   demo : function demo(e){}
+	   }
+	   ao {
+		   e : function e(){}
+		   c : undefined;
+		   a : undefined;
+		   b : undefined;
+           
+	   }
+	  */
+	  var str = false + 1; //false转换numbei 类型 0;
+	  document.write(str);//1
+	  var demo = false == 0;//false!=1;将false付给demo；赋的是boolean
+	  document.write(typeof(demo));
+	  var h = Number(demo);
+	  var j = String(demo);
+	  document.write(j);
+	  document.write(typeof(j));
+	  document.write(h);//
+	  if (typeof(a)){
+		  document.write('g');
+		  console.log(typeof(a));
+
+		  
+	  }
+	 
+	  if(typeof(num)){
+		  document.write("里");
+	  }
+
+	  if(11 + "11" * 2 == 33){
+		  document.write('a');
+	  }
+	  !!" " + !!" " - !!true||document.write("yui");
+	  document.write(typeof(+undefined));
+	 </script>
+ </body>
+</html>

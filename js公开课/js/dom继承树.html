@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+     <div class = "a">
+	   <span class ="b"></span>
+	 </div>
+     <script>
+	   /*   
+	            DOM
+       1.DOM  ---> Document Object Model
+
+	   2.Dom定义了表示和修改文档所需的方法。DOM对象即为宿主对象，由浏览器厂商定义，用来操作html和xml功能的一类对象的集合。称DOM是对HTML以及XML的标准编程接口。
+
+	   ============================================
+
+	   document ---> HTMLDocument.prototype --> Document.prototype
+
+
+       =============================================
+                     DOM基本操作
+		*1.getElementById方法定义在Document.prototype上，即Element节点上不能使用
+        
+		*2.getElementByName方法定义在HTMLDocument.prototype上，即非html中的document不能使用(xml document,Element),
+
+		*3.getElementByTagName方法定义在Document.prototype和Element.prototype上
+        
+		*4.HTMLDocument.prototype定义了一些常用的属性，body，head分别指代HTML文档中的<body><head>标签
+
+		*5.Document.prototype上定义documentElement属性，指代文档的根元素，在HTML文档中，它总是指代<html>元素；
+
+		*6.getElementsByClassName,querySelectorAll,querySelector在Document.prototype,Element.prototype类中均有定义
+
+	   */
+	 //  HTMLBodyElement.prototype.abc = '123';  //body.__proto__  : HTMLBodyElement.prototype
+	                                           //head.__proto__  : HTMLHeadElement.prototype
+											   //div.__proto__   ：HTMLDivElmenet.prototype
+   //    HTMLDivElement.prototype.name = 'div';
+    //   var div = document.getElementsByTagName('div');
+	   //var body = document.getElementsByTagName('body'); 
+	  // var head = document.getElementsByTagName('head');
+	 //  div[0].toString(); //Object HTMLDivElement
+	 //  body[0].toString(); //Object HTMLBodyElement
+	//   head[0].toString(); //Object HTMLHeadElement
+	//var div = document.getElementsByTagName('*');
+	//var span = div.getElementsByTagName('span')[0];
+   // document.body --> <body></body>
+	//document.head --> <head></head>
+   //documen.documenElement ---><html></html>
+ //  var div = document.getElementsByClassName('a')[0];
+  // var span = div.getElementsByClassName('b')[0];
+	 </script>
+ </body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+       <script>
+	     /* 1：每个函数对是一个对象，有属性，有可以用的，有不可以调用的
+		  2：[scope]是一个不可以访问的属性，是一个作用域
+		  3：作用域存储了作用域链，也就是运行期上下文的集合；
+		  function a(){
+		  }
+		  var glob = 100;
+		  a();
+
+		  //函数a在全局 a defined(定义) a.[scope] --> 0 : GO{}
+
+		  //a doing(执行) a.[scope] --> 0 : AO{}
+		                              1 : GO{} */
+		 function a(){
+			 function b(){
+				 var bb = 234;
+				 aa = 0;
+			 }
+             
+			 var aa = 123;
+			 b();
+			 document.write(aa);
+		 }
+		 var glob = 100;
+		 a();
+
+	   </script>
+ </body>
+</html>

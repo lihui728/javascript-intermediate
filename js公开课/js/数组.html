@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+      <script>
+	  /*
+		1:数组的定义
+           *new Array(length/conten);
+		   *字面量
+		2：数组的读和写
+		   *arr[num]   不可以溢出读
+		   *arr[num] == xxx; 可以溢出读
+
+		  数组常用的方法
+		1：改变原数组
+		   *push,pop,shift,unshift,sort,reverse
+
+		   *splice
+
+		2：不改变原数组
+		   concat,join --> split,toString,silce
+		  
+
+	------------------------------------------
+       数组push方法
+
+	             var arr = [5,2,3];
+		 Array.prototype.person = function (){
+			 for(var i = 0 ; i < arguments.length;i++){  //获取arguments形参的长度，遍历
+				 this[this.length] = arguments[i];//arr[arr.length],数组从0位算起，长度从1位算起，相应在arr数组未尾进行赋值；
+			 }
+			 return this;
+		 }
+		==========================
+        
+		pop();穿对应的参数，删除对应位，不加参数，默认最后一位
+
+        sort();默认按acsii码排序
+		可以自定义方法排序；
+		//1.必须写两个形参；
+		//2:看返回值 1：当返回值为负数，那么前面的数放在前面；     2：为正数，那么后面的数在前；
+		             3： 为0， 不动
+		   var arr = [1,8,3,4,5,6,10,12];
+
+		  arr.sort(function (a,b){
+             //return a-b;升序
+			 //return b-a;降序
+		  });
+
+		  -----------------------------------------------------
+
+		  	 //给一个有序数组 乱序   parserInt(Math.random()*100) 100之间随机数
+		 var arr = [1,8,3,4,5,6,10,12];
+		 arr.sort(function (){
+			return Math.random() - 0.5; //Math.random介于0-1之间；
+		 });
+---------------------------------------------------------------------
+		 var cheng = {
+			name : "cheng",
+			age : 18,
+			sex : 'male',
+			face : 'handsome'
+		}
+		var deng = {
+			name : 'deng',
+			age : 40,
+			sex : 'undefined',
+			face : "amazing"
+
+		}
+		var zhang = {
+			name : "zhang",
+			age : 20,
+			sex : "male"
+		}
+	var arr = [cheng,deng,zhang];
+	arr.sort(function (a,b){
+		return a.age-b.age;
+	})
+-------------------------------------
+var arr = ['aassss','bbcfsfssffds','ddddd','asddfsdfdsf'];	
+	arr.sort(function (a,b){
+		return a.length - b.length;
+	});	
+------------------------------------------------
+
+
+
+
+		*/   
+var arr = ['aassss','bbcfsfssffds','ddddd','asddfsdfdsf'];
+ 
+  function reBytes(str){
+	  var num = str.length;
+	  for(var i = 0; i < str.length; i++){
+		  if(str.charCodeAt(i) > 255){
+			  num ++;
+		  }
+	  }
+	  return num;
+  }
+	
+
+		  
+		  
+		
+	  </script>
+ </body>
+</html>

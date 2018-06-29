@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+   <script>
+   /*
+      var obj ={
+		  name:'li',
+		  age:18,
+		  some:function(){
+			  document.write("a");
+		  }
+		  
+	  }
+	  console.log(obj.name);
+	  console.log(obj.age);
+	  console.log(obj.some());
+	  --------------------------------
+	  var deng = {
+	   prepareWife:'xiaowang',
+	   name:'laodeng',
+	   sex:'male',
+	   gf:'xiaoliu',
+	   wife:"",
+	   divorce:function (){
+		   delete this.wife;
+		   this.gf = this.prepareWife;
+	   },
+	   getMarried:function (){
+		   this.wife = this.gf;
+	   },
+	   changPrepareWife:function(someone){
+		   this.prepareWife = someone;
+	   }
+   }
+    var obj = new Object();
+	  obj ={
+		  name:'li',
+		  age:'18'
+	  }
+   //对象创建方法
+   //1.var obj = {} plainObject 对象字面量/对象直接量
+     2.构造函数
+	    1.系统自带的构造函数 new Object()
+		2.自定义
+   //大驼峰命名规则
+   function Car(color){
+		 this.color = color;
+		 this.name = 'BMW';
+		 this.height = '1400';
+		 this.lang = '4900';
+		 this.weight = 1000;
+		 this.health = 100;
+		 this.run = function (){
+			 this.health--;
+			 return this.health;
+		 }
+	 }
+	 var car = new Car('red');
+	 var car1 = new Car('green');
+	 var demo = car.run();
+	 document.write(demo);
+	       构造函数内部原理
+		1:在函数体最前面隐式 的加上this = {}
+		2：执行this.xxx = xxx；
+		3：隐式的返回this
+
+	function Student(name,age,sex){
+		 //var this = {
+	    //    name :
+		//     age :
+		 //}
+		 this.name = name;
+		 this.age = age;
+		 this.sex = sex;
+       //return this;
+	 }
+	 var student = new Student('li',18,'man');
+	 function Person(name,height){
+		  this.name = name;
+		  this.height = height;
+		  this.say = function (){
+			  console.log(this.say)
+		  }
+	  }
+     var person = new Person;
+
+	   不用new构造函数，
+	  function Person(name,height){
+		  var that = {};
+		  that.name = name;
+		  that.height = height;
+		  return that;
+	  }
+	  var person = Person('li',19);
+
+	  function Person(){
+		  this.name = 'li';
+		  this.age = 19;
+		  return {};
+	  }
+	  var demo = new Person();
+
+	  function Person(name,height){
+		  //var this
+		  this.name = name;
+		  this.height = height;
+          this.say = function (){
+			  console.log(this.say);
+		  }
+		  return 123;
+	  }
+	  var person = new Person('li',180);
+	  var Person1 = new Person();
+	  --------------------------------
+	  function Person(name,height){
+		  //var this
+		  this.name = name;
+		  this.height = height;
+          this.say = function (){
+			  console.log(this.say);
+		  }
+		  return 123;
+	  }
+	  var person = new Person('li',180);
+	  var Person1 = new Person();
+
+	  ------------------------------
+	             包装类
+		  new String();
+		  new Boolean();
+		  new Number();
+		  var str = new String('bbb');
+		  var num = new Number(123);
+		  var bool = new Boolean(ture);
+		  ----------------
+	 var num = 'abcd';
+
+	  num.len = 3;
+	  //new Number(4).len = 3 ; delete
+	  document.write(num.len);
+	-----------------------------------
+	
+	var str = "a";
+	 str += 1;
+	 var test = typeof(str);
+	 if(test.length == 6){
+		 document.write("aaa");
+		 test = "aa"; //undefined
+	 }
+	 document.write(test);
+	 ------------------------------
+
+	 var a = 5;
+	function test(){
+		(function (){
+		var a = 0;
+		alert(a);
+		alert(this.a);
+		var a;
+		alert(a);}())
+	}
+
+	-----------------------------
+
+	function Person(name,age,sex){
+		var a = 0;
+		this.name = name;
+		this.age = age;
+		this.sex = sex;
+		function sss(){
+			a++;
+			document.write(a);
+		}
+		this.say = sss;
+
+	}
+	var person = new Person();
+	person.say();
+	person.say();
+	var person1 = new Person();
+	person1.say();
+ 
+    ----------------------------------
+	  预编译
+	var x = 1, y = z = 0;
+	
+	function add(n){
+          return n += 1;
+	}
+	y = add(x);
+	function add(n){
+		return n += 3;
+	}
+	z = add(x);
+   ————————————————————————————————————
+
+   document.write(parseInt(3,8));//3
+	document.write(parseInt(3,2));//NaN
+	document.write(parseInt(3,0));//3 || NaN
+	function b(x,y,a){
+		arguments[2] = 10;
+		alert(a);
+		a = 10;
+	    alert(arguments[2]);
+	}
+	b(1,2,3);
+	--------------------------------
+	function test(a){
+		var count = 0;
+		document.write(a.length);
+		for(var i = 0;i < a.length;i++){
+            if(a.charCodeAt()<=255){
+				count++; 
+			}else{
+				count += 2;
+			}
+		}
+		document.write(count);
+
+	}
+	test('ab5dd');
+
+	---------------------------------
+	var str = "fsfsf了收费了是否";
+
+	for (var i =0;i < str.length ; i++ )
+	{
+		console.log(str.charCodeAt(i));
+	}
+	------------------------------------
+	var str = "abds了";
+
+	var count = str.length;
+	for(var i = 0;i < str.length; i++){
+		if(str.charCodeAt(i)>255){
+			count++;
+		}
+		
+	}
+	document.write(count);
+	
+	
+    */
+	
+	
+	  
+	  
+	  
+	  
+	 
+	 
+   </script>
+  
+ </body>
+</html>

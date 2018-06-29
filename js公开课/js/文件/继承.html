@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	    /*
+		                  继承发展史
+
+		  1：传统形式 ----》 原型链
+		       
+			   *过多的继承了没用的属性
+
+		  2：借用构造函数
+		       
+			   *不能继承借用构造函数的原型
+
+			   *每次构造函数都要多走一个函数
+
+		  3：共享原型
+
+		       *不能随便改动自己的原型
+		   
+		  4：圣杯模式
+
+
+		  -------------------------------------
+
+		  
+		 //  传统模式
+        Grand.prototype.LastName = 'li';
+		function Grand(){
+
+		}
+		var grand = new Grand();
+
+		Father.prototype = grand;
+		function Father(){
+		
+		}
+		var father = new Father();
+
+		Son.prototype = father;
+		function Son(){
+
+		}
+		var son = new Son();
+
+		---------------------------------------------
+
+		       借用构造函数
+		function Person(name,age,sex){
+			this.name = name;
+			this.age = age;
+			this.sex = sex;
+		}
+		function Student(name,age,sex,xing){
+			Person.call(this,name,age,sex);
+			this.xing = xing;
+
+		}
+		var student = new Student('li','22','45','nan');
+
+		------------------------------------------------
+
+		    //共享原型
+        Father.prototype.Name = 'li';
+		function Father(){}
+		function Son(){}
+		Son.prototype = Father.prototype;
+		var son = new Son();
+		var father = new Father();
+		
+		*/
+		Father.prototype.name = 'wu'; 
+		function Father(){
+		}
+		function Son(){
+		}
+        function inherit(Target,Origin){
+             Target.prototype =  Origin.prototype;
+
+		}
+		inherit(Son,Father);
+		var son = new Son();
+
+		var father = new Father();
+
+        
+	</script>
+  
+ </body>
+</html>

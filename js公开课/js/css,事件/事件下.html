@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+  <div class = "a" style="width:100px;height:100px;background-color:red;">
+     <div class = "b" style="width:50px;height:50px;background-color:green">
+	   <div class = "c" style="width:20px;height:20px;background-color:yellow"></div>
+	 </div>
+   </div>
+   <ul>
+      <li>1</li>
+	  <li>2</li>
+      <li>3</li>
+	  <li>4</li>
+	  <li>5</li>
+	  <li>6</li>
+	  <li>7</li>
+	  <li>8</li>
+	  <li>9</li>
+   </ul>
+   <script>
+     /* function stopBubble(event){
+		  if(event.stopPropagation){
+		     event.stopPropagation();
+		  }else{
+			  event.cancelBubble = true;
+		  }
+	  }
+	  document.addEventListener('click',function (){
+		  console.log("a");
+	  },false);
+	  var div = document.getElementsByTagName('div')[0];
+	  div.addEventListener('click',function (e){
+		  stopBubble(e);
+		   console.log("b");
+	  },false);
+
+	  ==============================
+
+	  document.addEventListener
+	  function cancelHandler(event){
+
+		  if(event.preventDefault){
+
+			  event.preventDefault();
+
+		  }else{
+
+			  event.returnValue = false;//兼容ie
+
+		  }
+	  }
+	                事 件 对 象
+
+    * event || window.event  用于IE
+
+	* 事件源对象：
+	
+  	  *event.target    火狐
+       谷歌都有
+	  *event.srcElement  IE
+
+	  var div = document.getElementsByTagName('div');
+	  div[0].addEventListener('click',function (e){
+		  var e = e || window.event;
+		  var target = e.target || e.srcElement;
+		  console.log(target);
+		  console.log(e);
+	  },false);
+	  div[1].addEventListener('click',function (e){
+		  var e = e || window.event;
+		  var target = e.target || e.srcElement;
+		  console.log(target);
+	  },false)
+
+	  ==========================================
+
+	               事 件 委 托
+	 *利用事件冒泡，和事件源对象进行处理
+
+	   var ul = document.getElementsByTagName('ul')[0];
+	  ul.addEventListener('click',function (e){
+		  var e = e || window.event;
+		  var target = e.target || e.srcElement;
+		  console.log(target);
+	  },false);   
+	  */
+	  var div = document.getElementsByTagName('div')[0];
+	  div.addEventListener('click',function (e){
+		  var e = e || window.event;
+		  var target = e.target || e.srcElement;
+		  console.log(target);
+	  },false);
+	   var ul = document.getElementsByTagName('ul')[0];
+	  ul.addEventListener('click',function (e){
+		  var e = e || window.event;
+		  var target = e.target || e.srcElement;
+		  console.log(target.innerText);
+	  },false);
+	
+   </script>
+ </body>
+</html>

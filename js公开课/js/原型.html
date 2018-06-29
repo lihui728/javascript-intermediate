@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>  
+  <script>
+     /*
+	           原型
+     1：定义： 原型是function对象的一个属性，它定义了构造函数制造出的对象的公共祖先。通过该构造函数产生的对象，可以继承该原型的属性和方法，原型也是对象。
+	 2：利用原型特点和概念，可以提取共有属性
+	 3：对象如何查看原型-》隐式属性_proto_
+	 4:对象如何查看对象的构造函数->constructor
+ ----------------------------------------
+  //Person.prototype    --原型
+	 //Person.prototype = {}  祖先
+	 Person.prototype.name = 'li';
+	 Person.prototype.say = function (){
+		 document.write('aaa')
+	 }
+	 function Person(name,age,sex){
+  
+		this.age = age;
+		this.sexs = sex;
+	 }
+	 var person = new Person('li',19,'man');
+	 var person1 = new Person();
+
+	 -==------------------------------
+
+	 Car.prototype = {
+		 height : 1400,
+		 lang : 4900,
+		 carName : "BMW"
+	 }
+	 function Car(color,owner){
+		 this.owner = owner;
+		 this.color = color;
+	 }
+	 var car = new Car('red','li');
+	 var car1 = new Car();
+	 -----------------------------------
+	 Car.prototype.height = 1400;
+	 Car.prototype.lang = 4900;
+	 Car.prototype.carName = "BMW";
+	 function Car(color,owner){
+         this.owner = owner;
+		 this.color = color;
+	 }
+	 var car = new Car('ren','prof.j');
+	 var car1 = new Car('grenn','laodeng');
+
+	 -----------------------------
+
+	 function Car(){
+
+	 }
+	 var car = new Car();
+	 */
+	 //Car.prototype  ---原型
+	 //Car.prototype = {} 祖先
+	 function Person(){
+
+	 }
+	 Car.prototype = {
+		 constructor : Person
+	 }
+	 function Car(){
+	 }
+	 var car = new Car();
+
+
+	 
+  </script>
+  
+ </body>
+</html>

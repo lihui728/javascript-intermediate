@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head> 
+ <body>
+   <div style="width:100px;height:100px;background-color:red;"></div>
+  <script>
+     /*
+	   事件处理程序的运行坏境
+
+	   1.ele.onxx = function (event){}
+	     
+		 *程序this指向是dom元素本身
+
+	   2，obj.addEvenListener(type,fn,false);
+	     
+		 *程序this指向是dom元素本身
+		
+	   3.obj.attachEvent('on' + type,fn);
+	     
+		 *程序this指向window
+
+		    封装兼容绑定事件方法
+
+		 function addEvent(elem,type,handle){
+		 if(elem.addEvenListener){
+			return elem.addEvenListener(type,handle,false);
+		 }else if(elem.attachEvent){
+			 return elem.attachEvent('on' + type,function(){handle.call(elem);});
+		 }else{
+			 return elem[type] = handle; 
+		 }
+	 }
+	 ===============================================
+
+	          解除事件处理程序
+	   *  ele.onclick = false/''/null;
+       
+	   var div = document.getElementsByTagName('div')[0];
+	   div.onclick = function (){
+		 console.log('a');
+		  this.onclick = null;
+     	 }
+---------------------------------------------------------
+	   *  ele.removeEventListener(type,fn,false);
+
+	    var div = document.getElementsByTagName('div')[0];
+	 
+	   div.addEventListener('click',test,false);
+	   function test(){
+		 console.log('a');
+		  div.removeEventListener('click',test,false);
+	   }
+-------------------------------------------------------------
+	   *  ele.detachEvent('on' + type , fn);
+	     
+		  若绑定匿名函数，则无法解除
+	 */
+	 var div = document.getElementsByTagName('div')[0];
+	 
+	 
+	
+  </script>
+ </body>
+</html>

@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+     <script>
+	    /*
+		           this
+		1.函数预编译过程this ---》 window
+
+		2:全局作用域里this  ----》 window
+
+		3：call/apply 可以改变函数运行时this指向
+
+		4.obj.func(); func()里面的this指向obj
+--------------------------------------------
+     
+	   var obj = {
+			a : function (){
+				console.log(this.name);
+			},
+			name : 'abc'
+		}
+		obj.a();
+
+------------------------------------------------------
+
+  var name = "222";
+		var a = {
+			name : "111",
+			say : function (){
+				console.log(this.name);
+			}
+		}
+		var fun  = a.say;
+		fun();
+	 fun()	 执行  functoin (){
+			   console.log(this.name)
+		   }
+		  全局作用域里this  ----》 window
+
+		 指向全局name   输出222
+		
+		a.say();
+		
+		//a.say()执行  this指向a;输出 111
+		
+		var b = {
+			name : "333",
+			say : function (fun){
+				fun();
+			}
+		}
+		b.say(a.say);
+		
+	//	b.say(a.say)   对象b.say()，传进一个参数(a.say),this指向b，fun()执行，指向
+	//  window，fun()没有call,apply指向this，函数执行默认window，输出222；   
+		
+		b.say = a.say;
+		b.say();  
+        
+		 //   将a.say方法赋给b.say;b.say()执行，但b.say()的this还是指向b,对象b.name输出333
+		
+	
+		go{
+			arguments
+			this
+			name  :  "222"
+             a    :  a{}
+			 fun  :  a.say
+			 b    :  b{}
+		------------------------
+
+		function test(){
+		 document.write(arguments.callee);
+	 }
+	 test();
+	
+	---------------------------
+
+	   var num = (function (n){
+		 if (n == 1){
+			 return 1;
+		 }
+		 return n * arguments.callee(n - 1);
+	 }(4));
+
+-----------------------------------------------
+
+     function test(){
+         console.log(arguments.callee);
+		 function demo(){
+			 console.log(arguments.callee);
+		 }
+		 demo();
+	 }
+	 test();
+ --------------------------------------
+
+     function test(){
+		demo();
+	} 
+	function demo(){
+		console.log(demo.caller);
+	}
+	 test();
+------------------------------------------
+ 
+   var foo = 123;
+	function print(){
+		this.foo = 234;
+	 //函数预编译this指向window，这里foo覆盖var foo = 123；输出234
+		console.log(foo);
+	}
+  	print();
+
+------------------------------------------------------------
+
+	var foo = 123;
+	function print(){
+		this.foo = 234;
+	//new 构造函数this指向print，输出foo!==this.foo;这个foo在print里面的AO找不到，上到全局GO找到foo
+	//将其输出
+		console.log(foo);
+	};
+	new print();
+
+	--------------------------------------------------
+
+	var a = 5;
+	function test(){
+		a = 0;
+		alert(a);  //找到Ao输出0
+		alert(this.a); //this.a 指向window 输出 5
+		var a;
+		alert(a);  //找到Ao输出0
+	}
+	test();
+
+    
+	全局GO{               函数执行产生AO{
+		arguments               arguments
+		this                    this
+		a   : 5                 a  :  0
+        test : test(){}
+	}                                  }     
+
+
+	-----------------------------------------
+
+	var a = 5;
+	function test(){
+		a = 0;   
+		alert(a);  //找到AO输出
+		alert(this.a); //因new函数执行，this指向test，this.a,没有这个属性，输出undefined
+		var a;
+		alert(a); //找到AO输出
+	}
+	new test();
+
+	//GO{                                   AO{
+	//	arguments                           arguments
+	//	this  --->window                    this
+	//	a : undefined --> 5;                a : undefined ---> 0
+	//	test : test(){}
+	//}                                    } 
+
+------------------------------------
+
+   //预编译
+	function print(){
+		console.log(foo);
+		var foo = 123;
+	    console.log(foo);
+		console.log(hello);
+		//hello is not defined
+	}
+	print();
+
+
+	---------------------------------------------
+
+		//预编译
+   1:GO{
+ 	   arguments
+	   this
+	   print : print(){}
+   }
+   2:AO{
+	   arguments
+	   this
+	   test : undefined --> test(){}
+    }
+    
+	 3:开始编译
+	   1：var test 已提升，忽略
+	   2：执行test()函数，找到AO test(),控制台输出1
+	   3：test()执行完，作用域上断了test.AO作用域链线，留下print.AO和全局GO;函数再次执行产生新的AO
+	   4:print()执行完，作用域上断了print.AO作用域链线 ,留下全局GO,函数再次执行产生新的AO 
+   function print(){
+	   var test; //如果test赋值 = 2，那么print.AO发生变化，test : undefined --> test(){} --> 2
+	   test();//test()执行报错，从print.AO拿下值2();  test is not a function 
+	   function test(){
+		   console.log(1);
+	   }
+   }
+   print();
+
+   --------------------------------
+
+   function print(){
+		var x = 1;
+		if(x == "1")console.log("one!");
+	}
+	if(x==="1")console.log("two");
+
+	-----------------------------------------
+
+	1: GO{                     print.AO{
+		 arguments                    argument
+		 this                         this
+		 print : print()              marty
+	 }                                test1
+	                                  test2
+						              test3
+								      printName
+	                                 }
+    
+	function print(){
+		var marty = {
+			name : "marty",
+			printName : function (){
+				console.log(this.name)}
+			}
+		var test1 = {name : "test1"};
+		var test2 = {name : "test2"};
+		var test3 = {name : "test3"};
+		test3.printName = marty.printName;  //将marty.prinName方法赋给test3.printName
+		var printName2 = marty.printName.bind({name : 123});//将marty.printName.bind({name : 123})赋给printName2
+		marty.printName.call(test1);//marty.printName.call--->this指向test1，执行方法console.log('test1.name')-----test1
+		marty.printName.apply(test2);//marty.printName.apply--->this指向test2，执行方法console.log('test2.name')-----test2
+		marty.printName();  //this指向marty--->marty.name --->martye
+		printName2();//bind({name : 123})绑定属性
+		test3.printName();//test3.printName = marty.printName;但执行的时候this还是指向test3，test3
+		return marty;
+	}
+    var son = print();
+
+	--------------------------------------------------------------------
+
+		1:预编译
+	GO{                           print()执行     print.AO{
+        arguments                              arguments
+		this                                   this
+		bar -->undefined --> {}                inner : inner(){}
+		print : print(){}
+	}                                          }
+
+   2:print()
+   
+	var bar = {a : "002"};
+	function print(){
+		bar.a = 'a';  //将'a'赋给bar.a
+		Object.prototype.b = 'b';  //Object.prototype原型上增加一个b属性 : 'b'
+		return function inner(){ //返回一个函数体
+			console.log(bar.a);  //输出一个 'a'
+			console.log(bar.b);  //输出一个'b' ,因Oject.prototype的原型上增加了一个b属性，并且bar是一个对象，对象可以找到Oject.prototype的属性和方法。
+		}
+	}
+	print()();//函数执行和执行返回的函数；
+
+		*/
+		 //浅层克隆
+	var obj = {
+		name : 'abc',
+		age : 123,
+		sex : 'female',
+		seb : ["uv","gg"]
+	}
+
+    var obj1 = {};
+    
+	function clone(origin,target){  
+		var target = target || {};
+		for(var prop in origin){ 
+			target[prop] = origin[prop];
+		}
+		return target;
+	}
+	clone(obj,obj1);
+	obj1.seb.push('name');//数组属性push()，当克隆的对象的属性数组使用.push,也会是原对象的属性数组也//增加
+	 </script>
+ </body>
+</html>

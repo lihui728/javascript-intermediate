@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    *{
+	 margin:0;
+     padding:0;
+	}
+	ul{
+	 list-style:none;
+	}
+	li:nth-of-type(2n){
+	  background-color:red;
+	}
+	li:nth-of-type(2n+1){
+	  background-color:green;
+	}
+  </style>
+ </head>
+ <body>
+    <!--
+	<ul>
+	  <li>a</li>
+	  <li>a</li>
+	  <li>a</li>
+	  <li>a</li>
+
+	</ul>
+	-->
+	  
+     <script>
+	    /*function a(){
+			function b(){
+				
+			}
+			var aaa = 0;
+	        return b;
+		}
+		var demo = a();
+		demo();
+		function a(){
+			var num = 100;
+		    function b(){
+				num ++;
+				document.write(num);
+			}
+			return b;
+		}
+		var demo = a();
+		demo();
+		var num;
+		document.write(num);
+		function a(){
+			 aaa = 100;
+			function b(){
+				
+                aaa++;
+			   document.write(aaa);
+			   aaa = 100;
+			}
+			function c(){
+				aaa--;
+				document.write(aaa);
+				aaa = 100;
+			}
+			return [b,c]
+		}
+		var demo = a();
+		demo[0]();
+        demo[1]();
+		document. write(aaa);
+		function eater(){
+			var food = "";
+			var obj = {
+				eat : function (){
+					console.log("ia" + food)
+				},
+				push : function (myFood){
+					food = myFood;
+				}
+			}
+			return obj;
+		}
+		var demo = eater();
+		demo.push('aaa');
+		demo.eat();
+        
+		//立即执行函数；
+		//针对初始化功能的函数
+		//(function (){}())
+		//(function (){}){};
+		
+		var test = (function (a,b,c){
+			document.write(a+b+c);
+		}(1,2,3));
+		document.write(test);
+		function test(){
+			var arr = [];
+			for (var i = 0 ; i < 10 ; i ++){
+				arr[i] = function (){
+					document.write(i + " ");
+				}
+
+			}
+			return arr;
+		}
+		var demo = test();
+		for(var j = 0; j < 10 ; j ++){
+			demo[j]();
+		}
+		function test(){
+			var arr = [];
+			for(var i = 0; i < 10;i++){
+				(function (j){
+                    arr[j]=function (){
+						document.write(j + " ");
+					}
+				}(i));
+			}
+			return arr;
+		}
+		var demo = test();
+		for(var i = 0 ; i < 10;i++){
+			demo[i]();
+		}
+		var demo;
+		function test(){
+			var abc = 100;
+			function a(){
+				console.log(abc);
+			}
+			demo = a;
+		}
+		test();
+		demo();
+		var count = 0;
+		function test(){
+			for(var i = 0; i < 100; i++){
+			count++;
+			console.log(count);
+			}
+		}
+		for(var i = 0 ; i < 10 ; i ++){
+			test();
+		}
+		function test(){
+			var count = 0;
+		    function a(){
+				count++;
+				document.write(count + " ");
+			}
+			return a;
+		}
+		var demo = test();
+		for(var i = 0 ;i < 10;i++){
+			demo();
+		}
+        function test(){
+			var food ="";
+			var obj = {
+				eat : function (){
+				   document.write("a" + food + " ");
+				},
+				push : function (myfood){
+                   food = myfood;
+				}
+			}
+			return obj;
+		}
+		var demo = test();
+		demo.eat();
+		demo.push('ban');
+		demo.eat();
+		function test(){
+			var food = "";
+			var obj ={
+				eatFood : function (){
+					if(food !=""){
+						console.log("I am " + food);
+						food = "";
+					}
+				},
+				pushFood : function (myFood){
+				
+                food = myFood;
+				}
+				
+
+			}
+			return obj;
+
+		}
+		var demo = test();
+		demo.eatFood();
+		demo.pushFood('aaa');
+		demo.eatFood();
+		(闭包)
+		function test(){
+			var arr = [];
+			for (var i = 0; i < 10; i ++){
+				arr[i] = function (){
+					document.write(i + " ");
+				}
+			}
+			return arr;
+		}
+		var demo = test();
+		for(var i = 0 ; i < 10 ; i ++){
+		    demo[i]();
+		}
+		function test(){
+			var arr = [];
+			for(var i = 0; i < 10;i++){
+				(function (j){
+					arr[j] = function (){
+						document.write(j + " ");
+					}
+				}(i))
+			}
+			return arr;
+		}
+		var demo = test();
+		for(var i = 0 ; i < 10; i++){
+			demo[i]();
+		}
+		var num = 100;
+		function test(){
+			console.log(num);
+		}
+		test();
+		var num = 200;
+		function test(){
+			var arr = [];
+			for (var i = 0 ; i <10 ;i++ )
+			{
+				arr[i] = function (){
+					console.log(i)
+				}
+			}
+			return arr;
+		}
+		var demo = test();
+		for (var j = 0;j < 10;j++ )
+		{
+			demo[j]();
+
+		}
+		function test(){
+			var arr = [];
+			for (i = 0;i < 10 ;i++)
+			{
+			   (function (j){
+				   arr[j] = function(){
+					   document.write(j + " ");
+				   }
+			   }(i))
+			}
+			return arr;
+		}
+		var demo = test();
+		for (j = 0;j < 10 ;j++ )
+		{
+			demo[j]();
+		}
+		
+		--------------------------------------
+		function test(){
+			var loCollection = document.getElementsByTagName('li');
+			for (var i = 0;i < loCollection.length ;i++ )
+			{
+				(function (j){
+					loCollection[j].onclick = function (){
+					document.write(j+1);
+					}
+				}(i))
+				}
+		}
+		test();
+		-------------------------------------------------------
+		function test(tar){
+			var count =0;
+			for(var i = 0; i < tar.length;i++){
+				if(tar.charCodeAt(i) <= 255){
+					count++;
+				}
+				else{
+					count +=2;
+				}
+			}
+			document.write(count);
+		}
+		-----------------------------------------------
+		var f = (
+		function f(){
+			return "1";
+		},
+		function f(){
+			return 2;
+		}
+		());
+		document.write(typeof(f));
+		----------------------------
+		var x = 1;
+		function f(){
+			function b(){
+			x += typeof f;
+			y = 123;
+			};
+			return b;
+		}
+		var demo = f();
+        demo();
+		document.write(x);
+		document.write(y);
+		----------------------
+		function a(){}
+		document.write(typeof(a));
+		
+		*/
+		
+		
+		
+		
+		
+
+		
+	 </script>
+ </body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+     *{
+	  margin: 0;
+	  padding: 0;
+	 }
+  </style>
+ </head>
+ <body>
+    <script>
+	  var son = document.createElement('div');
+	  document.body.appendChild(son);
+	 
+	  function Person(n){
+		   n.style.width = "200px";
+	       n.style.height = "200px";
+	       n.style.position = "absolute";
+	       n.style.left = "0";
+	       n.style.top = "0";
+	       n.style.backgroundColor = "red";
+		   var timerTop,timerDown,timerLeft,timerRight;
+		  this.left = function (){
+			    clearInterval(timerTop);
+				clearInterval(timerDown);
+				clearInterval(timerRight);
+             var a = setInterval(function(){
+				   n.style.left = parseInt(n.style.left) - 2 + "px";
+			   },100);
+              timerLeft =  a;
+		      }
+		  this.down = function (){
+			  console.log(timerRight);
+			  clearInterval(timerRight);
+			  clearInterval(timerTop);
+			  clearInterval(timerLeft);
+			  var b = setInterval(function (){
+                  n.style.top = parseInt(n.style.top)+ 2 + "px";
+			  },100);
+			  timerDown = b;
+		     }
+		  this.top = function (){
+			  clearInterval(timerDown);
+			  clearInterval(timerLeft);
+			  clearInterval(timerRight);
+			  var c = setInterval(function (){
+			  n.style.top = parseInt(n.style.top) - 2 + "px";
+			  
+			  },100);
+			  timerTop = c;
+		     }
+		 this.right = function (){
+			var d = setInterval(function (){
+				  clearInterval(timerTop);
+				   clearInterval(timerDown);
+				   clearInterval(timerLeft);
+				  n.style.left = parseInt(n.style.left) + 2  + "px";
+				 
+			  },100)
+			  timerRight = d;
+		     } 
+		  
+		 
+	  }
+	  var tar = new Person(son);
+	  tar.right();
+	 
+	document.onkeydown = function (e){
+		
+           switch(e.which){
+			   case 37:
+			   tar.left();
+			   break;
+			   case 40:
+			   tar.down();
+			   break;
+			   case 39:
+			   tar.right();
+			   break;
+			   case 38:
+			   tar.top();
+			   
+		   }
+	  
+	</script>
+ </body>
+</html>

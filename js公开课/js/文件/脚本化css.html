@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+     div{
+	  width: 200px;
+	  /*!important;*/
+	 }
+	 .green::after{
+	     content:"";
+		 width:50px;
+		 height:50px;
+		 background-color:green;
+		 display:inline-block;
+	 }
+	  .yellow::after{
+	     content:"";
+		 width:50px;
+		 height:50px;
+		 background-color:yellow;
+		 display:inline-block;
+	 }
+  </style>
+ </head>
+ <body>
+   <div class = "green" style="width:100px;float:left;height:100px;background-color:red"></div>
+     <script>
+	  /*  
+	     脚本化css
+
+	 *读写元素css属性
+	    
+		*dom.style.prop
+		   
+		   *可读写行间样式，没有兼容性问题，碰到float这样的保留字属性，前面应加css
+
+		   *eg：float --》cssFloat
+
+		   *复合属性必须拆解，组合单词变成小驼峰试写法
+
+		   *写入的值必须是字符串格式
+
+		   ==========================================
+
+      *查询计算样式
+
+	     *window.getComputedStyle(ele,null);  //null的值可以获取伪元素的样式表
+
+		 *计算样式只读
+
+		 *返回的计算样式的值都是绝对值，没有相对单位
+
+		 *IE8及IE8以下不兼容
+         //window.getComputedStyle(div,null)[prop]
+		     
+			
+				   ie8 
+		 
+		 div.currentStyle.width  ---> csstyleDeclaration;
+
+		 *ele.currentStyle
+
+         *计算样式只读
+ 
+         *返回的计算样式的值不是经过转换的绝对值
+	   
+	     *IE独有的属性
+		   
+		           兼容方法
+		var div = document.getElementsByTagName('div')[0];
+
+	  function getStyle(elem,prop){
+          
+		  if(window.getComputedStyle){
+			  return window.getComputedStyle(elem,null)[prop];
+		  }else{
+              return  elem.currenStyle[prop];
+		  }
+	   }
+=================================================
+    
+	   var div = document.getElementsByTagName('div')[0];
+       window.getComputedStyle(div,"after").width
+
+	   获取伪元素的属性
+	  */
+      var div = document.getElementsByTagName('div')[0];
+	  div.onclick = function (){
+		  div.className = "yellow";
+		
+	  
+	  }
+	 
+	 </script>
+ </body>
+</html>

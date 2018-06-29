@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+      <script>
+	   /* Person.prototype.name = 'li';
+	     function Person(){
+			 //this ={ 
+				// __proto__ : Person.prototype; 
+				 //constructor: Person()
+				 
+
+			 //}
+		 }
+		 var obj = {
+			 name : "sunny"
+		 }
+		 var person = new Person();
+		 
+		 Person.prototype.name = 'hui';
+		 document.write(person.name);
+		 var obj = {name : "a"};
+		 var obj1 = obj;
+		 obj = {name : "b"};
+         console.log(obj);
+		 var obj1 = obj;
+		 console.log(obj1);
+		 ----------------------------------------
+
+		  Person.prototype.name = 'li';
+		 function Person(){
+
+		 }
+		 Person.prototype = {
+			 name : "hui"
+		 }
+		 var person = new Person();
+
+		 --------------------------------
+ 
+          Grand.prototype.LastName = "deng";
+		 function Grand(){
+
+		 }
+		 var grand = new Grand();
+         
+		 First.prototype = grand;
+		 function First(){
+			 //
+		 }
+		 var first = new First();
+
+        // Son.prototype = first;
+		 function Son(){
+			 this.name = "name";
+			 //cr
+			 // __proto__ : Son.prototype = first
+		 }
+		 var son = new Son();
+
+		 function Father(){
+			 this.name = {
+				 n1 : 'qinma',
+				 n2 : 'xiao'
+
+			 };
+			 this.age = 18;
+		 }
+		 var father  = new Father();
+		 
+		 Son.prototype = father;
+		 function Son(){
+		      this.smok = function (){
+				  //document.write("aaa");
+				 this.age++;
+				 return this.age;
+			  };
+			  
+		 }
+		 var son = new Son();
+		 var b = son.smok();
+
+		 document.write(b);
+
+		 ----------------------------------------
+
+		 //a.sayName()
+		 sayName里面的this指向是，谁调用的这个方法，this就是指向谁
+
+		  Person.prototype = {
+		       name : "a",
+			   sayName : function (){
+				   console.log(this.name);
+			   }
+		 }
+		 function Person(){
+			// this.name = "b";
+		 }
+		 var person = new Person();
+          
+		  -----------------------------------
+
+		  Person.prototype.height = 100;
+		 function Person(){
+			 this.eat = function (){
+				 this.height--;
+				 document.write(this.height);
+			 }
+
+		 }
+         var person = new Person();
+		 person.eat();
+         document.write(person.height);
+		 document.write(Person.prototype.height);
+
+		 -------------------------------------
+
+		 var obj = {};
+		 var obj1 = new Object();
+		 //obj1.__proto__  ----> object.prototype
+
+---------------------------------------------------
+		 	// var obj = Object.create(原型);
+       
+		var obj = {
+			name : 'li',
+			xing : 'nan',
+		}
+		var obj1 = Object.create(obj);
+--------------------------------------------
+
+           function A(){
+			 this.some = function (){
+				 document.write('bbb')
+			 }
+		 }
+          var a = new A();
+           
+		 function Person(){
+			 this.some = function (){
+				 document.write("aaa");
+			 }
+		 }
+          var c = new Person();
+		Person.prototype = c;
+		  
+		 var person =Object.create(Person.prototype)
+	  
+	  -----------------------------------------------
+       // var obj = Object.create(原型或null)
+	   var a = {
+			 name : 'li',
+			 xing : 'name',
+		 }
+
+		 --------------------------------------------
+
+          //var num = 123;
+		 //num.toString(); ----> new Number(num).toString();
+         //Number.prototype.toString = function (){}
+	    //Number.prototype.__proto__ = Object.prototype
+		//object.prototype.toString = function(){}
+
+		
+		
+	    //Object.prototype.toString = function (){
+		//	return 46;
+		//};
+		
+		//Person.prototype = {
+		//	toString : function (){
+		//		return 13;
+		//	}
+		//}
+
+		//function Person(){
+		//}
+		//var person = new Person();
+
+		//Object.prototype.toString
+		//Number.prototype.toString
+		//Array.prototype.toString
+		//Boolean.prototype.toString
+		//String.prototype.toString
+		//Object.prototype.toString.call(123);
+		
+		//var num = 123;
+		//new Number(num).toString()
+		//document.write(num);
+       
+	  --------------------------------------------
+		var obj = Object.create(null);
+		obj.toString = function (){
+			return '测试document是调用toString()方法'
+		}
+		document.write(obj);
+
+	  -------------------------------------------------	                      
+							 
+							 call
+       function Person(name,age){
+			 this.name = name;  //this是windows的，当Person.call(obj)执行时
+			 this.age = age;    //this == obj
+		 }
+		 var person = new Person();
+		 var obj = {
+		 
+		 }
+		 Person.call(obj,'li',18);    //Person() == Person.call();
+		 document.write(obj.name,obj.age)
+
+ ----------------------------------------------------------------------------
+
+    function Person(name,age,sex){
+		       this.name = name;
+			   this.age = age;
+			   this.sex =sex;
+		 }
+		 function Student(tel,grade){
+			 //var this  = {name : "", age : "", sex : ""}
+			 Person.call(this,'li',18,'男')
+			 this.tel = tel;
+			 this.grade = grade;
+		 }
+		 var student = new Student('135','aa');
+		 document.write(student.name,student.age,student.sex,student.tel,student.grade)
+	 
+		
+		 
+		 */
+		 function Wheel(wheelSize,style){
+		      this.style =  style;
+			  this.wheelSize = wheelSize;
+		 }
+		 function Sit(c,sitColor){
+			 this.c = c;
+			 this.sitColor = sitColor;
+		 }
+		 function Model(height,width,len){
+		     this.height = height;
+			 this.width = width;
+             this.len = len;
+		 }
+		 function Car(wheelSize,style,c,sitColor,height,width,len){
+               // Wheel.call(this,180,'red');
+				//Sit.call(this,'c','gren');
+				//Model.call(this,200,400,800);
+				Wheel.call(this,wheelSize,style);
+				Sit.call(this,c,sitColor);
+				Model.call(this,height,width,len);
+		 }
+         var car = new Car(100,'red','grenn','rend',100,600,200);
+		
+		//call /apply
+
+		//* 作用，改变this指向   call(this,*,*,)  apply(this,[*,*])
+		//*区别，后面传的参数形式不同
+		//call 需要把实参按照形参的个数传进去
+		//apply 需要传一个arguments
+	  </script>
+  
+ </body>
+</html>

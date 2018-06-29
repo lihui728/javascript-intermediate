@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    *{
+	  margin: 0;
+	  padding: 0;
+	}
+  </style>
+ </head>
+ <body>
+    <script>
+	  /*
+	    <button class = "b">111</button>
+	  <button class = "b">222</button>
+	  <button class = "b">333</button>
+	  <div class = "c">111</div>
+	  <div class =  "c">222</div>
+	  <div class = "c">333</div>
+      <script>
+	     var cla = document.getElementsByTagName('button');
+		 var div = document.getElementsByTagName('div');
+		 for(var i = 0 ; i < cla.length;i++){
+			 (function (n){
+				 cla[i].onclick = function (){
+				 for(var j = 0 ; j < cla.length; j++){
+                        cla[j].className = "";
+						div[j].style.display = "none";
+				 }
+				 this.className = "tar";
+				 div[n].style.display = "block";
+				 }
+			 }(i));
+		 }
+		 ==========================================
+		           //setInterval(function (){},100)计时器
+                   //clearInterval(timer) 清除计时器
+		 var div = document.createElement('div');
+		document.body.appendChild(div);
+		div.style.width = "100px";
+		div.style.height = "100px";
+		div.style.backgroundColor = "red";
+		div.style.position = "absolute";
+		div.style.left = "0";
+		div.style.top = "0";
+		var timer = setInterval(function (){
+			div.style.left = parseInt(div.style.left) + 2 + "px";
+			if(parseInt(div.style.left) > 400){
+				clearInterval(timer);
+			}
+		},30)
+	  */
+      var div = document.createElement('div');
+	  document.body.appendChild(div);
+	  div.style.width = "200px";
+	  div.style.height = "200px";
+	  div.style.position = "absolute";
+	  div.style.left = "0";
+	  div.style.top = "0";
+	  div.style.backgroundColor = "red";
+	  
+	  document.onkeydown = function (e){
+	        switch(e.which){
+				case 39:
+                 div.style.left = parseInt(div.style.left) + 5 + "px";
+				 break;
+				case 38:
+				div.style.top = parseInt(div.style.top) -5 + "px";
+				break;
+				case 37:
+				div.style.left = paserInt(div.style.left) + 5 + "px";
+				break;
+				case 40:
+				div.style.top = paserInt(div.style.left)  + 5 + "px";
+				break;
+
+			}
+	  }
+ 	 document.onkeydown = function (e){
+		  console.log(e);
+	  }
+		
+	  </script>
+ </body>
+</html>

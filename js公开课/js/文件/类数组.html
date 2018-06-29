@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	     /*
+		      类数组
+	1：可以利用属性名模拟数组的特性；
+	2：可以动态的增长length属性
+	3：如果强行让类数组调用push方法，则会根据length属性值的位置进行属性的扩充
+	--------------------------------------------------------	
+		var obj = {
+		  "0" : 'a',
+		  "1" : 'b',
+		  "2" : 'c',
+		  "length" : 3,
+		  "push" : Array.prototype.push,
+		  "splice" : Array.prototype.splice
+
+	------------------------------------------------------
+
+	    var obj = {
+			 name : 'li',
+			 "2" : "a",
+			 "3" : "b",
+			 "length" : 2,
+			 "push" : Array.prototype.push,
+		 }
+		 obj.push('c');
+		 obj.push('b');
+   //输出 {2: "c", 3: "d", length: 4, push: ƒ}
+	  //属性要为索引(数字)属性，必须有length属性，最好加上push
+
+	  } 
+	  ------------------------------------------------
+	   var obj = {
+		   "0" : "a",
+		   "1" : "b",
+		   "2" : "c",
+		   name : 'li',
+		   "length" : 3,
+		   "push" : Array.prototype.push,
+		   "splice" : Array.prototype.splice,
+
+	   }
+	   for(var prop in obj){
+		   console.log(obj[prop]);
+	   }
+	  //属性要为索引(数字)属性，必须有length属性，最好加上push
+
+	  //Array.prototype.push = function (target){
+	 //	  this(this.length) = taget;
+		//  this.length;
+	  //}
+	 
+	  ---------------------------------------------
+	  var obj = {};
+	  Object.prototype.typeof = function (){
+		  var off = Object.prototype.toString;
+		//  switch(this.off()){}
+		  var a = off.call(this);
+		  var son = this;
+		  if(a == "[object Number]"){
+              
+		  }
+		  else{
+		  switch(a){
+			  case "[object Object]": 
+			        console.log("object");
+					break;
+			  case "[object Array]" :
+			        console.log("Array");
+					break;
+			  case "[object Function]":
+			        console.log("function");
+					break;
+			  case "[object Null]":
+			        console.log("Null");
+					break;
+		  }
+		  }
+        document.write(son);
+		document.write(typeof(son));
+		document.write(typeof(a));
+		ducment.write(a);
+	  }
+              数组重除
+	    var arr = [1,2,4,5,56,4,5,5,5,55,5,5,5,5,56,6,8,4,4,57,322,1];
+	   Array.prototype.unit = function (){
+		for(var i=0;i<this.length;i++){
+			for(var j=this.length;j>0;j--){
+				if(this[i]==this[j] && i != j){
+					this.splice(j,1);}
+			}
+		} 
+		   console.log(this);
+		  
+	   }
+     for(var i = 0 ;i<10;i++){
+		 for(var j=0;j<10;j++){
+			// var num = i*j;
+			// document.write(num);
+			 document.write(i);
+			 // document.write(j);
+		 }
+
+		------------------------------------
+                 深层克隆，对象改变引用值不会到另一个对象
+		 var obj = {
+		 name : 'li',
+		 hui : [1,2,4],
+		 sex : {age : '19',man : 'ea'},
+	 }
+	 var obj1 = {};
+	 function son(Target,Origin){
+	    for(var prop in Target){
+			if(Target[prop] == "object"){
+                 if(Target[prop] == "[object Array]"){
+					 Origin = [];
+				 }
+				 else{
+                     Origin = {};
+				 }
+				 son(Target[prop],Origin[prop]);
+			}
+			else{
+			    Origin[prop] = Target[prop];  
+			}
+		}
+	 }
+	 son(obj,obj1);
+
+	 ------------------------------------------
+
+	      浅层克隆
+
+	
+	 var obj = {
+		 name : 'li',
+		 hui : [1,2,4],
+		 sex : {age : '19',man : 'ea'},
+	 }
+	 var obj1 = {};
+	 function Person(Target,Origin){
+		 for(var prop in Target){
+			 Origin[prop] = Target[prop];
+		 }
+	 }
+	 Person(obj,obj1);
+------------------------------------------
+
+  //  继承 圣杯模式
+	   Person.prototype.name = "li";
+	   function Person(){};
+	 var person = new Person();
+	   function Son(){};
+	  
+	 function inherit(Target,Origin){
+		 function F(){
+			
+		 };
+	     F.prototype = Target.prototype;
+		 Origin.prototype = new F();
+		
+	 }
+	inherit(Person,Son);
+	
+    var son = new Son();//new Son必须放在后面，因为inherit还没执行的话，就没改变的Son.prototype(原型)
+
+----------------------------------------
+      继承 圣杯模式
+  Object.prototype.inherit = function (){
+		   function F(){};
+		   F.prototype = this.prototype;
+		   arguments[0].prototype = new F();
+           
+		   
+	}
+	function Person(){};
+	new Person();
+	function Son(){};
+	
+	Person.prototype.name = 'li';
+	Person.inherit(Son);
+	var son = new Son();//new Son必须放在后面，因为inherit还没执行的话，就没改变的Son.prototype(原型)
+
+	-----------------------------------------------------
+
+	var inherit = (function (){
+		function F(){};
+		return function (Target,Origin){
+			F.prototype = Target.prototype;
+			Origin.prototype = new F();     
+		}
+	}());
+    Person.prototype.name = 'li';
+	function Person(){
+
+	}
+	new Person();
+	function Son(){
+	}
+	
+	inherit(Person,Son);
+	var son = new Son; //new Son必须放在后面，因为inherit还没执行的话，就没改变的Son.prototype(原型)
+
+	------------------------------------
+
+	      //闭包私有化属性
+        function Person(){
+			this.name = "li";
+			var a = 123;//这个a变量是私有的，通过some方法执行在外部访问这个变量
+			this.some = function (){
+				document.write(a);  
+			};
+		}
+        var person = new Person();
+	 */
+	 
+	
+	  
+	</script>
+ </body>
+</html>

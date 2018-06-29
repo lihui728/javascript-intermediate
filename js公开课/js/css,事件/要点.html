@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    *{
+	 margin:0;
+	 padding:0;
+	}
+    .a{
+	  width:200px;
+	  height:200px;
+	  background-color:#f00;
+	}
+	.b{
+	   width:100px;
+	   height:100px;
+	   position:absolute;/*bfc*/
+	   margin-left:100px;
+	   margin-top:100px;/*不是相对父级divmargin-top，相对于外面文档margin*/
+	   background-color:#0F0;
+	}
+  </style>
+ </head>
+ <body>
+  <!--
+          shell  内核
+	IE        trident
+	Firefox   Gecko
+	Google chrome webkit/(2014)blink
+	Safari        webkit
+	Opera         presto
+     
+          <del></del>(给字体中间横线)
+
+			  a标签
+   1:<a href="https://www.baidu.com"></a>
+   2:<a href="#元素id"
+   3:<a href="tel:13836014778"></a>
+   4:<a href="mailto:cheng.j@fs"></a>
+   5:<a href="javascript:js代码"></a>
+    1：超链接
+	2:锚点
+	3:调出手机打电话接口
+	4:调出邮箱接口
+	5:协议限定符
+
+	        
+			  
+			  form标签
+    <form method="get/post" action="">
+     <p>
+	   <input type="text" name="aa" value="请输入用户名" onfocus="if(this.value == '请输入用户名'){this.value=''}" onblur="if(this.value==''){this.value='请输入用户名'}">
+	 </p>
+	 <p>
+	   <input type="password" name="bb">
+	 </p>
+	 <input type="submit">
+	 </form>
+	method:传输方式
+	action:传输地址
+	传输要用name和value
+	   
+	        
+			 
+			 select标签(下拉菜单)
+	<select name="province">
+	   <option>ss</option>
+	   <option>aa</option>
+	   <option>vv</option>
+	</select>
+
+	         
+			   
+			   选择器
+	行间样式 》 id选择器  》class选择器|属性[id="only"] 》 标签选择器 》 通配符选择器
+
+	         
+			  
+			  css权重(256进制)
+	！important      Infinity
+	行间样式         1000
+	id               100
+	class|属性|伪类  10
+	标签|伪元素       1
+	通配符            0
+	        
+			 
+			 css复制选择器
+	父子选择器(div span)结构<div><span></span></div>;
+    直接子元素选择器(div > span)
+	并列选择器(div .class#id)
+	分组选择器(div,p,span)
+	        
+		
+			 
+			 颜色
+	1：纯英文单词
+	2：颜色代码：红绿蓝#FF(满红色)FF(满绿色)FF(满蓝色);3个颜色相同(#FFFFFF)简写#FFF
+	3：颜色函数();rgb(255(红),255(绿),255(蓝))
+	    
+		    
+		
+		三角形，
+	css样式{
+   *{
+	 margin:0;
+	 padding:0;
+	}
+	div{
+	 width:0px;
+	 height:0px;
+	 border-left:100px solid transparent;
+	 border-right:100px solid transparent;
+	 border-top:100px solid transparent;
+	 border-bottom:100px solid #000;
+	}
+	}
+       HTML
+    <div></div>
+	       
+		
+			
+		 css属性
+	text-align:left/right/center(对齐方式，左右居中)
+	line-height:(行高)
+	text-indent：2em(相对于字体:1em =1*font-size;缩进)
+    text-decoration:line-through(相当于del标签)/none/underline(给字体加下划线)/overline(上划线);
+	cursor:pointer(鼠标小手)
+	:hover{}(伪类选择器)
+
+	  
+	      行级元素(inline)
+	feature : 内容决定元素所占位置，不可以通过css改变宽高(span,strong,em,a,del)
+
+	      块级元素(block)
+	feature: 独占一行，可以通过css改变宽高(div,p,ul,li,ol,form,address)
+	
+	(凡是带有inline的元素，都有文字特性) 
+		  行块级元素(inline-block)
+	feature:内容决定大小，可以改宽高
+
+	      
+		  盒子模型(margin(默认值为8px) + border + padding + conter:width,height));
+    盒子三大部分
+	盒子的组成部分
+    盒子璧(border)
+    内边距(padding)
+	盒子内容(width+height)
+
+	     远视图
+    css样式：*{
+	 margin:0;
+	 padding:0;
+	}
+    .d{
+	  width:10px;
+	  height:10px;
+	  background-color:#003;
+	}
+	.c{
+	  width:10px;
+	  height:10px;
+	  padding:10px;
+	  background-color:#ff6666;
+	}
+	.b{
+	  width:30px;
+	  height:30px;
+	  padding:10px;
+	  background-color:#993366;
+	}
+	.a{
+	  width:50px;
+	  height:50px;
+	  padding:10px;
+	  background-color:#66cc33;
+	}
+	
+	HTML：<div class="a">
+    <div class="b">
+	   <div class="c">
+	     <div class="d">
+		 </div>
+	   </div>
+	</div>
+  </div>
+
+             
+			 层模型(position)
+   absolute:脱离原来位置进行定位,最近的有定位的父级进行定位，如果没有，那么相对于文档进行定位
+
+   relative:保留原来位置进行定位，相对自己原来的位置进行定位
+
+   fixed
+         
+		   
+		    两栏布局
+
+  css样式：
+   *{
+	  margin:0;
+	  padding:0;
+	}
+    .a{
+	   width:200px;
+	   height:200px;
+	   position:absolute;
+	   right:0;
+	   background-color:#F00;
+	}
+	.b{
+	  height:200px;
+	  margin-right:200px;
+	  background-color:#0F0;
+	}
+  HTML:
+   <div class="a"></div>
+   <div class="b"></div>
+      
+	           
+			  
+			   两个bug(margin塌陷,margin合并)
+
+
+
+			   bfc(block format context)
+
+  -->
+    <div class="a">
+	  <div class="b"></div>
+	</div>
+   
+ </body>
+</html>
