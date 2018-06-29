@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+ <div id="demo" style="width:100px;height:100px;background-color:red"></div>
+   <script>
+      /*
+	                  惰性函数
+	 在执行这个函数的，需要同newDate.getTime,去把时间获取到，获取到以后，
+	 等之后的一些执行，它都返回第一次获取的时间，这个情况基本满足，但是
+	 有一点，这个函数后期频繁调用，每次都走if判断，但是其实我们知道，当
+	 它执行第一遍的时候，开发的时候，当它执行完第一次的时候，后面的执行
+	 次数，它是可以不走if判断的。因为t已经拿到手了，直接用这个t就行了。
+	 但是这个函数在定义的时候，我们并没有把这个主观的思想应用到这里面来。
+	 以下有几个点不太好。
+
+	 1：由于声明了全局变量的一个t，那么函数执行的时候，把外界的t给改变了，
+	 这个不符合纯函数的一个概念
+
+	 2：当多次函数执行，test()里面的if都会执行很多遍，如果把这个函数改成
+	   
+	    惰性函数，就可以避免多次执行频繁无用的判断，第一次判断了，后面
+
+		就不用判断了
+			  var t = null;
+			  function test(){
+				  if(t){
+					  return t;
+				  }
+				  t = new Date().getTime();
+				  return t;
+			  }
+			  console.log(test());
+			  console.log(test());
+			  console.log(test());
+			  console.log(test());
+			  console.log(test());
+		
+	
+	1：解决第一点可以用闭包，闭包是可以封闭作用域的，一般在写库函数的时候
+	  首先第一点是考虑封闭作用域的，无论是jQuery,还是其他的js库，都定义了
+      大量的变量，这些大量的变量被引到我们写的javascript中，如果不进行对
+	  作用域的封闭的话，那么将对我们这个项目造成变量污染的后果。所以在编写
+	  都会注意，把整个js库的作用域给封闭
+
+	  解决全局变量
+	    
+		 这样这个t就没有全局变量污染了，把自己封闭到自己的作用域(AO)之中。
+		 但是另一个问题又出现了，就是在这个t计算的时候，并不是第一次test()
+		 执行的时候去计算，而是在这个立即执行函数执行，或者说初始化test的
+		 变量的时候，就已经把这个值，计算出来。那么这样并不符合惰性函数的
+		 要求，因为这个函数是要首次调用时的new Date.getTime()时间，如果把
+		 这个惰性函数的概念牵连到其他的库函数之中，也是要首次去执行函数功能，
+         才进行初始化计算，以下函数不行，并不是首次调用的时候计算的。
+		      
+           var test = (function (){
+			   var t = new Date().getTime();
+			   return function (){
+				   return t;
+			   }
+		   }());
+		   console.log(test());
+		   console.log(test());
+
+		      
+			     改成以下方案
+	    下面的函数同时全局污染和首次调用的问题，但是还是没有解决掉，当函数
+		执行第二次，n次的时候还是进行if判断。
+		(不需要第二次，n次执行进行对if判断，当它有值的时候，那么不执行if，
+		这个就是惰性函数的真实面目；
+		)
+
+		var test = (function (){
+		  var t = null;
+		  return function (){
+			  if(t){
+				  return t;
+			  }
+			  t = new Date().getTime();
+			  return t;
+		  }
+	  }());
+ 
+                完美解决
+	 无论是函数声明，还是函数表达式，函数的名字是个变量。它里面存
+	 的是函数引用值，函数本身也是一种数据，那么这个变量可以存任何值，
+	 可以改变
+   
+     惰性函数最基本的一个概念，一个函数在定义内部功能的时候，但是
+	 在内部我们重写了这个函数，当这个函数执行返回值，或者说第一次
+	 它起到的作用，跟它本次定义是有关的。
+      var test = function (){
+		 var t = new Date().getTime();
+		 test = function (){
+			 console.log('a'); 
+			 return t;
+		 }
+		 return test();
+	 }
+	              
+    console.log(test());
+	console.log(test());
+	console.log(test());
+	  
+	           应用()
+   	兼容性的函数，1：都需要知道首先在各种浏览器中都可以运行
+    2：这个功能被封装出来了。那么将频繁去使用。那这时候就可以
+       使用惰性函数
+     
+	            不好
+	     function addEvent(dom,type,handler){
+		if(dom.addEventListener){
+			dom.addEventListener(type,handler,false);
+		}else{
+			dom.attachEvent('on' + type,handler);
+		}
+	}
+	以上的方法，作为一个js库的话，效率并不是最好的，因为这个函数
+	被封装出来的话，就会被频繁的使用，当每次去执行这个函数，那么
+	每次都要执行if判断。当判断走了一次，那么第一次知道它是什么浏览器了
+	那么后面不需要走if了。
+	           
+			      完美
+   	通过惰性的方法植入的话，那么addEvent()第一次执行的时候，走到if里面来。
+	那么这是addEvent这个函数发送了改变。呈现的状态，就返回了惰性函数的功能
+    第二次，n次执行都是不通过if判断，直接使用addEvent，
+	开发的时候避免在行间样式写css，要遵从行为结构样式相分离，编程的规范
+	function addEvent(dom,type,handler){
+	   if(dom.addEventListener){
+		   dom.addEventListener(type,handler,false);
+		   addEvent = function (dom,type,handler){
+			   dom.addEventListener(type,handler,false);
+		   }else{
+			   dom.attachEvent('on' + type,handler);
+			   addEvent = function (dom,type,handler){
+				   dom.attachEvent('on' + type,handler);
+			   }
+		   }
+	   }
+   }
+   addEvent();
+	  */
+   function addEvent(dom,type,handler){
+	   if(dom.addEventListener){
+		   console.log('first');
+		   dom.addEventListener(type,handler,false);
+		   addEvent = function (dom,type,handler){
+			   console.log('last');
+			   dom.addEventListener(type,handler,false);
+		   }
+	   }else{
+			   dom.attachEvent('on' + type,handler);
+			   addEvent = function (dom,type,handler){
+				   dom.attachEvent('on' + type,handler);
+			 
+		   }
+	   }
+   }
+
+   addEvent(demo,'click',function (){alert(0)});
+   addEvent(demo,'click',function (){alert(0)});
+   addEvent(demo,'click',function (){alert(0)});
+   </script>
+ </body>
+</html>

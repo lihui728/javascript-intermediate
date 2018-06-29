@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+   <script>
+     var count = 0;
+     function person(n){
+		 count++;
+		 if(n==0 || n ==1){
+			 return 1;
+		 }
+		 return n * person(n-1);
+	 }
+	 function son(fn){
+		 var cache = {};
+		 return function (){
+			 var key = arguments.length + Array.prototype.join.call(arguments);
+			 if(cache[key]){
+				 return cache[key];
+			 }
+			 cache[key] = fn.apply(this,arguments);
+			 return cache[key];
+		 }
+	 }
+	 var newF = son(person);
+	 newF(5);
+     newF(5);
+	 newF(5);
+   </script>
+ </body>
+</html>

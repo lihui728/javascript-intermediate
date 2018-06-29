@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	   /*
+              应用
+	主要解决的问题，之前运算的结果，伴随着大量的数据，效果才会显示出来；
+	这是运算速度和内存的权衡，用闭包的话会造成内存泄漏，占用更多的内存，
+	速度更快一些而让内存占用更高一些，由于现在电脑的内存比较，js回收内存
+	的机制。所以问题并不大，应用到之前运算的结果，下一次要用。
+
+	              函数记忆(对函数进行处理，让函数拥有记忆功能)
+  在运算过程中，接下来的运算，会用到上面运算的结果，比如说处理事情，
+  有一些是重复的事情。那么可以把这个重复的事情，运算结果存起来。来
+  达到函数记忆这个目的
+ 
+
+          没记忆功能
+   var count = 0;
+	  function factorial(n){
+		  count++;
+		  if(n==0 || n==1){
+			  return 1;
+		  }
+		  return  n * factorial(n-1);
+	  }
+
+	 for(var i = 1;i <= 5;i++){
+		 console.log(factorial(i));
+	 }  
+ 5 * 4 * 3 * 2 * 1
+//如果在算5的阶乘的时候，直接把4的结果拿过来使用。那就是不需要走4的阶乘
+//  和4阶乘前面的阶乘,那么4的阶乘怎样来，可以在我当前运算保存起来，实现一个
+ // 缓存，记忆功能；
+ //count => 15;
+ //1! = 1
+ //2! = 2*1 !=> 2
+ //3! = 3*2 !=> 3
+ //4! = 4*3 !=> 4
+ //5! = 5*4 !=> 5
+
+
+                实现函数记忆(不完美)变量是全局的
+		 var count = 0,
+			   cache = [];
+		   function factorial(n){
+			   count++;
+			 
+			   if(cache[n]){
+				   return cache[n];
+			   }else{
+				   if(n==0 || n == 1){
+					   cache[0] = 1;
+					   cache[1] = 1;
+					   return 1;
+				   }else{
+					   cache[n] = n * factorial(n-1);
+					   return cache[n];
+				   }
+			   }
+		   }
+
+		  console.time('first');
+		  console.log(factorial(5));
+		  console.timeEnd('first');
+		  console.time('second');
+		  console.log(factorial(5));
+		  console.timeEnd('second');
+		  console.time('3');
+		  console.log(factorial(4));
+		  console.timeEnd('3');
+	   */
+                    //   cache{}
+			 //对象查找速度是要比数组的要快，数组要知道下标，就查；
+		   //对象的结构key和value的结构，知道key就会知道value
+		            //key(为什么要用对象)
+	//	key值用来作为参数唯一标识，不能重复，为什么要用对象？万一有需求
+	//	需要传多个参数，兼容写法,这样的key是唯一的
+	//	var key = arugments.length + Arrry.prototype.join.call(arguments);
+
+
+	//理解；
+	        1:第一次执行newF(5),只对它结算后的结果进行存储；key的值保存形式为
+			    cache = {key : 120}=>{'15' : 120};
+			  第二次执行newF(5)的时候，判断cache[key]的时候，第一次运算的时候就已经保存了这个对象；
+			  为真，返回该对象，cache.15 => 120;
+
+	        2:并没有对newF(4),newF(3),newF(2),newF(1),的结果保存。所以在第一次执行newF(4)的时候，
+			  没有cache = {'14' : ???},没有'14'属性名。没有'14'的属性值。所以还是要走factorial();
+			  执行函数。然后结果赋给cache[key]，下面cache的对象应该是这样，
+			                                      cache = {             
+														  '15' : 120,
+														  '14' : 24,
+													  }
+			  下次再执行newF(4)的时候
+			  取对象的值。执行newF(6),newF(1),newF(2),newF(3)的都是没缓存的，重复2步骤。
+			 
+			3:注意点，无论传了多少个参数，factorial(n),只有了一个n，也就是arguments[0],
+			  其他位的值都是没应用。
+
+			
+      var count = 0;
+      function factorial(n){
+		  count++;
+		  if(n==0 || n==1){
+			  return 1;
+		  }
+		  return  n * factorial(n-1);
+	  }
+	  function memorize(fn){
+		  var cache =  {};
+		  return function (){
+			  var key = arguments.length + Array.prototype.join.call(arguments);
+			  if(cache[key]){
+				  return cache[key];
+			  }else{
+				  cache[key] = fn.apply(this,arguments);
+				  return cache[key];
+			  }
+		  }
+	  }
+	  var newF = memorize(factorial);
+	   console.time('first');
+		  console.log(newF(5));
+		  console.log(count)
+		  console.timeEnd('first');
+		  console.time('second');
+		  console.log(newF(4));
+		   console.log(count)
+		  console.timeEnd('second');
+		  console.time('5');
+		  console.log(newF(4));
+		   console.log(count)
+		  console.timeEnd('5');
+	</script>
+  
+ </body>
+</html>

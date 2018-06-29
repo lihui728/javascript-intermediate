@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	 /*
+	     compose-->compose(add,toUpperCase)-->返回一个函数,函数接收一个实参x-->f()执行,传入参数。
+
+		 返回 1:toUpperCase(传入一个参数x,)执行-->2:返回值执行完毕-->3：add(传入toUpperCase返回的一个值)
+		      4：返回值--》执行完毕。---》f()执行完毕
+			   
+                    1:函数组合
+			   固定参数，局限只能传两个函数
+			   function compose(f,g){
+				return function (x){
+					return f(g(x));
+				}
+		   }
+		        var f = compose(add,toUpperCase)  
+				    2：第二种思路(不限制参数)
+		1:获取cpmpuse的arguments,要-1，因为数组是从0开始的。
+		2:return 一个函数体
+		        函数体内容
+		3:该函数体接收一个参数，那就是要执行多组函数多组函数改变的结果
+		3:var 一个变量result接收arguments最后一位执行结果，arguments要传入上面函数体的接收的参数。
+		4:进行while循环
+		5：result被重新复制，为arguments的每一位执行。要传入一个参数，那就是上一次result的结果。
+		6:return 出去返回值 result;
+
+		   function compose(){
+			var arg = Array.prototype.slice.call(arguments),
+		        len = arguments.length - 1;
+           return function (x){
+                var result = arg[len](x);
+				while(len--){
+					result = arg[len](result);
+				}
+				return result;
+		   }
+		}
+	
+		var f = compose(join,reverse,split,add,toUpperCase);
+
+		function toUpperCase(str){
+			return str.toUpperCase();
+		}
+		function add(str){
+			return str + '!'
+		}
+		function reverse(arr){
+	
+			return arr.reverse();
+		}
+		function split(arr){
+			return arr.split("");
+		}
+		function join(arr){
+			
+			return arr.join('-');
+		}
+
+
+              第三种函数组合思路
+	 function compose(){
+			var arg = Array.prototype.slice.call(arguments);		 
+           return function (x){
+            return arg.reduceRight(function (per,ele){
+				 return ele(per);
+			   },x)
+		   }
+		}
+	   
+      
+	
+	
+		function toUpperCase(str){
+			return str.toUpperCase();
+		}
+		function add(str){
+			return str + '!'
+		}
+		function reverse(arr){
+	
+			return arr.reverse();
+		}
+		function split(arr){
+			return arr.split("");
+		}
+		function join(arr){
+			
+			return arr.join('-');
+		}
+		var f = compose(add,toUpperCase);
+
+		   第三种函数组合(es6方法)
+
+		const compose2 = (...args) => x => args.reduceRight((res,cd) => cd(res),x);
+	    var f = compose2(add,join,reverse,split,toUpperCase);
+      
+	
+	
+		function toUpperCase(str){
+			return str.toUpperCase();
+		}
+		function add(str){
+			return str + '!'
+		}
+		function reverse(arr){
+	
+			return arr.reverse();
+		}
+		function split(arr){
+			return arr.split("");
+		}
+		function join(arr){
+			
+			return arr.join('-');
+
+
+		}
+
+                以上的传参执行都是从右到左
+
+	           第四种函数组合(函数执行从左到右)
+	  function compose3(){
+		  var args = Array.prototype.slice.call(arguments);
+		  return function(x){
+			  return ags.reduce(function (res,cb){
+				  return cb(res)
+			  },x)
+		  }
+	  }
+		
+	 */
+
+		
+	</script>
+ </body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+     *{
+	 margin:0;
+	 padding:0;
+	 }
+  </style>
+ </head>
+ <body>
+    <div id='div' style="width:100px;height:100px;background-color:red;border-radius:50px;position:absolute;top:0;left:0;"></div>
+	<script>
+	 var div = document.getElementById('div');
+	     body = document.getElementsByTagName('body')[0];
+	  function drag(ele,target){
+		  
+		   var X,
+		       Y;
+			   key = true;
+		      
+		   if(key){
+			   
+			   ele.onmousedown = function (e){
+		       var Top = ele.offsetTop,
+		           Left = ele.offsetLeft;
+			   key = false;
+			   var e = e || window.event;
+			   X = e.clientX - Left;
+			   Y = e.clientY - Top; 
+			  document.onmousemove = function (e){
+			  var e = e || window.event;
+			  ele.style.left = e.clientX - X + 'px';
+			  ele.style.top = e.clientY - Y + 'px';
+		  }
+		   }
+		  
+		 }
+		  document.onmouseup = function (){
+              key = true;
+			  document.onmousemove = null;
+		  }
+
+	  }
+	 drag(div,body);
+	</script>
+ </body>
+</html>

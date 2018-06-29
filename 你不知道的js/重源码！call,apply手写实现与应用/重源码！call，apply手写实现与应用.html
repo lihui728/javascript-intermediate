@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+     <script>
+	 /*
+	                 newCall方法重写(缺点：只能单单执行，不能传参数)
+		 Function.prototype.newCall = function (ctx){//传入obj
+		console.log(this);//show
+		 ctx.fn = this;  //=>>obj.fn = show => function (){ console.log(this.value)};
+		ctx.fn();//obj.fn();
+		delete ctx.fn;//删除obj.fn对象
+		
+	   }
+	 */
+	   var  value = 'window';
+	   var obj = {
+		   value : '1obj',
+	   }
+	   function show(name,age){
+		   console.log(this.value);
+		   return {
+			   name : name,
+			   age : age,
+		   }
+	   }
+//	   show();//window   window
+	//   show.call(obj);//'obj'
+	//   show.call(null);//window
+	  
+	//   show();
+	
+
+	/*Function.prototype.newCall = function (ctx){//传入obj
+		var ctx = arguments[0] || window;
+		ctx.fn = this;
+		var args = [];
+		
+		for(var i = 1;i < arguments.length;i++){//获取arguments，不要第一位，也不要值；形式如下
+			                                   //args['arguments[1]','arguments[2]']
+			args.push('arguments[' + i +']')//'arguments[' + i + ']'
+		}
+		var result = eval('ctx.fn(' + args.join(',')+')');//使用eval执行ctx.fn()，形式如下
+		                                               //ctx.fn()
+													   //ctx.fn(arguments[0],arguments[1])
+		delete ctx.fn;
+		return result;
+	
+		
+	}*/
+	//var result = show.newCall(obj,'age',18);
+
+	Function.prototype.newApply = function (ctx,arr){
+		  var ctx = ctx || window,
+		      args = [];
+		      ctx.fn = this;
+		if(!arr){
+               var result = ctx.fn();
+			   delete ctx.fn;
+			   return result;
+		}else{
+			for(var i = 0;i < arr.length;i++){
+				args.push('arr['+ i + ']');
+			}
+			var result = eval('ctx.fn(' + args.join(',') + ')')
+			delete ctx.fn;
+			return result;
+		}
+	}
+	var result = show.newApply(obj,['age',18])
+
+	/*Function.prototype.newApply = function (ctx,arr){
+		var ctx = ctx || window,
+		    args = [];
+			ctx.fn = this;
+		if(!arr){
+			var result = ctx.fn();
+			delete ctx.fn;
+			return result;
+		}else{
+			for(var i=0;i < arr.length;i++){
+				args.push('arguments[' + i +']');
+			}
+			console.log(args.join(','));
+
+			var result = eval('ctx.fn(' + args.join(',') + ')');
+			delete ctx.fn;
+			return result;
+		}
+	}*/
+	var result = show.newApply(obj,['lihui',18])
+	 </script>
+ </body>
+</html>

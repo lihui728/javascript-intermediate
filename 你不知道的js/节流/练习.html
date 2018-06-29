@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+     <button id='Obtn'>0</button>
+   <script>
+   /*   Obtn.onclick = function (){
+		  Obtn.innerText = parseInt(Obtn.innerText) + 1;
+	  }*/
+	  function event(e){
+            console.log(e);
+			this.innerText = parseInt(this.innerText) + 1;
+	  }
+	  function person(fn,time){
+		  var lastTime = 0;
+          return function(){
+			  var first = new Date().getTime();
+              if(first - lastTime > time){
+                   fn.apply(this,arguments);
+				   lastTime = first;
+			  }
+		  }
+	  }
+	  Obtn.onclick = person(event,1000);
+	
+	  
+   </script>
+ </body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+  <input type="text">
+   <script>
+     // 防抖功能  
+/*function debounce(handler,delay) {
+    var timer = null;
+	
+		
+       
+    return function(){
+		 var self = this;
+        var arg = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function(){
+            handler.apply(self,arg);
+        },delay)
+    }
+}*/
+
+// 实现功能
+function event() {
+    console.log(this.value)
+}
+
+// 绑定事件
+var oInp = document.getElementsByTagName('input')[0];
+//oInp.oninput = debounce(event, 500);
+var timer = null;
+oInp.oninput = function(){
+	   var self = this;
+       var arg = arguments;
+	   console.log(arg);
+        clearTimeout(timer);
+        timer = setTimeout(function(){
+            event.apply(self);
+        },1000)
+    }
+
+   </script>
+ </body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	   /*
+	               数组扁平化
+
+    1：前端的交互数据是从后台得来的，通过ajax请求，请求对应的接口，拿到相应的数据
+
+	2：但后台返回的数据，不一定是我们想要的格式，用进行对数据的处理，数组扁平化
+	   就属于数据处理的一部分。扁平化主要用在两方面，数组和对象。
+	              对象的扁平化，
+
+	   是指对象深度很深的对象，用扁平化之后，变成一层。深度为1的对象
+	            
+				  数组的扁平化
+		数组的扁平化的是一个降维的过程，是多维的数组，通过扁平化，变成一维数组
+		可以把里面的数据拿出来。不在意数组的格式
+	     
+	  
+	   */
+	  var arr = [[['a','b'],{},[1,[2,[123,[8,[5,[45]]]]]]]] 
+    
+     function isArray(obj){
+		 return Object.prototype.toString.call(obj) == '[object Array]';
+	 }
+    
+
+	           //第一种写法
+    function flatten(arr){
+		var arr = arr || [],
+		resArr = [],
+		len = arr.length;
+		for(var i = 0;i < len;i++){
+			if(isArray(arr[i])){
+               resArr = resArr.concat(flatten(arr[i]))
+			}else{
+				resArr.push(arr[i]);
+			}
+		}
+		return resArr;
+	}
+	
+
+
+
+           //第二种写法
+	Array.prototype.flatten1 = function (){
+		var resArr = [];
+		this.forEach(function (ele,index){
+			Object.prototype.toString.call(ele) == '[object Array]' ? resArr = resArr.concat(ele.flatten1()): resArr.push(ele);
+		})
+		return resArr;
+	}
+
+
+         //第三种写法
+  Array.prototype.flatten2 = function (){
+	return this.reduce(function (par,ele){
+		  return Object.prototype.toString.call(ele) == '[object Array]' ? par = par.concat(ele.flatten2()) : par.concat(ele);
+	  },[])
+  }
+
+	   //es6的写法
+ const flatten3 = arr => arr.reduce((par,ele) => Object.prototype.toString.call(ele) == '[object Array]' ? par = par.concat(flatten3(ele)) :  par.concat(ele),[]);
+
+	</script>
+ </body>
+</html>

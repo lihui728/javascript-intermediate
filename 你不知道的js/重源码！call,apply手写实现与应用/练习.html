@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+  <script>
+      //call
+     var obj = {
+		 value : 'li',
+	 }
+	 function show(name,age){
+		 console.log(this.value);
+		 return {
+			 name,
+			 age
+		 }
+	 }
+     Function.prototype.newCall = function (){
+		 var ctx = arguments[0] || window,
+		     args = [];
+			 ctx.fn = this;
+		for(var i = 1;i < arguments.length;i++){
+			args.push('arguments[' + i + ']');
+		}
+		var result = eval('ctx.fn(' + args.join(',') + ')');
+		delete ctx.fn;
+		return result;
+	 }
+//	 var result = show.newCall(obj,'li',18);
+
+	     //apply
+    Function.prototype.newApply = function (ctx,arr){
+		var ctx = ctx || window,
+		    len = arr.length,
+		    args = [];
+			ctx.fn = this;
+			if(!arr){
+				var result =  ctx.fn();
+				delete ctx.fn;
+				return result;
+			}else{
+				for(var i = 0;i < len;i++){
+					args.push('arr[' + i + ']');
+				}
+				var result = eval('ctx.fn(' + args.join(',') + ')');
+				delete ctx.fn;
+				return result;
+			}
+	}
+	 var result = show.newApply(obj,['li',18]);
+  </script>
+ </body>
+</html>

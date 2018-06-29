@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+   <script>
+     /*      
+	            柯里化前奏思路
+	1：在fixedParmasCurry执行的时候传入add，获取fixedParmasCurry的arguments，但不需获取第一个
+	2：返回一个函数。	
+	3：需要获取返回函数的执行的arguments，进行arguments进行拼接 
+	4：在fixedParmasCurry执行的时候传入的是add，那么在fixedParmasCurry里面执行add()，传入两个
+	   函数拼接的值。
+	5：执行fixedParmasCurry()。
+	             
+				 柯里化前奏
+		 function add(a,b,c,d){
+		 return a + b + c + d;
+		 }
+		 function fixedParmasCurry(fn){
+			 var arg = Array.prototype.slice.call(arguments,1); 
+			 return function (){	
+				  return fn.apply(this,arg.concat(Array.prototype.slice.call(arguments)));	
+		 }
+		 }
+		var a = curry(add,1,2)
+		  
+
+		         实现柯里化思路
+	 
+	
+	 */
+	  function add(a,b,c,d){
+		 return a + b + c + d;
+		 }
+	
+
+     function curry(fn,length){
+		 var length = length || fn.length;
+
+		  function fixedParmasCurry(fn){
+			 var arg = Array.prototype.slice.call(arguments,1); 
+			 return function (){	
+				  return fn.apply(this,arg.concat(Array.prototype.slice.call(arguments)));	
+		  }
+		}
+		 
+		return function (){
+			if(arguments.length < length){
+              var combined = [fn].concat([].slice.call(arguments,0));
+			   return curry(fixedParmasCurry.apply(this,combined),length - arguments.length);
+			}else{
+				return fn.apply(this,arguments);
+			}
+		}
+         
+	 };
+
+	 
+	 
+
+	 /*function ajax(method,url,data){
+		console.log(method,url,data);
+
+	}
+
+	var ajaxCurry = curry(ajax);
+	var PostAjax = ajaxCurry('POST');
+	var GetAjax = ajaxCurry('Get');
+	GetAjax('www.test2.com','key=22')
+	
+	var PostTest1Ajax = PostAjax('www.test1.com');
+	PostTest1Ajax('name=cst&code=111');
+	PostTest1Ajax('key=11');
+
+
+	var PostTest2Ajax = PostAjax('www.test2.com');
+	PostTest2Ajax('name=cst&code=111');
+	PostTest2Ajax('key=1');*/
+	 
+   </script>
+ </body>
+</html>

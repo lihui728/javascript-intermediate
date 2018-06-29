@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+  <button>run</button>
+   <script>
+     /*var oBton = document.getElementsByTagName('button');
+	 d();
+	 oBton.onclick = function (){
+
+	 }
+	 function d(){
+		 while(true){
+			 console.log('0');
+		 }
+	 }*/
+	function outer(ot){
+		debugger;
+		function inner(it){
+			console.log(it);
+		}
+		inner(20);
+		console.log(ot);
+	}
+	outer(10);
+   </script>
+ </body>
+</html>

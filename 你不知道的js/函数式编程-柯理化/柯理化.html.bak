@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+     <script>
+	    /*
+		         柯里化
+	在数学和计算机科学中，柯里化是一种将使用多个参数的一个函数
+	转换成一系列使用一个参数的函数技术；(一个函数，比如说穿四个参数
+    通过柯里化一个，一个参数进行传递
+	)
+
+	     
+		        前端why?柯里化
+	前端使用柯里化的用途主要就应该是简化代码结构，提高系统的维护性，
+	一个方法，只有一个参数，强制了功能的单一性，很自然就做到功能内聚
+	降低耦合，
+
+	柯里化的优点就是降低代码的重复，提高代码的实用性
+
+		          柯里化前奏
+    function add(a,b,c,d){
+	
+		 return a + b + c + d;
+	 }
+	 function FixedParmasCurry(fn){
+		 var _arg = [].slice.call(arguments,1) //截取(add,1,2),不要add;
+		 
+		 return function (){
+			 //1:这个里面相当于newAdd = function(){},newAdd();
+             //2:截取newAdd的arguments和_arg拼接
+             var newArg = _arg.concat([].slice.call(arguments,0));
+			 //3:执行fn，fn是add();改变this指向，
+			//this指向window,因为newArg是个数组
+			//所以用apply,指向，参数直接数组
+		  //5:没return的，返回undefined，必须return；
+		  console.log(this);
+		  //newArg = [1,2,2,3]
+			return fn.apply(this,newArg);
+              
+		 }
+	 }
+	 var newAdd = FixedParmasCurry(add,2);
+    newAdd(2,34,2)
+	 //本质上是要固定经过固定参数柯里化，返回新的函数，新的函数执行
+	 //时候的参数必须和FixedParmasCurry,从add，后面的参数相加等于4
+	 //是强势规定的，
+	 //柯里化前奏需要传固定的参数。需要传多少个参数，取决于add的形参。
+	 //在FixedParmasCurry传了多少个参数，那么下一次执行就必须传add的和形参
+	 //和FixedParmasCurry的arguments的个数差值。
+	 */
+      function add(a,b,c,d){
+		 return a + b + c + d;
+	 }
+	  function FixedParmasCurry(fn){
+		 var _arg = [].slice.call(arguments,1) //截取(add,1,2),不要add;
+		 
+		 return function (){
+			 //1:这个里面相当于newAdd = function(){},newAdd();
+             //2:截取newAdd的arguments和_arg拼接
+             var newArg = _arg.concat([].slice.call(arguments,0));
+			 //3:执行fn，fn是add()	;
+			
+		//	 }
+		  //5:没return的，返回undefig，必须return；
+		
+			return fn.apply(this,newArg);
+              
+		 }
+	 }
+	 //fixed Params fn 固定参数的函数
+	 //look forward to Params 期望把参数凑齐。
+	
+	 function Curry(fn,length){
+        //length,判断如果Curry(add)执行，不传第二个参数，length为undefined
+		//那么就赋于fn.length==add.length = 4;
+        var length = length || fn.length;
+		
+		 return function (){		 
+			 //这里相当于var newAdd = function (){},newAdd(2,3);
+			 //获取newAdd的arguments的长度
+			 //判断newAdd的传进来的参数长度是否小于add的形参。小于就说明没传完
+             if(arguments.length < length){ 
+                 //[fn].concat(1)== [fn,1]
+				 var combined = [fn].concat([].slice.call(arguments,0));
+				 return Curry(FixedParmasCurry.apply(this,combined),length - arguments.length)
+
+			 }else{
+				return fn.apply(this,arguments);
+			 }
+		 }
+	 }
+	//post www.test1.com 'name=cst&code=111';
+	//post www.test1.com 'key=222';
+	//post  www.test2.com 'name=cst&code=111';
+	//post  www.test2.com 'key=222';
+	function ajax(method,url,data){
+		console.log(method,url,data);
+
+	}
+	      //不使用柯里化
+		  // ajax('post', 'www.test1.com','name=cst&code=111')
+		  // ajax('post','www.test1.com','key=222')
+		  // ajax('post','www.test2.com','name=cst&code=111')
+		  // ajax('post','www.test2.com','key=222')
+		   //使用柯里化
+    var ajaxCurry = Curry(ajax);
+	var PostAjax = ajaxCurry('POST');
+	var GetAjax = ajaxCurry('POST');
+	GetAjax('www.test2.com','key=22')
+	
+	var PostTest1Ajax = PostAjax('www.test1.com');
+	PostTest1Ajax('name=cst&code=111');
+	PostTest1Ajax('key=11');
+
+
+	var PostTest2Ajax = PostAjax('www.test2.com');
+	PostTest2Ajax('name=cst&code=111');
+	PostTest2Ajax('key=1');
+	
+	 //通过柯里化传一个要固定的参数的函数，通过柯里化之后；
+	 //newAdd的执行就很随意了，可以第一次执行传一个参数，
+	 //也可以一下子传完4个参数，也可以第一次2个，第二次2个
+	 //newAdd(1,2,4,5);
+	 //newAdd(1)(2,3)(4);
+	// newAdd(1)(2)(4);
+	// newAdd(1)(2)(3)(4);//常用
+	 //柯里化不要求传完参数一次执行完，2,3,4次执行完也行，
+	 //但最后一次执行完，必须参数必须和add的形参相等，到达4个
+	 //柯里化期望这一次执行传完参数，如果没传完，那就等到下一次，下一次执行，传完，
+
+   
+   
+   
+	 </script>
+ </body>
+</html>

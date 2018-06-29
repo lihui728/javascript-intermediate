@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <input type="text" id = 'ip'>
+  <script>
+     /*
+	    函数式编程之纯函数
+              y=f(x);
+	函数f的概念就是，对于输入x产生一个输出y=f(x);
+
+	    函数式编程之纯函数
+   纯函数的定义是，对于相同的输入，永远会得到相同的输出，
+   而且没有任何可观察的副作用，也不依赖外部坏境的状态。
+   纯函数是指不依赖，修改其作用域之外变量的函数。
+
+      
+	      Bug-守恒定律
+  一旦你网站或应用的代码量达到一定程度，他将不可避免的包含
+  某种bug，这不是javascript特有的问题，而是一个几乎所有语言
+  都有的通病--虽然不是不可能，但是想要彻底清除程序中的所有
+  bug哈市非常难办到的。但是，这并不意味我们不可以通过某些
+  编码方式来预防bug的引入
+ 
+         纯函数-作用
+ 在javascript中你可以很容易的创建全局变量，这些变量可以在
+ 所有函数中访问到，这也是一个导致bug的常见原因，因为程序中
+ 的任何部分都可能修改全局变量从而导致函数的行为出现异常。
+
+ 纯函数非常容易进行单元测试，因为不需要考虑上下文环境，
+ 主需要考虑输入和输出
+
+ 纯函数是健壮的，改变执行次序不会对系统造成影响，
+ 因此纯函数的操作可以并执行
+    
+	     
+         纯函数-应用(数组过滤)
+ 保证了函数的纯度以后，可以回到数组一开始最原始的状态过滤。
+ 否则不是的话，那就不能重新再来过滤了。
+ 当数据返回以后，对数据的渲染和对数据的操作，操作的时候，
+ 也尽量保证是纯函数。当数据的对象有修改的时候，还是希望
+ 克隆一份数据。然后在克隆的数据上修改，都不会影响到原来的
+ 值，personArr
+	
+ var personArr = [
+ {name : '张三',sex : 'male',img : 'fflslkfs'},
+ {name : '李四',sex : 'male',img : 'fffjkljfs'},
+ {name : '王二狗',sex : 'male',img : '153123s'},
+ {name : '王海',sex : 'male',img : 'ffsfslkfs'}
+ ];
+ ip.oninput= function (){
+     filterByText(this.value,personArr);
+	 console.log(filterByText(this.value,personArr));
+	 
+	
+
+ }
+ function filterByText(text,arr){
+	 var newArr = [];
+	 for(var i = 0;i <  arr.length;i++){
+		 arr[i].name.indexOf(text) == -1 ? '' : newArr.push(arr[i]);
+	 }
+	 return newArr;
+ }
+       
+
+ -------------------------------------------------
+
+           纯函数-应用(组件化开发-状态共享)
+
+组件化开发一个页面，这个页面可以看做是个大的组件容器，真正开发，
+无非就是往大的组件，放各种各样的组件，组件和组件成一个父子关系。
+比如说组件中只有大的两个组件，那第一个组件下面有其他各种组件，
+第二个组件下面也有其他组件，那整个页面构架出一个复杂垂直性的关系，
+每个组件都可以接受一些行为，当用户对它操作的时候，行为发生到组件
+身上的时候，可能会改变一些状态，状态改变之后，一：会影响到自己，
+二：影响到它下面的子组件。在组件化开发，状态共享是很常见；
+组件化开发的时候，对状态的修改，或者说组件和组件之中互相依赖，影响。
+尽量改成一种，不可修改的。处理函数尽量是纯函数，不去影响原来的状态，
+只是拿来加工使用，不去修改原来的，只要克隆的数据，在克隆的数据上进行
+修改
+
+   
+           用处
+更好的管理状态，使得可预测性增强，降低代码管理的难度，但是前端基本上
+在和副作用打交道，所有函数都是纯函数这种愿望不可强求的。
+
+
+
+ 
+
+
+         arr是引用值，所以_arr.push改变了引用值内容，房间
+
+	 var arr = [];
+	 function add(_arr){
+		 var obj = {name:'cst'};
+		 _arr.push(obj);
+		 console.log(_arr);
+	 }
+	  add(arr);
+	  console.log(arr);
+
+	  ***********************************
+
+	  	var arr = [{name : 'duyi'}];
+	function add(_arr){
+		var obj = {name : 'cst'};
+		var newArr = [];
+		for(var i = 0;i < _arr.length;i++){
+			newArr[i] = _arr[i];
+		}
+		newArr.push(obj);
+		return newArr;
+	}
+	 var newArr = add(arr);
+	 newArr.push({name : 'hehe'})
+
+	 ------------------------------------
+
+	 function add(x,y){
+		return x + y;
+	}
+	var num1 = 1;
+	var num2 = 2;
+	add(num1,num2);
+	
+	var gArr = [];
+	function addd(arr){
+		
+		arr.push(1);
+		return arr;
+	}
+	addd(gArr);
+	     
+	 */
+
+	
+
+
+   
+
+  </script>
+  
+ </body>
+</html>

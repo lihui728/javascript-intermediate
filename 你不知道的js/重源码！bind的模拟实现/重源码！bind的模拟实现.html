@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+     <script>
+     /*
+	       重源码！bind的模拟实现
+	引用值函数，对象，数组本质它们身上都是有构造函数的。
+	{} Object
+	[] Array
+	函数 Function
+
+	        bind(Function.prototype.bind)
+	bind改变函数的this指向，当函数调用bind的时候，bind也是个方法，也是要执行
+	执行完本质是返回一个新的函数，新的函数执行确实是函数的功能，但函数this
+	发生了改变
+
+	使用call的话，就直接执行了。并且每次执行的时候都需要点call
+	点bind是要返回一个新的函数，不管什么时候去调用，在下次调用
+	也不用点bind，bind一下就ok了
+
+	bing不只可以传一个参数，还可以传很多的参数==》Func.bind(x1,x2,x3,.......) 
+	
+	//show('cst',18);
+	//1:null -> window
+	//2:obj -> obj
+	//3:new newShow(),new 函数执行，会自己创建一个this，并不是原来传进来的this,所以this.value为undefined； 
+
+	   
+	           //普通版
+	  Function.prototype.newBind = function (target){
+	      target = target || window,
+	      var args = [].slice.call(arguments,1);
+		   var self = this;
+		    
+		   return function (){
+			   var _arg = [].slice.call(arguments);
+			   return self.apply(target,args.concat(_arg));
+		   }
+
+   }
+                bing思路
+  1：获取newBind(this)的this,newBind()空实参执行为window执行
+
+  2：获取this，this是xxx.newBind()的xxx;
+
+  3:截取newBind(this,x,x,x)this后面的参数
+
+  4：实现圣杯模式继承();具体方法如下
+
+  5：创建一个函数表达式为var temp = function (){}。//圣杯模式
+
+  6:创建一个函数表达式为var f = functoin (){};该函数体的内容如下
+
+     6.1：获取arguments,(为了和上面newBind的arguments进行拼接)；
+
+	 6.2:执行第二步获取的this，同时需要apply指向传为数组的参数
+
+	 6.3：执行时传入第一位this指向进行判断。
+
+	 6.4：判断执行时的tihs是否temp构造的，是返回this，
+	      否传入newBind(this,)的this。
+
+	 6.5：传入6.1步获取的值。
+
+  7：temp.prototype = this.prototype; //圣杯模式
+
+  8: f.prototype = new temp();//圣杯模式
+
+  9:return f;
+	 
+	 */
+	 Function.prototype.newBind = function (target){
+		   var target = target || window,
+		       args = [].slice.call(arguments,1),
+			   sale = this,
+			   temp = function (){};
+			
+		   var F = function (){
+			   var _arg = args.concat([].slice.call(arguments));
+			  return sale.apply(this instanceof temp ? this : target,_arg);
+		   }
+		   temp.prototype = this.prototype;
+		   F.prototype = new temp();
+		   return F;
+	 }
+	 var value = 0;
+	 var obj = {
+		 value : 1
+	 }
+	 show.prototype.y = 'fsfs';
+	 function show(name,age){
+		 console.log(this.value);
+		 console.log(name,age);
+		 console.log(this);
+		 return 'fsfsfsfs';
+	 }
+	 var newF = show.newBind();
+	var f = new newF('li',13);
+   
+//	function 
+    
+	//   newF(18);
+	//console.log(show.bind(obj,'cst'));
+	// newShow(18)//==>function show(name,age){
+		               //   console.log(obj.value);
+						 // console.log(name,age);
+	                // }
+   
+  // var newshow = show.newBind(obj,'cst');
+
+
+
+
+  
+          
+	 </script>
+ </body>
+</html >

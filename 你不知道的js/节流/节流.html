@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+   <div id='show'>0</div>
+   <button id ='Obtn'>点击</button>
+   <script>
+          /*
+		     节流
+
+	 如果不做节流，可以通过脚本去点击，漏洞。
+	 在控制输入for(var i=0;i<200;i++){Obtn.click()}；
+	 如果有人恶意去通过脚本点击，那么瞬间就点击了几千下。几万下。
+	 同时服务器承载不了，客户端浏览器也会崩溃，本质上是不允许这样
+	 的情况出现。那么我们可以通过节流
+
+		  */
+      function event(e){
+		  console.log(this,e)
+		  show.innerText = parseInt(show.innerText) + 1;
+	  } 
+	  function deacal(haddler,time){
+		  var lastTime = 0;
+		  return function (){
+			  var newTime = new Date().getTime();
+			  if(newTime - lastTime > time){
+				  haddler.apply(this,arguments);
+				   lastTime = newTime;
+			  }
+		  }
+	  }
+
+	  Obtn.onclick = deacal(event,1000)
+   </script>
+  
+ </body>
+</html>
