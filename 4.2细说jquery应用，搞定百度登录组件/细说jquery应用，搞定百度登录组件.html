@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+     .warpper{
+	   width:400px;
+	   height:400px;
+	   position:absolute;
+	   top:100px;
+	   border:1px solid black;
+	 }
+	 .warpper .centent,.box{
+	    width:100px;
+		height:100px;
+	 }
+	 .warpper .centent{
+	    background:red;
+	 }
+	 .warpper .box{
+	    background:green;
+	 }
+	 
+  </style>
+ </head>
+ <body>
+    <div class='warpper'>
+	  <div class='centent'>1</div>
+	  <div class='box'>2
+	     <a href='#'>a</a>
+		 <p>fsf</p>
+	  </div>
+	</div>
+   <p>pp</p>
+    <script src="./jquery-3.3.1.js"></script>
+	<script>
+	
+	    /*
+	addClass()  removeClass() 参数可以是function
+
+	A.inserBefore(B) A插入到B的前面(有剪切功能)
+
+	B.before(A) A在B的前面(有剪切功能)；
+
+	C.appendTo(D):A添加到B的里面(添加到最后一个子元素后)
+
+	D:append(c):D里添加C(同上)；
+
+	prependTo prepend(添加到第一个元素前)
+
+	remove detach把元素删除后返回(两者略有不同，事件)
+
+	注册事件bind()(老版本)，on()(新版本),off()解除绑定
+	     
+		       
+			    addClass() removeClass()，
+   这两个除了可以添加字符类名，还可以添加函数,removeClass一样
+
+    例:$('li').addClass(function (index){//遍历 执行5次 0 1 2 3 4 
+
+		  if(index % 3){  //addClass传函数，通过某些条件为真。添加类名
+
+			  return 'aaa';//return 出去,相当于addClass('aaa');
+		  }
+	  })
+
+	               toggleClass()
+		 $('li').toggleClass('a');//如果li标签没有类名a的话，就增加a类名，
+		                         //如果li标签有类名a的话，就删除a类名；
+				  
+				  toggleClass()应用
+		$('li:eq(0)').click(function (){
+			$(this).toggleClass('aaa');
+		})
+		            
+			      insertBefore(),before();效果一样，返回对象不一样
+	    $('li').eq(4).insertBefore($('li:eq(0)'));//在第一个li[0]之前插入li[4];
+		$('li').eq(0).before($('li:eq(4)'));//li[0]的前面是li[4]  两个方法的效果一样
+
+		不同点，return 出来的对象不同，insertBefore(),return出来eq(4);
+
+		        before(),return 出来eq(0);
+	   例：$('li:eq(4)').insertBefore($('li:eq(0)')).css('color','red')//eq(4)的字体变红
+	       $('li:wq(0)').before($('li:wq(4)')).css('color','red');//eq(0)的字体变红；
+
+		       
+			    appendTo(),append();效果一样，返回对象不一样
+	 $('p').appendTo($('ul')).css('color','red');
+	 (把p插入到ul后面,return 对象是p,.css,所以只有p的字体变红)
+	 $('ul').append($('p')).css('color','red');--》appendClid
+	 (在ul里面后面插入p,return对象是ul,.css,所以ul里面的字体都变红)
+		
+                
+				prependTo(),prepend();可以插入字符串，不用元素
+	  $('p').prependTo($('ul')).css('color','red');
+	  (把p插入到ul前面,return 对象是p,.css,所以只有p的字体变红)
+	  $('ul').prepend($('p')).css('color','red');
+	  (在ul里面前面插入p,return对象是ul,.css,所以ul里面的字体都变红)
+      
+
+
+                remove(),detach();相同点，不同点
+	  html:
+	       <div class='warpper'>
+		  <div class='centent'></div>
+		  <div class='box'></div>
+		 </div>
+		  <p>pp</p>
+		
+	 
+	 css:  .warpper{
+		   width:400px;
+		   height:400px;
+		   border:1px solid black;
+		 }
+		 .warpper .centent,.box{
+			width:100px;
+			height:100px;
+		 }
+		 .warpper .centent{
+			background:red;
+		 }
+		 .warpper .box{
+			background:green;
+		 }
+     
+	  
+	  $('.warpper div:eq(0)').click(function (){
+		centent = $(this).remove();//因为remove把整个元素事件都删除了，只返回元素；
+		                          //不返回事件，所以p插入的时候，第二次点击不生效；
+		
+	  })
+	 
+	  $('.warpper div:eq(1)').click(function (){
+		box = $(this).detach();//因为detach把整个元素事件都删除，但返回元素和事件
+		                      //所以p插入的时候，第二次点击生效
+		
+	  })
+	  $('p').click(function(){
+		  $('.warpper').append(centent).append(box);//1:点击多次p，只进行覆盖插入标签；
+		                                            //因为原本有的相同的，覆盖，
+													//有的不相同的，不覆盖，插入
+													//没有的，插入
+	  })
+               
+			   bind()(老版本)，on()(新版本)，off()解除绑定
+	 1：jq xxx.click(function (){}) == xxx.onclick = function(){}原生js 
+ 2：jq xxx.on('click',function(){}) == xxx.addEventListener('click',function,false)原生
+
+ 第二点jq和原生js不同点
+   
+  xxx.on('click',参数,function),可以穿个参数，原生不行、
+   参数：字符串，数组，对象
+         
+   
+    例： $('.box').on('click',{name:'li'},function (e){
+		   console.log(e.data);//{name:'li'}
+	    }) 
+
+   如果穿字符串进去，会把字符串理解事件源。只有事件源才有了点击事件。
+   不是事件源，点击不了，当然也没有事件源,那么点击事件是不执行的了。
+   例：
+     $('.box').on('click','a',function (e){//当然a要在.box里面才能点击，不在，不能；
+	    console.log(e.data);//undefined
+		console.log($(this).html());//.box-->a标签里面的内容；
+   })
+   如果非得传入字符串a的下面这样写
+     // xxx.on('click','事件源','传入参数',fucniton (){})
+     $('.box').on('click','a','aaa',function (e){//当然a要在.box里面才能点击，不在，不能；
+	    console.log(e.data);//aaa
+		console.log($(this).html());//.box-->a标签里面的内容；
+   })
+
+   例：
+      $('.warpper').on('click','div',function (){//在.warpper里面绑定的，事件源div,
+		console.log($(this).html());       //在.warpper里面的div都可以点击；
+		                                  //后面动态添加到warpper里面的div,也可以
+										  //不是在warpper里面的div,都不行
+		
+	})
+	$('<div>3</div>').appendTo($('.warpper'));
+
+	              off()//解除绑定
+	例：$('.xxx').on('click',function(){} )
+	   $('.xxx').off('click');
+	 
+	例：如果绑定了多个事件源，但如果解绑整个绑定，那么下面的事件源都没了绑定。
+	    $('.warpper').on('click','.centent',function (e){//.warpper .centent绑定
+ 	       console.log($(this).html());
+		})
+		$('.warpper').on('click','.box',function (e){.warpper .box绑定
+			   console.log($(this).html());
+		})
+		//$('.warpper').off('click');//解除整个.warpper的绑定
+		$('.warpper').off('click','.centent');//解除单个.warpper .centent的绑定
+    
+
+	例：单个解除函数事件
+		$('.warpper').on('click','.box',a);
+		$('.warpper').on('click','.box',b);
+		function a(){
+			console.log('a');
+		}
+		function b(){
+			console.log('b');
+		}
+		$('.warpper').off('click','.box',b)
+
+		    
+			         one()//只绑定一次，第二次不生效了
+		可用于鼠标拖拽，当鼠标松开，移动事件是需要解绑的。
+	例：$('.warpper').one('click',function(){})
+
+
+
+
+	
+	srcollTop()滚动出去的高度:$(window).scrollTop();
+
+    
+	innerWidth  宽度： content padding
+	outerWidth  宽度： content padding border
+                宽度：参数为true的时候求出的宽度带有margin
+
+	demo:jQuery 创建注册窗口
+
+	创建dom $('<div></div>'),$('div'),$('<div/>')
+
+                 
+			 scroll()//滚动条滚动触发事件
+	           srcollTOP();srcollLeft();
+例：$(window).scroll(function (){
+		console.log($(window).scrollTop());
+	})
+   
+    position:fixed;滚动条滚动，div不动，在ie当中fixed非常不好;
+	position:fixed;兼容性写法
+	$(window).scroll(function (){
+	   $('.warpper').css({'top':$(window).scrollTop() + 100})
+   })
+            
+			    
+			  innerHeight/innerWidth,outerHeight/outerWidth;
+	$('.warpper').innerHeight();//400 centent + padding
+	$('.warpper').outerHeight();//402 centent + border
+	$('.warpper').outerHeight(true)// centent + border + padding
+	$('.warpper').width() //获取的是centent
+	
+                
+				 pageY;clientY;screenY;
+	
+	$('body').click(function (e){
+		 console.log(e.pageY);//鼠标点击相对文档，加上滚动条上面文档的高度
+		 console.log(e.clientY);//鼠标点击相对于视口，肉眼看到的。
+		 console.log(e.screenY);//鼠标点击相对于整个电脑屏幕。例：浏览器缩小，也是根据电脑屏幕取的值。
+	})
+	          
+			        e.which(),e.button
+	   $(document).on('mousedown',function (e){
+		   console.log(e.which);//按下 左键1 中间齿轮2  右键3
+		   console.log(e.button)//按下 左键0 中间齿轮1  右键2
+	   })
+            
+              stopPropagetion(),preventDefault(),return false
+			  在jquey中取消冒泡和默认事件都兼容了，不需写兼容ie方法了。
+	    $('a').on('click',function (e){
+		  e.stopPropagetion();//取消冒泡
+		  e.preventDefault();//取消默认事件
+		  return false;//若都需要取消冒泡，和默认事件的直接return false;
+		  
+	    })
+
+		 
+		    offset(),position()
+	返回一个对象{left:xxx,top:xxx};
+	offset(),相对于文档位置；
+	position(),相对于父级又定位的，没有父级定位的情况，
+	           且是相对于又定位的父级
+
+	$('xxx').offset();//{left:xxx,top:xxx};
+	$('xxx').position();//{left:xxx,top:xxx};
+				
+			*/
+	 
+	
+	
+   
+	</script>
+ </body>
+</html>
