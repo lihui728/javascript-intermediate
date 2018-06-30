@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    *{
+	  margin:0;
+	  padding:0;
+	  list-style:none;
+
+
+	}
+	.wrapper{
+	   width:499px;
+	   height:400px;
+	   position:absolute;
+	   top:50%;
+	   left:50%;
+	   
+	   margin-left:-254px;
+	   margin-top:-202px;
+	   border:1px solid black;
+	}
+	img{
+	  width:100%;
+	  height:100%;
+	}
+
+	.box{
+	  white-space:nowrap;
+	  font-size:0;
+	  position:absolute;
+	  top:50%;
+	  left:478px;
+	  margin-left:-251px;
+	  margin-top:-201px;
+	}
+	.box li{
+       width:500px;
+	   height:400px; 
+	   opacity:0;
+	   display:inline-block;
+	   
+ 	}
+	.box .item{
+	  opacity:1;
+	}
+  </style>
+ </head>
+ <body>
+   <div class="wrapper">
+   </div>
+   <ul class="box">
+       <li class="item"><img src="./images/1.jpg"></li>
+	   <li><img src="./images/2.jpg"></li>
+	   <li><img src="./images/3.jpg"></li>
+	   <li><img src="./images/4.jpg"></li>
+	   <li><img src="./images/1.jpg"></li>
+	 </ul>
+	<script>
+	   var box = document.getElementsByClassName("box")[0];
+	   var li = box.getElementsByTagName('li');
+	   var item = document.getElementsByClassName("item")[0]
+	  function move(){
+		  var timer = null;
+		  var num = 0;
+		  timer = setInterval(function (){
+			  var item = document.getElementsByClassName("item")[0];
+			 
+                  speed(num);
+			 
+			  
+              
+				  num ++;
+				 item.className="";
+				 li[num].className = "item";
+				if(num == 4){
+					num = 0;
+				}
+				 
+		  },3000);
+	  };
+	  function speed(num){
+         var sp = 20;
+		 var x = parseInt(getComputedStyle(box,null).left) - 500;
+		
+		 var timer = setInterval(function (){
+             
+			 
+              if(parseInt(getComputedStyle(box,null).left) <= x){
+				  clearInterval(timer);
+				
+				  
+			  }else{  
+				  box.style.left = parseInt(getComputedStyle(box,null).left) - sp + "px";
+			  }
+		 },20);
+	  }
+	 move();
+	  
+	</script>
+ </body>
+</html>
