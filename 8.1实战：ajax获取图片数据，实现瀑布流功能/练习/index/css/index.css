@@ -1,0 +1,35 @@
+*{
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.wrapper{
+   width:80%;
+   min-width:1000px;
+   margin:0 auto;
+   border:1px solid black;
+   padding-bottom:10px;
+   text-align:center;
+}
+.wrapper ul{
+   display:inline-block;
+  
+}
+.wrapper ul li{
+    float:left;
+	width:240px;
+	
+}
+.wrapper ul li .box{
+    width:200px;
+    padding:10px;
+	border:1px solid black;
+}
+.wrapper ul li img{
+    width:200px;
+}
+.wrapper .loading{
+    font-size:36px;
+	color:#cacaca;
+	display:none;
+}
