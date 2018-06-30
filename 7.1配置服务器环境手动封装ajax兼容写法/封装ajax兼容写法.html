@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+   
+	<script>
+     /*   
+                    form表单
+
+	        使用form表单,submit提交方式，将使整个页面跳转刷新
+		    使用get请求,就会把input中username和age拼接好
+            在get请求，会把数据拼接到当前url后面，然后按照
+			/sdf.php?username=&age=这个地址向后台发送请求
+			<form action='./sdf.php' method='GET'>
+			<input type="text" name="username">
+			<input type="text" name="age">
+			<input type="submit">
+			</form>         
+				 
+					    ajax
+
+		    ajax可以局部的获取数据，不用整个页面刷新
+	 method(提交方式)       action(发送到那个地址)       enctype
+
+	 enctype:规定在发送表单数据之前如何对其进行编码，
+	        1:application/x-www-form-urlencoded
+			     在发送前编码所有字符(默认，基本情况都不写这个属性值)
+			2:multipart/form-date(<input type='file'>)
+              不对字符编码，在使用包含文件上传控件的表单是，必须使用改值。
+			
+	 
+	 method:请求方式，有很多，GET，POST，delete等等，每一种请求的用途都是不一样的，
+	    
+		    get请求：主要是用来获得数据的，比如要获得评论列表的时候，是要从服务器
+			         获取一下，这时候就用get
+			delete请求：如果想要删除某一条数据的话，这时，相当于是要在服务器当中把某
+			         条数据删除，是要操作服务器的数据了，这时候就可以用delete请求
+					 主要用来删除的
+			post请求：比如说，前端想要把数据发送给服务器，然后服务器把数据插入到
+			         数据库中，这时候可以用post，post请求主要用来传送数据
+	
+	  ajax: 用javascript以异步的形式操作XML(现在操作的是json)
+	                     a                  j       a   x
+	                (Asynchronous(异步) javascript and XML(json))
+		    最开始的时候都是采用xml的格式，来进行数据交互的，但xml操作起来不是
+			很方便,后面出现一种数据格式，json，json是一种数据格式，不是一种数据
+			类型，是一个obj对象{"name":"123"},ajax的数据交互中都是json格式的，
+	  
+	  
+	  ajax步骤：
+	           1：浏览器
+			   2：ajax对象
+			   3：ajax.open(method,url,true)
+			   4: ajax.send();
+			   5: onreadystatechange(状态 4)
+			   6：states == 200 403 503
+			    
+				   
+				       封装一个属于我们自己的ajax
+         重要的两个对象new XMLHttpRequest();
+		  new ActiveXobject('Micrsosft.XMLHttp')//IE浏览器
+
+
+
+	      属性                     描述
+	onreadystatechange       状态改变的事件触发器(每次改变都触发)
+	
+	readyState               对象状态(integer),状态值
+	                         0 = 未初始化，未调用send()方法
+							 1 = 读取中，已调用send(),正在发送请求
+							 2 = 已读取，send()方法执行完成，接受到全部响应内容
+							 3 = 交互中，正在解析响应内容
+							 4 = 完成，相应内容解析完成
+				
+	responseText             获得字符串形式的响应数据
+
+	responseXML              获得XML形式的响应数据
+
+	status                   服务器返回的状态吗，如：404 = 文件未找到
+	                         200 = 成功
+							 500 = 服务器内部错误
+                             304 = 资源未被修改
+	
+	statusText               服务器返回的状态文本信息
+
+	Get请求数据的方式  xhr.open('GET','./getNews.php?username=li',true);
+	                   get拼接到open();
+	
+	post请求数据的方式
+	                  xhr.setRequestHeader 设置请求头，这个请求头是Content-type，
+			                     意思就是想设置一种编码格式
+			          Content-type ：是一种内容格式，内容类型
+	                  application/x-www-form-urlencoded  在发送前编码所有字符
+	
+	                 1:  xhr.open('POST','./post.php',true);
+	                 2:  xhr.setRequestHeader('Content-type',application/x-www-form-urlencoded);
+			         3:  xhr.send('username=aimee&&age=18');post拼接到send()
+
+					         封装兼容方法
+			 function ajax(method,url,date,callback,flag){
+			 var xhr = null;
+			 if(window.XMLHttpRequest){
+				 xhr = new XMLHttpRequest();
+			 }else{
+				 xhr = new ActiveXObject('Microsoft.XMLHttp');
+			 }
+			 method = method.toUpperCase()
+			 if(method == 'POST'){
+				  xhr.open(method,url,flag);
+				  xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+				  xhr.send(date);
+			 }else if(method == 'GET'){
+				 xhr.open(method,url + '?' + date,flag);
+				  xhr.send();
+
+			 }
+			
+			 xhr.onreadystatechange = function (){
+				 if(xhr.readyState == 4){
+					 if(xhr.status == 200){
+						
+						callback(xhr.responseText);
+					 }
+				 }
+			 }
+			 }
+
+	
+	*/
+	</script>
+ </body>
+</html>

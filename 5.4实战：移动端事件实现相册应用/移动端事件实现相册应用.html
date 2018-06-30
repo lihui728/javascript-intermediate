@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+     *{
+	   margin:0;
+	   padding:0;
+	   list-style:none;
+	 }
+	 html,body{
+	   width:100%;
+	   height:100%;
+	 }
+	 .wrapper,.wrapper ul{
+	   width:100%;
+	   height:100%;
+	 }
+     .wrapper ul li{
+	   display:inline-block; 
+	   width:25%;
+	  
+	   overflow:hidden;
+	 }
+	 .wrapper ul li img{
+	    width:100%;
+		height:100%;
+	 }
+	.wrapper .show{
+	    display:none;
+		position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		background-color:#e0e0e0;
+	 }
+	  .show img{
+	    position:absolute;
+		top:0;
+		left:0;
+		right:0;
+		bottom:0;
+		margin:auto; 
+	 }
+  </style>
+ </head>
+ <body>
+     <div class="wrapper">
+	   <ul>
+	     
+	   </ul> 
+	   <div class="show"></div>
+	 </div>
+    <script src="./zepto.js"></script>
+	<script src="./touch.js"></script>
+	<script>
+	   var arr = [
+	      {'url' : './img/0.png'},
+		  {'url' : './img/1.png'},
+		  {'url' : './img/2.png'},
+		  {'url' : './img/3.png'},
+		  {'url' : './img/4.png'},
+		  {'url' : './img/5.png'},
+		  {'url' : './img/6.png'},
+		  {'url' : './img/7.png'},
+		  {'url' : './img/8.png'},
+		  {'url' : './img/9.png'},
+		  {'url' : './img/10.png'},
+		  {'url' : './img/11.png'},
+		  {'url' : './img/12.png'},
+		  {'url' : './img/13.png'},
+		  {'url' : './img/14.png'},
+	   ]
+	   init();
+	   function init(){
+		   renderPage();
+		   $('li').css('height',$('li').width());
+		   bindEvent();
+	   }
+	   //生成图片结构
+	   function renderPage(){
+			 var str = "";
+			 arr.forEach(function (ele,index){
+				 str += "<li><img src='"+ele.url+"' alt=''></li>"
+			 });
+			 $(".wrapper ul").append($(str));
+		 }
+
+       function bindEvent(){
+		   var index;
+		   $('ul').on('tap','li',function (){
+			   //index->arr[index]    滑动左index-- 右index++
+			   index = $(this).index();
+			   loadImg(index);
+		   });
+		   $(".show").on("tap","img",function (){
+			   $(".show").css("display","none");
+		   }).on('swipeLeft',function (){
+			   index = index++ == arr.length-1 ? arr.length-1 : index; 
+			   console.log(index);
+			   if(index < arr.length){
+				   loadImg(index);
+			   }
+		   }).on('swipeRight',function (){
+               
+			   index = index-- == 0 ? 0 : index;
+			   console.log(index);
+			   if(index >= 0){
+				   loadImg(index);
+			   }
+		   })
+	   } 
+	   
+		function loadImg(index){
+			 $(".show").html('');
+             var deviceW_H = $(window).width()/$(window).height();
+             img = new Image();
+			 img.src = arr[index].url;
+			 $('.show').css('display','block').append($(img));
+			 img.onload = function (){
+                  var imgW_H = img.width / img.height;
+				  if(imgW_H < deviceW_H){
+					  $(this).css('height','100%');
+				  }else{
+					  $(this).css('width','100%');
+				  }
+			 }
+		}
+	  
+	</script>
+ </body>
+</html>

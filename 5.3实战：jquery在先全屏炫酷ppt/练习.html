@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+     *{
+	   margin:0;
+	   padding:0;
+	   list-style:none;
+	 }
+	 html,body,
+	 .wrapper,.centent{
+          width:100%;
+		  height:100%;
+ 	 }
+	
+	   
+	 .wrapper .centent:nth-child(1){
+	    background:url("./image/1.jpg") no-repeat;
+		background-size:cover;
+	 }
+	 .wrapper .centent:nth-child(2){
+	    background:url("./image/2.jpg") no-repeat;
+		background-size:cover;
+		display:none;
+	 }
+	 .wrapper .centent:nth-child(3){
+	    background:url("./image/3.jpg") no-repeat;
+		background-size:cover;
+		display:none;
+	 }
+	 .centent-left{
+	   position:absolute;
+	   top:30%;
+	   margin-left:20px;
+	   margin-left:100px;
+	 }
+	 .centent-right{
+	    width:30%;
+		height:30%;
+		margin-top:166px;
+		float:right;
+	 }
+	 .centent-right img{
+	    width:50%;
+	 }
+	 .btn{
+	    width:100%;
+		height:70px;
+		position:absolute;
+		top:50%;
+		margin-top:-15px;
+	 }
+	 .btn span{
+	    display:inline-block;
+		font-size:48px;
+	    font-weight:900;
+	 }
+	 .btn span:nth-child(1){
+	    float:left;
+		margin-left:90px;
+	 }
+	 .btn span:nth-child(2){
+	    float:right;
+		margin-right:90px;
+	 }
+	 .wrapper .f_index{
+	     width:100%;
+		 height:30px;
+		 position:absolute;
+		 bottom:4%;
+		 text-align:center;
+	 }
+	 .wrapper .f_index ul li{
+	     display:inline-block;
+		 width:30px;
+		 height:30px;
+		 border-radius:50%;
+		 margin-left:35px;
+		 background-color:#a0a0a0;
+	 }
+	.active{
+	    background-color:red !important;
+	}
+  </style>
+ </head>
+ <body>
+   <div class="wrapper">
+      <div class="centent">
+	     <div class="centent-left">
+		     <h1>标题一</h1>
+			 <p>图片一</p>
+		 </div>
+		 <div class="centent-right">
+		    <img src="./image/4.png">
+		 </div>
+	  </div>
+	   <div class="centent">
+	     <div class="centent-left">
+		     <h1>标题二</h1>
+			 <p>图片二</p>
+		 </div>
+		 <div class="centent-right">
+		    <img src="./image/4.png">
+		 </div>
+	  </div>
+	   <div class="centent">
+	     <div class="centent-left">
+		     <h1>标题三</h1>
+			 <p>图片三</p>
+		 </div>
+		 <div class="centent-right">
+		    <img src="./image/4.png">
+		 </div>
+	  </div>
+	 <!-- <div class="btn">
+	      <span><</span>
+		  <span>></span>
+	  </div>
+	  <div class="f_index">
+	     <ul>
+		    <li class="active"></li>
+			<li></li>
+			<li></li>
+		 </ul>
+	  </div>-->
+   </div>
+     <script src="./jquery-3.3.1.js"></script>
+	 <script>
+	   var start = {
+		    i :  0,
+		   index : 0,
+		   flag : true,
+		   init : function (){
+                 this.len();
+				 this.addEvent();
+		   },
+		   len : function (){
+			   var str = "";
+			
+			   if($(".centent").length != 1){
+			   for(var i=0;i < $(".centent").length;i++){
+				   if(i == 0){
+					   str = "<li class='active'></li>"
+				   }else{
+					   str += "<li></li>"
+				   }
+			   }
+			   
+				str = `<div class="btn"><span class="btn-left">
+				<</span><span class="btn-right">></span></div>
+				<div class="f_index"><ul>`+str+`</ul>\
+				</div>`;
+				/*
+				str = '<div class="btn"><span class="btn-left">\
+                <</span><span class="btn-right">></span></div>\
+                <div class="f_index"><ul>' + str + '</ul></div>';
+				*/
+			    $('.wrapper').append($(str));
+			 }
+
+		   },
+		   addEvent : function (){
+			   var self = this;
+			   $('li').add($('span')).on('click',function (e){
+				       var that = this;
+                   self.event(that);
+			   })
+		   },
+		   event : function (obj){
+			  var nowIndex = this.index,
+			           key = true;
+              if($(obj).attr("class") == "btn-left"){
+			       this.index = this.index-- == 0 ? $(".centent").length -1 : this.index;
+				  
+			  }else if($(obj).attr("class") == "btn-right"){
+                   this.index = this.index++ == $(".centent").length -1 ? 0 : this.index;
+				  
+			  }else{	
+                   this.index = $(obj).index();
+			  }
+			  this.trgger(nowIndex);
+			  $('.active').removeClass('active');
+			  $('li').eq(this.index).addClass('active');
+
+              $('.centent').eq(nowIndex).trigger('come');
+			  $('.centent').eq(this.index).trigger('quit');
+		   },
+		   trgger : function (index){
+			  var self = this;
+              $('.centent').on('come',function (){
+				   $(this).fadeOut(400).find($('img')).animate({'width':'0%'});
+			  });
+			  
+			  $('.centent').on('quit',function (){
+				  $(this).fadeIn(300).find($('img')).animate({'width':'50%'},300,'linear')
+			  })
+		   },
+	   }
+	   start.init();
+	 </script>
+ </body>
+</html>
