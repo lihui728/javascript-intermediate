@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    body{
+	  width:2000px;
+	  height:2000px;
+	}
+  </style>
+ </head>
+ <body>
+   <a href="#3">fsfd</a>
+   <script>
+      /*             
+	                window对象属性，方法
+	  confirm('a') //弹出一个窗口，返回ture和false;
+
+
+	  close();//关闭浏览器窗口
+
+
+	  open();//window.open('URL','name','features(width=100,height=100)',replace(更换,可以不写))
+
+	 
+	  moveBy();//moveBy(x,y)移动窗口 写法：var aa=window.open(....);   aa.moveBy(x,y);
+
+	  print();//打印当前浏览器窗口
+
+      promt();//弹出一个输入窗口，带返回输入的值
+
+	  scrollBy(x,y);//按照指定的像素值来滚动内容(累加滚动像素)
+
+	  scroll(x,y),scrollTo(x,y);//把内容滚动到制定的坐标(不累加滚动像素)
+
+	  closed//属性，返回窗口是否已被关闭 var aa = window.open(...) aa.closed;返回ture和false;
+
+	  innerHeight,innerWidht//属性,返回窗口的文档显示区的高度，宽度;
+
+	  outerHeight,outerWidth//属性,返回窗口外部高度,宽度(整个浏览器可视)
+
+	  pageXOffset,pageYOffset//设置或返回当前页面相对于窗口显示区左上角的X,Y位置(滚动条xy);
+
+	  <iframe src="E:/练习/js/文件/事件.html"></iframe>//iframa标签：引进文件
+	  
+	  window.length//属性 设置或返回窗口中的框架数量 用法：HTML：<iframe src="E:/练习/js/文件/事件.html"></iframe>;window.length 返回2;
+	  
+	  window.top//属性 返回最顶层的先辈窗口 用法:HTML:   <iframe src="E:/练习/js/文件/事件.html"></iframe>  <script>var aa = 123;<script>  --->在子窗口事件.html可以访问到最顶层的先辈窗口的变量  <script>console.log(window.top.aa)<script>;
+
+	  window.parent//属性 返回父窗口  用法:HTML:   <iframe src="E:/练习/js/文件/事件.html"></iframe>  <script>var aa = 123;<script>  --->在子窗口事件.html可以访问到父窗口的变量
+	  <script>console.log(window.parent.aa)<script>;
+
+	  screenLeft,screenTop(IE,chrome);screenX,screenY(chrome)//属性 只读整数，声明了窗口的左上角在屏幕上的x坐标和y坐标。
+
+	              
+				      Navigator属性和方法
+	   navigator.appName//属性 返回浏览器名称
+
+	   appCodeName //属性 返回浏览器的代码名，以Netscape代码为基础的浏览器中，它的值是"Mozilla"。为了兼容Microsoft也是
+
+	   cookieEnabled//属性 返回知名浏览器中是否启用cookie的布尔值，返回ture和false；
+
+	   onLine //属性  返回指明系统是否处于脱机模式的布尔值(网络是否连接，返回ture和false);
+
+	   userAgent//属性 返回由客户机发送服务器的user-agent头部的值("Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36"-----appCodeName和appVersion的结合)
+
+       plugins//属性 返回包含了客户端安装的所有插件的数组
+
+	   javaEnabled()//规定浏览器是否支持并启用了java
+
+	   tainEnabled()//规定浏览器是否启用数据污点(date tainting);
+
+	      
+		      History对象
+	History对象包含用户(在浏览器窗口中)访问过的URL
+
+	length//属性 返回浏览器历史列表中的URL数量
+
+	back()//加载history列表中的前一个URL
+
+	forward()//加载history列表中的下一个URL
+
+	go()//加载history列表中的某个具体页面
+
+	   
+	        Location对象
+   hash//属性 返回从#号开始的URL(#....)(锚)
+   host//属性 返回域名和URL的端口号(hostname和port的结合)
+   hostname//属性 返回当前域名
+   port//属性 返回当前URL的端口
+   pathname//属性 返回当前URL的路径部分
+   protocol//属性 返回当前URL的协议
+   search//属性 返回从?(问号)开始的URL
+   assign('http://www.baidu.com')//加载新的文档
+   reload('force')//重新加载当前文档，参数可选，不填或false则取浏览器缓存的文档
+   replace('http://www.baidu.com')//用新的文档替换当前文档
+
+     
+	      
+		     
+
+	                 
+	   */
+	   
+   </script>
+ </body>
+</html>
