@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+     div{
+	    width:200px;
+		height:200px;
+		border:1px solid black;
+		margin-top:400px;
+	 }
+	 ul li{
+	   list-style:none;
+	   width:200px;
+	   height:30px;
+	   margin-top:20px;
+	   border:1px solid red;
+	   text-align:center;
+	   line-height:30px;
+	 }
+  </style>
+ </head>
+ <body>
+     <ul>
+	    <li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+	 </ul>
+	 <div id="div"></div>
+	 <script>
+	
+	  var li = document.getElementsByTagName('li');
+	  var ul = document.getElementsByTagName('ul')[0];
+	    for(var i=0;i<li.length;i++){
+			li[i].draggable = true;
+			li[i].id = 'item' + i;	     
+			   li[i].addEventListener('dragstart',function (e){
+				   //如果不用id值，用立即执行函数，不可行，用index传入的，如下方法
+				   var num = getIndex(this);
+				 //  e.dataTransfer.setData('data',this.id);
+				    e.dataTransfer.setData('data',num)
+			   })
+			   li[i].addEventListener('dragover',function(e){
+				   e.preventDefault();
+			   })
+			   li[i].addEventListener('drop',function (e){
+				   var data = e.dataTransfer.getData('data');
+				  // ul.insertBefore(document.getElementById(data),this);
+				  ul.insertBefore(li[data],this);
+			   })
+
+
+		}
+	  function getIndex(dom){
+           for(var i=0;i<li.length;i++){
+			   if(li[i] == dom){
+				   return i;
+			   }
+		   }          
+	  }
+	  div.addEventListener('dragover',function (e){
+		  e.preventDefault();
+	  })
+      div.addEventListener('drop',function (e){
+		  var data = e.dataTransfer.getData('data');
+	 //	  document.getElementById(data).remove();
+	      li[data].remove();
+	  })
+	 </script>
+ </body>
+</html>

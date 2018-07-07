@@ -1,0 +1,9 @@
+var person = [
+    { name: '刘小华', src: '1.jpg', sex: 'male', des: '漂亮的女孩子' },
+    { name: '王花', src: '2.jpg', sex: 'male', des: '漂亮的程序猿' },
+    { name: '陈军', src: '3.jpg', sex: 'female', des: '我是一个学霸' },
+    { name: '王华', src: '4.jpg', sex: 'female', des: '我喜欢游泳' },
+    { name: '陈思思', src: '5.jpg', sex: 'male', des: '我喜欢看电影' },
+    { name: '陈学习', src: '6.jpg', sex: 'female', des: '我爸我妈爱学习' },
+    { name: '王美丽', src: '7.jpg', sex: 'male', des: '我妈是美丽得妈妈' }
+];

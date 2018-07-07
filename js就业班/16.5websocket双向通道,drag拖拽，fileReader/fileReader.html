@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+     <div id="drop_area"></div>
+	 <div id="progress">
+	    <div id="val"></div>
+	 </div>
+	 <span id="num">0%</span>
+	 <div id="preview"></div>
+
+	 <script src="./loadFile.js"></script>
+	 <script src="./ajax.js"></script>
+	 <script>
+	    var events = {
+			load : function (data){
+				console.log(data);
+				ajax('post','http://localhost...');
+			},
+			progress : function (percent){
+				val.style.width = percent * 2 + 'px';
+				num.innerHTML = Math.round(percent) + %;
+			},
+			success : function (){
+				console.log('success');
+			}
+		};
+		function cb(){
+			console.log('ss');
+		}
+		drop_area.addEventListener('dragover',function (e){
+			e.preventDefault();
+		})
+		var loader;
+		drop_area.addEventListener('drop',function (e){
+			e.preventDefault();
+			var file = e.dataTransfer.files[0];
+			loader = new FileLoader(file,events);
+		})
+
+		//document.getElementById('paused').onclick = function (){
+ //			loader.abort();
+	//	}
+	 </script>
+ </body>
+</html>

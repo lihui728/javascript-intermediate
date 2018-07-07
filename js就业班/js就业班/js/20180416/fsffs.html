@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+   <form action="www.baidu.com">
+      <input type = 'text' class='a' >
+	  <input type = 'text' class='a'>
+	  <input type = 'submit' id='f' ">
+   </form>
+   <script>
+      var div = document.getElementsByClassName('a');
+	  var input = document.getElementById('f');
+	  document.onsubmit = function (){ return false;}
+	  for(var i=0;i<div.length;i++){
+		  div[i].oninput = function (e){
+			  if(div[0].value !='' && div[1].value !='' ){
+				 document.onsubmit = function (){ return true;}
+			  }
+		  }
+	  }
+   
+	 /* function test(){
+	  if(div[0].value !='' && div[1].value !=''){
+        // console.log('a');
+	  }
+	  }
+	  test();*/
+	  
+    
+   </script>
+ </body>
+</html>

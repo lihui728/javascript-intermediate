@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+   <script>
+    var arr = [
+	{name : 'aaa',age:12,like:'cat'},
+	{name : 'bbb',age:13,like:'dog'},
+	{name : 'ccc',age:14,like:'tigger'},
+	{name : 'ddd',age:15,like:'fish'},
+	];
+	
+	  //解析foreach源码
+	/* 
+	arr.forEach(function (ele,index){
+		console.log(ele,index);
+	});
+	Array.prototype.myForEach = function (fn){
+		  var len = this.length;
+		  for(var i=0;i<len;i++){
+			  fn(this[i],i,this);
+		  }
+	  }
+	       filter
+
+	  var fArr  = arr.filter(function (ele,index){
+		 
+		  if(ele.age > 14){
+
+		   return true;
+		   }
+	  })
+		//myFilter源码
+	  Array.prototype.myFilter = function (fn){
+		  var len = this.length;
+		  var newArr = [];
+		  for(var i = 0;i<len;i++){
+			  if(fn(this[i],i)){
+				  newArr.push(this[i]);
+			  }
+		  }
+		  return newArr;
+	  }
+	var a = arr.myFilter(function (ele,index){
+		  if(ele.age > 13){
+			  return true;
+		  }
+	  })
+	        
+			
+			
+			map
+  var b = arr.map(function (ele,index){
+	 return ele;
+   })
+   Array.prototype.myMap = function (fn){
+	   var len = this.length;
+	   var newArr =  [];
+       for(var i = 0;i < len;i++){
+		
+		   newArr.push(fn(this[i],i,this));
+	   }
+	   return newArr;
+   };
+   var c = arr.myMap(function (ele,index){
+	   return ele.age * 10;
+   })
+	  */
+	
+
+   
+   function deepClone(target, option) {
+            var copy, src;
+            if (option != null) {
+                for (var prop in option) {
+                    src = target[prop];
+					console.log(src);
+                    copy = option[prop];
+                    if (copy && typeof copy == 'object') {
+                        if (Object.prototype.toString.call(copy) == '[object Array]') {
+                            src = src ? src : [];
+                        } else {
+                            src = src ? src : {};
+                        }
+                        target[prop] = deepClone(src, copy);
+                    } else {
+                        target[prop] = copy;
+                    }
+                }
+            }
+            return target;
+        }
+       var obj1= {
+		   name : 'lalala',
+		   teacher : {
+			   t:{
+				   name : 'cheng',
+			   }
+		   }
+	   }
+	   var obj2 = {
+		   sex : 'girl',
+		   name : 'bagagg',
+		   teacher : {
+			   t1 : {
+				   name : 'dneg',
+				   age : 58,
+			   },
+			   t2 : {
+				   name : 'ding',
+				   age : 38,
+			   }
+		   }
+	   }
+	    deepClone(obj1, obj2)
+   </script>
+ </body>
+</html>

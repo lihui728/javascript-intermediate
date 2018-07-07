@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	   var arr = [
+	   {name : 'aaa',age:12,like:'cat'},
+	   {name : 'bbb',age:13,like:'dong'},
+	   {name : 'ccc',age:14,like:'tigger'},
+	   {name :'ddd',age:15,like:'fish'},
+	   ];
+	 var newArr = arr.filter(function (ele,index){
+		 return ele.age >= 14;
+	 });
+	 Array.prototype.myFilter = function (fn){
+          var newArr = [];
+		  var len = this.length;
+		  for(var i = 0;i<len;i++){
+			  if(fn(this[i],i)){
+				  
+				  newArr.push(this[i]);
+			  }
+		  }
+		  return newArr;
+		
+	 }
+	      
+	var a = arr.myFilter(function (ele,index){
+		return ele.age > 13;
+	})
+	/* 
+	        forEarh:源码实现
+	Array.prototype.myForEach = function (fn){
+		   var len = this.length;
+		   for(var i=0;i<len;i++){
+			   fn(this[i],i,this);
+		   }
+	 }
+	 arr.myForEach(function (ele,index,a){
+		 console.log(ele,index,a);
+	 })*/
+	</script>
+ </body>
+</html>

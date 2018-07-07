@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    *{
+	 margin:0;
+	 padding:0;
+	}
+	html,body{
+	  width:100%;
+	  height:100%;
+	}
+	
+	.a,.c{
+	  width:100px;
+	  height:100px;
+	  background:red;
+	  opacity:0.1;
+	 /*position:absolute;*/
+	}
+	.a{
+	   float:left;
+	  /* left:0;*/
+	}
+	.b{
+	   height:100px;
+	   margin:0px 100px 0px 100px;
+	   overflow:hidden;
+	   background:green;
+	}
+	.c{
+	  /*right:0;*/
+	  float:right;
+	  background:black; 
+	}
+  </style>
+ </head>
+ <body>
+ 
+  <div class="a"></div>
+ 
+  <div class="c"></div>
+   <div class="b"></div>
+
+    <script>
+	   1:常见的HTTP状态码你了解多少?描述一下以下状态码：
+	     http状态码是什么？
+		 当访问一个网站的时候，浏览器会向服务器发送请求。当前数据是否请求成功。返回一个状态码，通过状态码了解当前请求状态。
+		 常见的200,301，302,303,403,404, 503
+
+		 (1)200，请求成功，一切正常，数据成功返回
+
+                    3开头一般是重定向
+		 (2)301,永久性重定向，是指所请求的文档在别的地方，文档新的url会在定位响应头信息中给出，浏览器会自动连接到新的url
+
+		 (3)302，临时重定向，该状态码表示请求的资源已被分配新的url，希望用户(本次)能使用新的url访问。
+
+		 (4)303,该状态码表示由于请求对应的资源存在另一个url，应使用get方法定向获取请求的资源。
+
+                     4开头一般是客户端问题
+		 (5)403,Foribdden 服务器理解本次请求，但是拒绝执行任务，没有权限访问
+
+		 (6)404 NOT found 请求的资源，网页无法找到，不存在
+                    
+					 5开头一般是服务器问题
+		 (7)505 服务器无法响应，服务器由于在维护或已经超载而无法响应
+
+	  1:什么情况下会遇到跨域，描述一下前端常见处理跨域的几种方式，并封装一个json，原理
+	     
+		浏览器最核心，最基本的安全功能是同源策略，限制一个源中加载文本或者脚本与其他源中资源的交互方式，
+		当浏览器执行一个脚本是会检查是否同源，只有同源的脚本才会执行，如果不同源即为跨域。
+	
+	    (1)jsonp：原理就是利用了script标签不受同源策略的限制，在页面中动态插入了script，script标签的scrip属性
+		          就是后端api接口的地址，并且以get的方式将前端回调处理函数名称告诉后端，后端在响应请求是将回调返回，
+				  并且将数据以参数的形式传递回去。
+
+		(2)CORS:(跨域资源共享)是一种允许当前与的资源被其他域的脚本请求访问的机制
+		         当使用XMLHttpRequest发送请求时，浏览器如果发现违反了同源策略就是自动加上了一个属性：Access-Control-Allow-Origin,
+				 值就是发起请求的源地址，浏览器得到响应会进行判断Access-Control-Allow-Origin的值是否和当前的地址相同，
+				 只有匹配成功后才进行响应处理。现代浏览器中和移动端都支持CORS，IE需要8+；
+		
+		(3)服务器跨域，服务器中转代理
+		   前端向本地服务器发送请求，本地服务器代替前端再向服务器接口发送请求进行服务器间通信，本地服务器是个中转站的角色。
+		   再将响应的数据返回个前端
+       
+	   3：web前端应该从哪些方面优化网站性能
+	     
+		(1)减少页面体积，提升网络加载
+           1:静态资源压缩合并,(js/css代码压缩合并，精灵图)
+		   2：静态资源缓存
+	       3：使用CDN(缓存服务器)加载资源更快,向最近的服务器发送请求
+		(2)优化页面渲染
+		   1：css放在前面，js放后面，js放前面会阻塞页面加载
+		   2：懒加载(按需加载)
+		   3：减少dom操作,重排(回流)和重绘。
+		 
+	   4:浏览器端存储 有哪些，并描述他们的区别
+	       1：cookie  大小4k限制
+		   2：localStorage  5m  永久存储
+		   3：sessionStorage 5m  临时存储，浏览器窗口关闭，失效
+		 
+	   5：说说get和post请求
+	       1：get请求会被浏览器主动cache(缓存)，而post不会，除非手动设置
+		   2：get请求只能进行url编码，而post支持多种编码方式。
+		   3：get请求参数会被完整保留在浏览器历史记录里，而post中的参数不会保留
+		   4：get请求在url中传送的参数是有长度限制的，而post没有限制
+		   5：对参数的数据类型，get只接受ascii字符，而post没有限制
+		   6：get比post更不安全，因为参数直接暴露在url上，所以不能用传递敏感想信息。
+		   7：get参数通过url传递，post放在Request body中，
+		   8：get产生一个tcp数据包，post产生两个tcp数据包，(对于get方式的请求，
+		      浏览器会把http header 和data一并发送出去，服务器响应200(返回数据)；
+			  而对于post，服务器响应100 continue,浏览器再发送data，服务器响应200, ok(返回数据))
+
+	  6：一个页面从输入url到页面加载完的过程中都发生了什么事情；
+	      加载过程
+		  1：浏览器根据dns服务器解析得到域名的ip地址
+		  2：向这个ip地址的服务器发送http请求
+		  3：服务器收到，处理并返回http请求
+		  4：浏览器得到返回内容
+		  渲染过程
+		  1：根据html结构生成dom树
+		  2：根据css生成css树
+		  3：将dom和css树整合形成Render Tree
+		  4:根据RenderTree，开始渲染和展示
+		  5：遇到<script>时，会执行并阻塞渲染
+
+      
+	   11：http是什么
+	       http是hypertext transfer protocol(超文本传输协议)的简写，他是tcp/ip协议的一个
+		   应用层协议，用于定于web浏览器与web服务器之间交换数据的过程，客户端连上web服务器后
+		   若想获得web服务器中的某个web资源，需遵守一定的通讯格式，http协议用于定义客户端与
+		   web服务器通讯的格式。
+	   
+	   13：http与https的区别
+	       为了数据传输的安全，https与http的基础上加入ssl协议，ssl依靠证书来验证服务器的身份，
+		   并为浏览器和服务器之间的通信加密
+
+		   http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。
+		   http的链接很简单，是无状态；https协议是由ssl+http协议构建的可进行加密传输。
+		   身份认证的网络协议，比http协议安全
+	   
+	   12：实现元素的水平居中方式
+	      //未知元素宽高，进行水平垂直居中，用第一种
+	      1：div{
+			  position:absolute;
+			  left:50%;
+			  top:50%;
+			  transform:translate(-50% -50%)
+		  }
+		  2: div{
+			  position:absolute;
+			  left:50%;
+			  top:50%;
+			  margin-left:-自身一半width
+			  margin-top: -自身一半height
+		  }
+		  3：html,body{
+			  width:100%;
+			  height:100%;
+			  display:flex;
+			  justify-content:center;
+			  align-items:center;
+		  }
+		  4:div{
+			  position:absolute;
+			  left:0;
+			  top:0;
+			  right:0;
+			  bottom:0;
+			  margin:auto;
+		  }
+	   12：实现元素的两栏，三栏布局
+	     可用postion和float，两个属性，设置两栏和三栏布局，自适应的就不用写width；
+	      两栏布局
+		    a{
+			  width:100px;
+			  height:100px;
+			  position:absolute;
+			  background:red;
+			  right:0px;
+			  opacity:0.2;
+			}
+			.b{
+			  千万不要加width:100%,否则margin不生效
+			  height:100px;
+			  background:black;
+			  margin-right:100px;
+			}
+
+		  三栏布局
+		   .a,.c{
+			  width:100px;
+			  height:100px;
+			  background:red;
+			  opacity:0.1;
+			 /*position:absolute;*/
+			}
+			.a{
+			   float:left;
+			  /* left:0;*/
+			}
+			.b{
+			   height:100px;
+			   margin:0px 100px 0px 100px;
+			   overflow:hidden;
+			   background:green;
+			}
+			.c{
+			  /*right:0;*/
+			  float:right;
+			  background:black; 
+			}
+	
+		   
+	   
+	   14：对于模块化的理解以及怎么在书写代码中体现
+          每一个单独功能把它封装一个函数，
+		  立即执行函数，封闭作用域，
+		  对象，init()入口。每个功能都是一个单独的对象
+
+		  好处：
+		      1：维护方便，
+			  2：防止全局变量污染，
+			  3：多人开发，模块化开发提高效率
+			  4：提高代码的复用。
+			  5：高内聚，低耦合
+
+	   15:重排(回流)和重绘是什么？什么情况下会触发重排和重绘
+	      
+		  浏览器渲染原理
+		  1:浏览器会把HTML解析成DOM，
+		  2：把css解析成CSSDOM，
+		  3：DOM和CSSDOM合并就产生了RederTree，
+		  4：有了RederTree，就知道了所有节点的样式，然后计算他们在页面上的大小和位置，最后把节点绘制到页面上。
+
+          重排(回流)
+		  当RederTree中部分或全部元素的尺寸，结构，或某些属性发生改变时，浏览器重新渲染部分或全部文档的过程为回流；
+		  一个页面最少发生一次回流，那就是在页面第一渲染的时候。
+		  以下操作会发生重排
+		  1:浏览器窗口大小发生改变
+		  2：元素尺寸或位置发生改变
+		  3：元素内容变化(文字数量或图片大小等等)
+		  4：元素字体大变化
+		  5：添加或者删除可见的DOM元素
+
+		  重绘
+		  当页面中元素样式的改变并不影响他在文档流中的位置时(例如：color,background-color,visibility等)，
+		  浏览器会将新样式赋予给元素并重新绘制它，这个过程中为重绘
+
+		  避免频繁的样式操作，最好一次性重写style，或者一次性更改class，避免频繁操作dom，
+		  对具有复杂动画的元素使用绝对定位。使他脱离文档流，否则会引起父元素及后续元素频繁回流。
+       16:数组扁平化，数组去重。
+	       数组扁平
+		   var newArr = [];
+	       function test(arr){
+		   for(var i=0;i<arr.length;i++){
+			   if(Object.prototype.toString.call(arr[i]) == "[object Array]" ){
+				   test(arr[i]);
+			   }else{
+				   newArr.push(arr[i]);
+			   }
+			   }
+		   }
+		   数组去重
+		   var obj = {};
+		   var newA = [];
+		   function son(arr){
+			   for(var i=0;i<arr.length;i++){
+				   obj[arr[i]] = arr[i];
+				   newA.push(arr[i])
+			   }
+			 
+		   }
+		   function uqique(arr){
+		   var newArr = [];
+		   arr.forEach(function (ele,index){
+			   if(newArr.indexOf(ele) == -1){
+				   newArr.push(ele);
+			   }
+		   })
+		   return newArr;
+	   }
+
+
+
+	</script>
+ </body>
+</html>

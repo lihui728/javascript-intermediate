@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         初始化本地仓库        git init
+         1：终端输入  ssh-keygen，
+         2：生成ssh密钥，(/c/Users/admin/.ssh/id_rsa)，在这个路径打开id_rsa.pub，复制密钥
+         3：在github里面个人设置，SSH and GPG keys 创建输入密钥
+              本地创建
+         4：在本地终端输入 git config --global user.name lihui  创建用户名
+         5：在本地终端输入 git config --global User.mail lihui728675969@163.com 设置邮箱
+         6：git config --list 查看信息
+             本地关联远程仓库
+         7：在github点击头像出现Your profile --》 选中自己新建的仓库点击(eg:git)--》clone or download--》把地址复制
+         8：在本地终端输入 git remote add origin https://github.com/lihui728/git.git
+
+
+         git pull origin master
+         在本地新建文件
+         git add .
+         git commit -m 'first'
+         git push origin master
+
+		 从远程仓库克隆到本地
+		 git clone https://github.com/lihui728/git.git //https协议
+		 git@github.com:lihui728/git.git  //ssh协议
+
+		 执行提示 Run
+		          git config --global user.email "you@example.com"
+				  git config --global user.name "You Name";
+		 解决方法：在.git文件夹的config配置
+		           [user]
+				       name = name
+					   email = mail
+
+   如果输入$ git remote add origin git@github.com:djqiang（github帐号名）/gitdemo（项目名）.git 
+   提示出错信息：fatal: remote origin already exists.
+   解决办法如下：
+    1、先输入$ git remote rm origin
+    2、再输入$ git remote add origin git@github.com:djqiang/gitdemo.git 就不会报错了！
+    3、如果输入$ git remote rm origin 还是报错的话，error: Could not remove config section 'remote.origin'. 我们需要修改gitconfig文件的内容
+    4、找到你的github的安装路径，我的是C:\Users\ASUS\AppData\Local\GitHub\PortableGit_ca477551eeb4aea0e4ae9fcd3358bd96720bb5c8\etc
+    5、找到一个名为gitconfig的文件，打开它把里面的[remote "origin"]那一行删掉就好了！
+
+   
+   打开ssh.exe的中文为数字解决方法
+   只需要在git安装目录中的etc目录下修改bash.bashrc文件。在该文件头部加入：
+	export LANG=zh_CN.utf-8
+	alias ls='ls --show-control-chars --color=auto'
+	保存，然后就可以显示中文了。 
+	如果中文这时候还是乱码，那么把export LANG=zh_CN.utf-8替换成：export LC_ALL=zh_CN.UTF-8
+
+
+	两步实现在Git Bash中用Sublime打开文件
+	每次都要用鼠标点来点去才能用sublime打开文件！太不科学！今天来配置一下在git bash中用sublime打开文件
+	方法
+	新建一个文件命名为你想要的命令，比如 subl（注意不能有后缀名），内容：
+	#!/bin/sh
+	"C:\Program Files\Sublime Text 3\sublime_text.exe" $1 &
+	第一行是说这是个 shell 脚本
+	第二行的字符串是sublime 的安装目录注意这里要输入你自己的目录
+	第二行的$1 是取的命令之后输入的参数
+	第二行的&是此命令在后台打开，这样sublime打开之后，就不会阻塞你的git bash
+	保存到 C:\Program Files (x86)\Git\mingW32\bin 目录下(你的git目录可能与我的不一样，注意改成你自己的)
+	大功告成~
+	使用方法
+	subl xxx
+    
+     查看进程 ps  结束进程 kill pid
+     查看盘符(磁盘) df -h      -h将容量转换g
+
+	使用git pull --rebase origin master导致覆盖了本地文件，删除。解决方法
+	1：git reflog
+	    502dd0f HEAD@{0}: pull --progress --rebase --prune origin master  
+		147b3b5 HEAD@{1}: commit: commit-mark
+		502dd0f HEAD@{2}: rebase finished: returning to refs/heads/master  
+    2：git reset --hard 502dd0f
+       git cherry-pick 147b3b5
+
+
+
+	解决本地仓库和github仓库不同，无法pull
+	    报：fatal: refusing to merge unrelated histories
+	命令：git pull origin master --allow-unrelated-histories
+
+    </script>
+</body>
+</html>

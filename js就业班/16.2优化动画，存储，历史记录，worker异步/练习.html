@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    #Div{
+	  width:1000px;
+	  height:20px;
+	  border:1px solid black;
+	  border-radius:10px;
+	  position:relative;
+
+	}
+	
+	#Box{
+	   width:100px;
+	   height:100%;	
+	   border-radius:10px;
+	   background:#33ccff;
+	   text-align:right;
+	   opacity:1;
+	   animation:op 3s linear infinite alternate;
+	}
+   @keyframes op{
+       0%{
+	      opacity:1;
+	   }
+	   100%{
+	      opacity:0.2;
+	   }
+   }
+  #wrapper{
+     width:400px;
+	 height:500px;
+	 margin:0 auto;
+	 display:flex;
+	 flex-wrap:wrap;
+	 border:1px solid black;
+	 align-content:flex-start;
+  }
+  #wrapper div{
+      width:100px;
+	  height:50px;
+	  text-align:center;
+	  border:1px solid red;
+  }
+   #wrapper div:nth-child(1),
+   #wrapper div:nth-child(2),
+   #wrapper div:nth-child(3){
+      flex-grow:1;
+	  line-height:50px;
+   }
+   #wrapper div:nth-child(4){
+     flex-grow:1;
+     height:446px;
+	 line-height:446px;
+   }
+  </style>
+ </head>
+ <body>
+   <div id="Div">
+     <div id="Box"></div>
+   </div>
+   <div id="wrapper">
+      <div class="item" date="one"">1</div>
+	  <div class="item" date="two">2</div>
+	  <div class="item" date="three">3</div>
+	  <div id="aa">111</div>
+   </div>
+   <script src="http://localhost/ajax.js"></script>
+   <script src="http://localhost/jquery.js"></script>
+   <script>
+  
+ 
+  
+   /*   window.requestAnimation = (function (){
+		   window.requestAnimationFrame ||
+		   window.webkitRequestAnimationFrame ||
+		   window.mozRequestAnimationFrame ||
+		   function (callback){
+			   setTimeout(callback,1000/60);
+		   }
+	
+	  }())
+	  var timer = null;
+	  var radomTime = parseInt(Math.random() * 10000 + 300);
+	  var firstTime = new Date().getTime();
+	  function anima(){
+		   Box.innerText=parseInt(Div.offsetWidth*Box.offsetWidth/10000) + "%";
+		    var lastTime = new Date().getTime();
+			var speed = parseInt(Math.random() * 50 + 1);
+		   
+		    if(Div.offsetWidth - Box.offsetWidth <= speed){
+				var num = parseInt(Math.random() * 2 + 1);
+				console.log(num);
+				if(num == 1){
+					setTimeout(function (){
+				      Box.style.width = Div.offsetWidth - 2 + "px";
+					  Box.innerText="100%";
+					},1000);
+					cancelAnimationFrame(timer);
+				}else{
+					setTimeout(function (){
+				      Box.style.width = Div.offsetWidth*0.99 + "px";
+					  Box.innerText="99%";
+					    setTimeout(function (){
+							alert("加载失败");
+						},5000)
+					},1000);
+					cancelAnimationFrame(timer);
+				}
+				
+			}else{ 
+				if(lastTime - firstTime >= radomTime){
+					radomTime = parseInt(Math.random() * 10000 + 300);
+					Box.style.width = Box.offsetWidth + speed + "px";
+				    Box.innerText=parseInt(Div.offsetWidth*Box.offsetWidth/10000) + "%";
+					firstTime = lastTime;
+				}
+				
+				
+		        timer = requestAnimationFrame(anima);
+			}
+			
+	
+	  }
+	  anima();
+	  
+	           //客户端存储(storage,cookie)
+	           //localStorage
+			   //sessionStorage
+/*	 localStorage.name = "lihui";
+	 //不支持对象，可以利用JSON格式。
+	 localStorage.obj = JSON.stringify({"nam":'aa','yy':'123'});
+	 console.log(localStorage.obj);//取值。
+	 //sessionStorage用法一样，关闭窗口即生效。
+
+	        //api
+     localStorage.setItem("u",8);//设置属性
+	 console.log(localStorage.getItem("u"));//获取属性
+	 localStorage.removeItem("u");//删除属性
+	 localStorage.clear();//清空所有的属性
+
+/*
+	        作用域
+    localStorage和sessionStorage都受到了作用域的限制，必须满足同源策略，
+	如果不满足同源策略，则取不到值。只有localStorage可以取值。
+	sessionStorage关闭窗口取不到值。不可以去其他窗口的值。
+
+	       
+		   //cookie(4k)
+   console.log(navigator.cookieEnabled);//cookie是否启用，返回true和false
+      
+	      //设置cookie(谷歌需要在服务器下设置)
+   document.cookie = "name=aimee";
+
+         //获取cookie
+   document.cookie;
+           
+		//设置cookie存储期限
+		 //(1)
+   document.cookie = "name=host;max-age=1000";//单位秒；
+         //(2)
+     // expires当前时间加上保存
+   var oDate = new Date();//创建时间对象
+   oDate.setDate(oDate.getDate() + 3);//加3天
+   document.cookie="ti=a;expires"+oDate;
+
+  
+   //cookie的名/值对中的值不允许出现分号，逗号，空白符，因此在设置
+   //cookie前要用encodeURIComponent()编码，读取时再用decodeURIComponent编码；
+   encodeURIComponent(document.cookie="name=lihui")//设置编码
+   decodeURIComponent(document.cookie)//读取时使用编码
+  
+  //通过domain，访问不同于的cookie；
+  //cookie，path,收到路径的限制，可以修改路径
+              
+
+
+			//history  历史记录，放到栈中，遵循先进后出
+//   history.back()//向后回退一页
+//   history.forward()//向前翻一页
+//   history.go(1)//正数向前翻，负数往后
+//   history.length//历史记录的条数
+
+//   history.pushState(null,null,"?one");//第一个参数可以填一个对象，当popstate触发，改对象传入回调函数中。
+                                         //第二个参数是标题，可忽略填null，
+										 //但三个填url，没啥用处，基本用来拼接url
+//   history.replaceState(null,null,'?page=3');//和上面的参数一样。
+
+           
+		    //事件
+      //popstate事件，history.pushstate和history.replacestate不会触发，向前向后翻触发
+	  //hashchange事件，当hash值发生变化触发。
+
+history.pushState({name:'one'},null,'?one');
+	window.addEventListener('popstate',function(){
+		console.log(888);
+	},false)
+
+
+eg:利用ajax和popstate走前进和后退的数据交互
+
+   function get(value){
+    $.ajax({
+		type : "GET",
+		url : "http://localhost/getDate.php?page=" + value,
+	
+		success : function (data){
+	        $('#wrapper div:nth-child(4)').text(data);
+		}
+	})
+   }
+   
+	history.pushState({name:'one'},null,'?one');
+	window.addEventListener('popstate',function (e){
+         console.log(e.state['name']);
+		 get(e.state['name'])
+	})
+	$("#wrapper .item").on('click',function (){
+		var att = $(this).attr('date');
+		history.pushState({name:att},null,'?'+ att);
+		get(att);
+
+	})
+
+
+
+hashchange //也是通过前进后退触发。
+
+   function get(value){
+    $.ajax({
+		type : "GET",
+		url : "http://localhost/getDate.php?page=" + value,
+	
+		success : function (data){
+			
+	        $('#wrapper div:nth-child(4)').text(data);
+		}
+	})
+   }
+   history.pushState(null,null,'#=1');
+   window.addEventListener('hashchange',function (){
+	   var hash = location.hash;
+	   if(hash == "#=3"){
+		   hash = 'three';
+	   }else if(hash == "#=2"){
+		   hash = 'two';
+	   }else{
+		   hash = 'one';
+	   }
+	  get(hash);
+   })
+   $('#wrapper .item').on('click',function (){
+	   var text = $(this).text();
+	    history.pushState(null,null,'#='+text);
+   })
+
+
+ ---------------------------------------------------------------------------
+
+     
+    	     Worker
+ var worker = new Worker('worker.js');
+ worker文件必须和主文件满足同源策略；、
+
+           
+		   worker和主线程之间的通信
+
+1：postMessage(n)方法
+
+2：onmessage事件
+
+eg:   
+
+       主文件
+
+  var worker = new Worker('./worker');
+worker.postMessage(10);
+worker.onmessage = function (e){
+	console.log(e.data);
+}
+$('#wrapper .item').on('click',function (){
+	console.log($(this).text());
+})
+     
+	 worker.js
+
+var lastTime = new Date().getTime();;
+onmessage = function (e){
+	postMessage(get(e.data));
+}
+function get(data){
+	var num = data;
+	for(var i=0;i<1000022120;i++){
+         num += data*2 + 2;
+	}
+	var T = new Date().getTime() - lastTime;
+	return {num,T};
+}
+  
+
+
+ ------------------------------------------------------------------
+
+     结束一个worker
+
+close()在worker作用域中调用(worker.js)
+
+terminate()在worker对象上调用(主进程的worker对象上worker.terminate);
+
+*/
+var worker = new Worker('./worker');
+worker.postMessage(10);
+worker.onmessage = function (e){
+	console.log(e.data);
+//	worker.terminate();
+}
+$('#wrapper .item').on('click',function (){
+	console.log($(this).text());
+	
+
+})
+   </script>
+ </body>
+</html>

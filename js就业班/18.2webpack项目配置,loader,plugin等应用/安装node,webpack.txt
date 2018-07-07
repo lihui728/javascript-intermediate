@@ -1,0 +1,20 @@
+1：http://www.runoob.com/nodejs/nodejs-install-setup.html；
+
+2：npm安装
+    安装完成后，打开cmd工具输入命令
+    npm install --save mocha
+
+3:webpack安装
+  cmd工具中，输入命令 
+  npm  install  webpack  -g
+
+4:webpack -h 出现错误
+
+5：安装 webpack-cli
+ 先npm init -y 和 npm install webpack -cli -g
+不行
+npm init -y
+npm install webpack -D
+npm install webpack-cli -D
+
+6：webpack -h  显示正常

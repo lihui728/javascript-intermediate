@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+   <script>
+   function ajaxFun(method,url,callback,data,flag){
+	    var xhr = null;
+		if(window.XMLHttpRequest){
+		   xhr = new XMLHttpRequest;//w3c
+		}else{
+		   xhr = new ActiveXOjbect('Microsoft.XMLHttp');//ie9以下
+		}
+		xhr.onreadystatechange = function (){
+			 xhr.readyState == 4 && xhr.status == 200 ? callback(xhr.responseText) : "";
+		}
+		method = method.toUpperCase();
+		if(method == "GET"){
+			var date = new Date();
+			    timer = date.getTime();
+		    xhr.open(method,url + '?' + data + '&timer=' + timer,flag);
+            xhr.send();
+		}else if(method == "POST"){
+			xhr.open(method,url,flag);
+			xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+			xhr.send(data);
+		}
+
+	 }
+    var $ = {
+		ajax : function (obj){
+            var cb = "&callback=jQuery";
+			if(obj.dataType != "jsonp"){	
+				ajaxFun(obj.type,obj.url,obj.success,obj.data,true);		
+			}else{
+				 var key = true;
+				 var proto = obj.url.split('/')[0],
+					urlHost = obj.url.split('/')[2]; 
+				 key = (proto == location.protocol && urlHost == location.host) ? key = true : key=false;
+				 if(key){
+					 ajaxFun(obj.type,obj.url,obj.success,obj.data,true);
+					 
+				 }else{
+					 window.jQuery = obj.success;
+					 var script = document.createElement("script");
+					 script.src = obj.url + "&callback=jQuery";
+					 script.type = "text/javascript";
+					 document.body.append(script);
+				 }
+			}
+	    }
+            
+	};
+	var obj = {
+		type : "get",
+		url :  "https://api.douban.com/v2/music/search?q=h",
+	  //  url : "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=ss&cb=jQuery",
+	  //  url : "http://localhost/index.txt",
+		dataType : "jsonp",
+		data : "&ta=o",
+		success : function (data){
+			console.log(data);
+		}
+	}
+	$.ajax(obj)
+
+   /*  function scr(){
+          var script = document.createElement('script');
+		  script.src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=ss&cb=jQuery";
+		  script.type = "text/javascript";
+		  document.body.append(script);
+	  }
+	  scr();
+	  function jQuery(data){
+		  console.log(data);
+	  }*/
+   </script>  
+ </body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	               形状变换
+				  transform
+	transform:rotateX(45deg) | rotateZ(45deg) | rotateY(45deg) | rotate3d(1,1,1,45deg) xyz合力的新方向 //旋转,参数为deg
+	transform:scale(x,y) | scaleX(1) | scaleY(2) | scaleZ() | scale3d(x,y,z) //扩大缩放 参数为num
+    transform:skew(x,y) | skewX(45deg) | skewY(45deg) //倾斜 接收参数为deg,第二个参数不写默认为0；
+	transform:translate(x,y) | translateX(45px) |translateY(45px) | translate3d(x,y,z)//平移
+	transform-origin:center center | 50% 50% | 50px 50px //改变元素中心点
+
+	              transition 过度动画
+	transition-property:指定过渡或动态模拟的css属性 //该属性可以填all,代表响应所有元素
+	transition-duration:指定过渡所需要的时间
+	transition-timing-function:指定过渡函数
+	transition-delay:指定开始出现的延迟时间
+	语法：transition:left 2s linear 2s || transition:all 2s linear 2s;
+	   
+	             animation  动画铺垫
+	
+	动画关键帧
+	
+	@keyframes
+
+	animation 动画会按照keyframes关键帧里面指定的帧状态而过渡执行
+
+	0%-100%代表动画的时间过渡，只有0%和100%两个关键帧，可以from to代替
+    
+	语法：animation:关键帧名 多少时间执行完 linear 延迟时间 .........。
+	      
+		  @keyframes 关键帧名{
+			  0%{
+			    .....
+			  }
+			  100%{
+			    .....
+			  }
+		  }
+
+    属性如下：
+	 
+	animation-name: 此属性为执行动画的keyframes名
+	animatoin-duration: 此属性为动画执行的时间。
+	animation-timing-function:指定过渡函数速率
+	animation-delay:延迟时间
+	animation-directoin: normal/reverse(倒着运行100%-》0)/alternate(奇正偶反执行)/alternate-reverse(奇反偶正)
+	animatoin-iteration-count: infinite(无限次) | number //执行次数
+	animation-fill-mode:forwards(动画结束后停在最后一帧)/backwards(迅速应用初始帧，结合延迟1s,看结果)/both(前面两个参数的集合体)/none;
+	animation-play-state: running(运行)/paused(暂停)
+	</script>
+ </body>
+</html>

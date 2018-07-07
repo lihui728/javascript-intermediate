@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+     <script>
+	         /*
+			      模块化
+	 1：具有相同属性和行为的事物的集合，在前端中，将一些属性比较类似和行为比较的内容放在同一个
+		js文件里面，把这个js文件称为模块，为了每个js文件只关注与自身有关的事情，让每个js文件
+		各行其职。
+	 
+	 2：模块要有几个特点：独立，完整，依赖关系。
+
+	 3：在最开始的阶段，js并没有这些模块机制，各种js到处飞，也就是现在的野生代码，得不到有效
+	    妥善的管理，后来前端圈开始制定规范，最耳熟能详的是Commonjs(node.js遵从)和amd
+
+-------------------------------------------------------------------------------------------
+		         模块化的实现
+	
+	 1：函数
+	 
+	 2：对象写法
+
+	 3：匿名函数，返回对象
+
+	 4：依赖传入实参
+     
+	 5：以上缺点依赖关系不好处理，需要按顺序加载，会阻塞页面
+
+eg: 函数
+    function add(a,b){//单独一个功能,但不好，太多功能要写很多函数，函数名增多，污染全局
+		return a + b;
+	}
+	function a(a){
+		console.log(a);
+	}
+
+eg：对象
+    var ppt = {
+		len:3,
+		init:function (){},
+		cleateDom : function (){},
+	}
+	ppt.len = 5;在外部可以改变里面的属性，不好。
+
+eg:匿名函数，返回对象
+  
+  var obj = (function (){
+			var len = 3;
+			function add(a,b){
+				  return a + b;
+			}
+			return {
+				add : add;
+			}
+	  }())
+ 
+ coonsole.log(len);//取不到里面的值。
+
+eg:依赖
+   
+   var module1 = (function (m){
+	   m.add = function (a,b){
+		   return a + b;
+	   }
+	   return m;
+   }(window.module1 || {}))
+
+ 
+---------------------------------------------------------------------------
+
+
+         CommonJs
+
+根据CommonJs，每一个文件就是一个模块，
+其内容定义的变量是属于这个模块的，
+不会对外暴露，也就是说不会污染全局变量。
+
+该规范最初是用在服务器端的node的，前端
+的webpack也是对CommonJs原生支持的。
+
+用es6写法和less写法，但浏览器并不认识这两个东西，
+所以交给工具，让工具转换成浏览器所识别的东西出来。
+
+
+CommonJS的核心思想就是通过require方法来同步加载所要依赖的其他模块，然后通过
+exports或者module.exports来导出需要暴露的接口
+
+//index.js
+var module = require('module.js');
+moudule.aa('hello');
+
+//module.js
+module.exports = {
+	aa : function (str){
+		console.log(str);
+	}
+}
+
+
+浏览器不兼容CommonJS，原因是浏览器缺少module，exports，require，global四个
+环境变量，如要使用需要工具转换
+
+CommonJS采用同步加载不同模块文件，适用于服务器端的。因为模块文件都存放在
+服务器的各个硬盘上，读取加载时间快，适合服务器端。不适应浏览器。
+
+
+
+--------------------------------------------------------------------------
+
+                 AMD
+CommonJs为服务器端而生，采用的同步加载方式。因此不适用浏览器，因为浏览器需要
+到服务器加载文件，请求时间远大于本机读取的时间，倘若文件较多，网络迟缓就会导致
+页面瘫痪，所以浏览器更希望能够时间异步加载的方式。
+
+AMD规范则是异步加载模块，允许指定回调函数，等模块异步加载完成后即可调用回调函数。
+
+AMD得意的产出就是require.js
+
+---------------------------------------------------------------------------
+
+				CMD
+CMD异步加载，跟AMD的主要区别在于，AMD依赖前置，提前加载依赖，而CMD就近加载，按需
+加载
+
+产物seaJs，跟requireJs使用有些相似。
+
+
+CMD的核心思想就是通过define来定义一个模块，然后使用require来加载一个模块
+
+<script src="./js/sea.js"><script>
+<script>
+	  //index.html
+	  seajs.use('main.js');
+
+	  //main.js
+	  define(function (require,exports,module){
+		  var module1 = require('module1.js')
+		  console.log(module1);
+	  })
+
+	  //module1.js
+      define(function (require,exports,module){
+		   var arr = [1,2,3]
+		   exports.module1 = arr;
+	  })
+			 */
+	 </script>
+ </body>
+</html>

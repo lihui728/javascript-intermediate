@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+   *{
+     margin:0;
+	 padding:0;
+	 list-style:none;
+   }
+    .wrapper{
+	  width:500px;
+	  height:300px;
+	  border:1px solid black;
+	  margin:100px auto 0px;
+	  position:relative;
+	  overflow:hidden;
+	}
+	.wrapper .sliderPage{
+	   width:2500px;
+	   height:300px;
+	   position:absolute;
+	   top:0;
+	   left:0;
+	   border:1px solid black;
+	}
+	.wrapper .sliderPage li{
+	   width:500px;
+	   height:300px;
+	   float:left;
+	   
+	}
+	.wrapper .sliderPage li img{
+	   width:100%;
+	   height:100%;
+	}
+	.wrapper:hover .btn{
+	   opacity:0.7;
+	}
+	.wrapper .btn{
+       width:40px;
+	   height:40px;
+	   background:#fff;
+	   line-height:40px;
+	   text-align:center;
+	   position:absolute;
+	   top:50%;
+	   opacity:0.1;
+	   cursor:pointer;
+	   margin-top:-20px;
+	}
+	.wrapper .rightBtn{
+	   right:0;
+	}
+	.wrapper .sliderIndex{
+	    position:absolute;
+		top:85%;
+		left:50%;
+		margin-left:-90px;
+	}
+	.wrapper .sliderIndex span{
+	    display:inline-block;
+		width:20px;
+		height:20px;
+	    margin-left:20px;
+		border-radius:50%;
+		background:#5d5d5d;
+	}
+    .wrapper .sliderIndex .active{
+        background:red;
+	} 
+  </style>
+ </head>
+ <body>
+   <div class="wrapper">
+     <ul class="sliderPage">
+	   <li><img src="./images/1.jpg"></li>
+	   <li><img src="./images/2.jpg"></li>
+	   <li><img src="./images/3.jpg"></li>
+	   <li><img src="./images/4.jpg"></li>
+	   <li><img src="./images/1.jpg"></li>
+	 </ul>
+	 <div class="btn leftBtn" id="leftBtn">&lt;</div>
+	 <div class="btn rightBtn">&gt;</div>
+	 <div class="sliderIndex">
+	   <span class="active"></span>
+	   <span></span>
+	   <span></span>
+	   <span></span>
+	 </div>
+   </div>
+    <script src="./startMove.js"></script>
+	<script src="./htmlDic.js"></script>
+	<script>
+     var div = document.getElementsByClassName('wrapper')[0];
+    var timer = null;
+        var sliderPage = document.getElementsByClassName("sliderPage")[0];
+		var moveWidth = sliderPage.children[0].offsetWidth;//获取需要移动的left，移动一个子元素li的width
+		var num = sliderPage.children.length-1;//记录有多少li移动
+		var leftBtn = document.getElementsByClassName("leftBtn")[0];
+		var rightBtn = document.getElementsByClassName("rightBtn")[0];
+		var oSpanArray = document.getElementsByClassName('sliderIndex')[0].getElementsByTagName('span');
+		var lock = true;//加锁
+		var index = 0;//索引
+        leftBtn.onclick = function (){
+			autoMove("right->left");
+		}
+		rightBtn.onclick = function (){
+			autoMove("left->right");
+		}
+		//direction
+		//默认轮播方向 'left->right' /undefined
+		//点击left按钮 'right-->left'；
+		//加锁，当一个定时器还没做完，另外一个定时器又触发。则会发生混乱，锁是开着的，第一个事情开始，加上锁，做完锁打开，下一个事情类推。
+		function autoMove(direction){
+			if(lock){
+			lock = false;//锁锁上
+			clearTimeout(timer);//清理计时器，清理了，没计时器了，不执行轮播了。还要在后面添加回计时器
+            if(!direction || direction == 'left->right'){
+				index++;//索引
+				startMove(sliderPage,{left:sliderPage.offsetLeft - moveWidth},function (){
+				   if(sliderPage.offsetLeft == -num * moveWidth){//判断是否到了最后一张图片
+					   index = 0;//到了最后一张索引变零
+                       sliderPage.style.left = "0px";
+				   }
+				   timer = setTimeout(autoMove,2000);//清理计时器，重新执行。
+				   lock = true;//开锁
+				   changeIndex(index);//传进index，索引类名添加
+				})
+			}else if(direction == "right->left"){
+				if(sliderPage.offsetLeft == 0){
+					sliderPage.style.left = -num * moveWidth + "px";////需要清理计时器。要不出现计时器争抢。
+					index = num;//开始索引0，变成最后一张索引
+				}
+				 index--;//最后一张索引减减
+			     startMove(sliderPage,{left:sliderPage.offsetLeft + moveWidth},function (){
+					 timer = setTimeout(autoMove,2000);//清理计时器，重新执行。
+					 lock = true;//开锁
+					 changeIndex(index);//索引类名添加
+               })
+
+			}
+
+		}
+			
+	}
+	
+	function changeIndex(_index){//小圆点
+	 	for(var i=0;i < oSpanArray.length;i++){
+			oSpanArray[i].className = " ";
+		}
+		oSpanArray[_index].className = "active";
+	}
+    
+	for(var i = 0;i < oSpanArray.length;i++){
+          (function (myIndex){
+			  oSpanArray[i].onclick = function (){
+				  lock = false;//锁上
+				  clearTimeout(timer);
+				  index = myIndex; //全局的index = myIndex
+				  startMove(sliderPage,{left: -index * moveWidth},function (){//移动当前位置多少个span * li的width 
+					  lock = true;//开锁
+					  timer = setTimeout(autoMove,2000);//重新执行计时器
+					  changeIndex(index);//索引也要更新
+				  });
+			  }
+		  }(i))
+	}
+
+	timer =  setTimeout(autoMove,2000)
+
+	//作业
+	//HTMLDivElement.prototype.createTurnPage = function (['./cat1.jpg','./cat2.jpg']){}
+	//div.createTurnPage(['./cat1.jpg',...])  div通过调用原型上面的方法，内部结构生成轮播图
+	</script>
+ </body>
+</html>

@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+     <script>
+	  /*
+	                    geolocation
+		       window.navigator.geolocation
+	  
+	  1:getCurrentPosition()//获取当前的位置信息，一次
+	  2:watchPosition()//监视位置变化，和1参数一样，多次
+	  3:clearWatch()//清除位置监视
+
+	                   
+					 getCurrentPosition(s,e,p)
+	  1:success回调 (必须)
+	  2：error 回调
+	  3：options参数
+	  4：需要翻墙chrome  Microsoft Edge不用翻墙
+
+    success回调返回的对象(Geoposition){    
+	Geoposition: {coords: Coordinates, timestamp: 1529162457765}
+	coords: Coordinates
+	accuracy: 17722    //定位精准度，单位m
+	altitude: 0    //海拔
+	altitudeAccuracy: null  //海拔精准度,单位m
+	heading: NaN     //反向
+	latitude: 22.5428   //纬度
+	longitude: 114.0595  //经度
+	speed: NaN   //速度
+	__proto__: Coordinates
+	timestamp: 1529162457765
+	__proto__: Coordinates
+	}
+   地理定位api规范 https://w3c.github.io/geolocation-api/#privacy_for_uas
+
+    error回调返回的对象(PositionError){
+          用户拒绝 code = 1； //User denied Geolocation
+		  获取不到 code = 2；  //Network location provider at 'https://www.googleapis.com/' : No response received
+		  连接超时 code = 3； //Timeout expired
+	}
+	https://dev.w3.org/geo/api/spec-source.html#position_erroe_interface
+
+	
+	options参数
+	enableHighAccuracy 是否需要高精度位置默认false 理论上
+    timeout 单位ms请求超时时间 默认infinity
+	maximumAge 单位ms，watchPosition方法则不停地取用户的地理
+	位置信息，不停地更新用户的位置信息。位置信息过期时间 设置
+	为0就无条件获取新的地理位置信息默认0；(watchPosition,无条件获取，没办法解决，
+	但是获取完了，这个位置可以不更新。位置不需要无时无刻的去获取。1分2分钟之后才更新
+	这个位置。maximumAge--》在这个时间里不会去更新这个信息)
+
+eg:
+      function suc(pos){//成功
+		  console.log(pos);
+	  }
+	  function err(pos){//失败
+		  console.log(pos);
+	  }
+	  var option = {
+        enableHighAccuracy : true,
+		timeout : 10,
+	  }
+	  window.navigator.geolocation.getCurrentPosition(suc,err,option);
+
+
+======================================================================================
+            
+			  watchPosition(和定时器用法差不多)
+	
+	var id = geolocation.watchPosition(fu)用于注册监听器，在设备的地理位置发生改变的
+	时候自动被调用。
+    参数与getCurrentPosition  相同
+
+	clearWatch(id)使用clearWatch清除监听
+	window.navigator.geolocation.clearWatch(timer);
+
+eg:
+    function suc(pos){
+		  console.log(pos);
+	  }
+	  function err(pos){
+		  console.log(pos);
+		  alert(888);
+	  }
+	  var option = {
+        enableHighAccuracy : true,
+		timeout : 10,
+	  }
+	//  window.navigator.geolocation.getCurrentPosition(suc,err,option);
+
+	  var timer = window.navigator.geolocation.watchPosition(suc,err,option);
+	  button.onclick = function (){
+		  window.navigator.geolocation.clearWatch(timer);
+		  console.log(000);
+	  }
+
+
+======================================================================================
+
+
+            devicemotion监听加速度变化
+	(当移动设备(陀螺仪)，疯狂摇动的时候，监听的到手机是
+	加速还是减速。监听加速度的变化，加速度一旦变化，就会
+	触发devicemotion事件，用来告诉用户运动了。)
+	
+	
+	window.addEventListener('devicemotion',function (event){
+		console.log(event);
+	});
+
+ 
+
+           
+		  
+		 devicemotion事件所包含的属性
+
+	    属性有一些电脑没有，移动设备有
+1：accelerationlncludingGravity (包含重心引力,z轴方向加了9.8,在x，y方向上的值//电脑没有，移动设备有
+   两者相同)重力加速度
+2：acceleration  重力加速度(和上面的属性参不多，只不过了没了z轴方向9.8，同时还需要陀螺仪支持)
+3：rotationRate(alpha,beta,gamma )旋转速率
+4：interval  获取的时间间隔
+均为只读属性
+
+
+
+eg:
+    var span = document.getElementsByTagName('span');
+	  window.addEventListener('devicemotion',function (e){
+		  console.log(e);
+		  console.log(e.accelerationIncludingGravity.x);
+		  console.log(e.accelerationIncludingGravity.y);
+		  console.log(e.accelerationIncludingGravity.z);
+		  span[0].innerHTML = e.accelerationIncludingGravity.x;
+		  span[1].innerHTML = e.accelerationIncludingGravity.y;
+		  span[2].innerHTML = e.accelerationIncludingGravity.z;
+	  })
+
+eg:
+    window.addEventListener('devicemotion',function (event){
+		console.log(event);
+		console.log(event.accelerationlncludingGravity);
+		console.log(event.acceleration);
+		console.log(event.rotationRate);
+		console.log(event.interval);
+		console.log(888);
+	})
+======================================================================================
+
+	                微信摇一摇思路
+	 首先为了节约性能，无时无刻的进行判断，这时候判断时间差，如果大于300，在判断是否摇了，
+     大于300的时候，就判断3个方向加速度合力的差值，根据差值算出一个值，然后根据和测试的好
+	 的值800进行对比，判断是否大于这个值，大于就认为在摇动。小于这个值就认为手抖。之后
+	 里面进行所需的需求进行。
+
+	 var SHAKE_THRESHOLD = 800;
+  var last_update = 0;//初始时间
+  var x,y,z,last_x=0,last_y=0,last_z=0;
+  function deviceMotionHandler(eventDate){
+	  var acceleration = eventData.accelerationIncludingGravity;
+      var curTime = new Date().getTime();
+	  if((curTime - last_update) > 300){ //摇动不少于300毫秒触发
+		  var diffTime = curTime - last_update;
+		  last_update = curTime;
+		  x = acceleration.x;
+		  y = acceleration.y;
+		  z = acceleration.z;
+		  var speed = Math.abs(x + y + z -last_x - last_y - last_z) / diffTime * 10000;
+
+	      if(speed > SHAke_THRESHOLD){//判断摇动的速度是否不小于800毫秒触发
+              alert('shaked!');
+			  var div = document.createElement('div');
+			  div.innerText = '11';
+			  document.body.appendChild(div);
+		  }
+		  last_x = x;
+		  last_y = y;
+          last_z = z;
+	  }
+
+  }
+  if(window.DeviceMotionEvent){//判断该浏览器是否支持Devicemotion
+	  window.addEventListener('devicemotion',deviceMotionHandler,false);
+  }else{
+	  alert("Not supported on your device");
+ }
+
+ 如下思路：
+ 1：判断该浏览器是否支持Devicemotion
+ 2：支持，绑定devicemotion事件
+ 3：创建速度(800)，创始化上一个时间，x，y，z，last_x,last_y,last_y;
+ 4：判断现在时间和上一个时间不少于300毫秒，因为devicemotion事件
+    每时都触发，摇动。
+ 5：进入不少于300毫秒的条件内，把上一个时间更新为现在的时间。
+ 6：创建一个现在的时间和上一个的时间差。(diffTime)
+ 7：获取x，y，z的变化
+ 8：创建速度公式：var speed = Math.abs(x+y+z - last_x -last_y - last_z)/diffTime(时间的差值) * 10000；
+ 9：判断当前速度是否大于初始800速度。
+ 10：进入条件，可以实现其他动作。
+ 11：更新last_x,last_y,last_z,的值，为当前的x,y,z
+
+ ========================================================================================
+
+
+      deviceorientation监听设备在方向上的变化
+
+window.addEventListener(deviceorientation,function (event){
+	console.log(event);
+})
+
+ 
+      deviceorientation事件所包含的属性
+
+1:alpha表示设备沿z轴上的旋转角度，范围为0-360；
+
+2：beta表示设备在x轴上的旋转角度，范围为-180~180.它描述的 
+  是设备由前向后旋转的情况。
+
+3：gamma表示设备在y轴上的旋转角度，范围为-90~90.他描述的是
+  设备由左向右旋转的情况。
+
+4:webkitCompassHeading: 与正北方向的角度差值，正北为0度，
+  正东为90度，正南为180度，正西为270度。因为0度是正北，所以
+  叫指北针。
+
+5：webkitCompassAccuracy:指北针的精确度，表示偏差为正负多少度，
+  一般是10；
+ 
+ eg:
+      var span = document.getElementsByTagName('span');
+	  window.addEventListener('deviceorientation',function (e){
+		  span[0].innerText = e.beta;
+		  span[1].innerText = e.gamma;
+		  span[2].innerText = e.alpha;
+	  },false)
+
+
+eg:获取用户手机倾斜状态
+   
+   if(window.DeviceOrientationEvent){
+	window.addEventListener('deviceorientation',DeviceOrientationHandler,false);
+	}else{
+		alert("你的浏览器不支持DeviceOrientation");
+	}
+	function DeviceOrientationHandler(event){
+		var alpha = event.alpha,
+			beta = event.beta,
+			gamma = event.gamma;
+		var span = document.getElementsByTagName('span');
+		if(alpha != null || beta != null || gamma != null){
+			var html = "";
+			if(gamma > 0){
+				html = "向右倾斜" + gamma;
+			}else{
+				html = "向左倾斜" + gamma;
+			}
+			span[0].innerText = html;
+			var str = "";
+			if(beta > 0){
+				str = "向前倾斜" + beta; 
+			}else{
+				str = "向后倾斜" + beta;
+			}
+			span[1].innerText = str;
+			span[2].innerText = "旋转" + alpha;
+		}else{
+		   document.body.innerHTML = "当前浏览器不支持DeviceOrientation";
+	}
+	
+	  */
+	
+if (window.DeviceOrientationEvent) {
+window.addEventListener("deviceorientation", orientationHandler, false);
+}
+function orientationHandler(event){
+	alert(888);
+	console.log(event);
+}
+	
+	 </script>
+ </body>
+</html>

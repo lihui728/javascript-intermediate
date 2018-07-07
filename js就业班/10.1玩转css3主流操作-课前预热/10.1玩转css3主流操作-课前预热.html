@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+   /*  #wrapper{
+         width:200px;
+		 height:100px;
+		 box-shadow:4px 2px 2px 2px #000,5px 4px 5px 5px red;
+		
+	 }  
+	 ul li{
+	   list-style:none;
+	   width:200px;
+	   height:40px;
+	   border:1px solid black;
+	 }
+	 li:hover{
+	   box-shadow:-3px 0px 4px 1px black,3px 0px 4px 1px green,0px 3px 4px 1px blue,0px -3px 4px 1px yellow;
+	 }
+	 p{
+	   text-shadow:2px 3px 3px red;
+	 }
+	 .box{
+	   width:100px;
+	   height:100px;
+	   background:radial-gradient(ellipse at center,red 10%,green 50%,black 10%,blue 90%);
+	 }
+	 .footer{
+	   width:100px;
+	   height:200px;
+	   position:absolute;
+	   top:0;
+	   left:0px;
+	   background-color:rgba(255,0,0,0.5);
+	 }
+	 @font-face{
+	    font-family:"myFirstFamily";
+		src:url('./Broken Heart.ttf');
+	 }
+	 p{
+	  width:100px;
+	  border:1px solid black;
+	  overflow:hidden;
+	  word-wrap:break-word;
+	  font-family:"myFirstFamily";
+	 } */
+	 .centent{
+	    width:100px;
+		height:100px;
+		padding:40px;
+		border:50px solid rgba(0,0,0,0.5);
+	    background-image:url('./1.jpg');
+		background-repeat:no-repeat;
+		background-origin:content-box;
+		background-clip:padding-box;
+		background-size:cover;
+		
+	 }
+	 p{
+	   width:364px;
+	   height:370px;
+	   background:url('./2.png');
+	   text-fill-color:-webkit-background-clip;
+	   -webkit-background-clip:text;
+	   -webkit-text-fill-color:transparent; 
+	   word-wrap:break-word;
+	   
+
+	 }
+  </style>
+ </head>
+ <body>
+   <!-- <div id="wrapper"></div>
+	<p>
+	  adfsdgsjlgfdgfsflksjsfldfldsfljfslfsfsfsfslfsfjslkfsfsddddddddddddddddddddddd
+	</p>
+	<ul>
+	   <li></li>
+	    <li></li>
+		 <li></li>
+		  <li></li>
+          <li></li>
+	</ul>
+	<div class="box"></div>
+	<div class="footer"></div> -->
+	<div class="centent"></div>
+	<p>
+	   adfsdgsjlgfdgfsflksjsfldfldsfljfslfsfsfsfslfsfjslkfsfsdddddddddddddddddddddddadfsdgsjlgfdgfsflksjsfldfldsfljfslfsfsfsfslfsfjslkfsfsddddddddddddddddddddddd
+	   adfsdgsjlgfdgfsflksjsfldfldsfljfslfsfsfsfslfsfjslkfsfsdddddddddddddddddddddddadfsdgsjlgfdgfsflksjsfldfldsfljfslfsfsfsfslfsfjslkfsfsddddddddddddddddddddddd
+	   adfsdgsjlgfdgfsflksjsfldfldsfljfslfsfsfsfslfsfjslkfsfsdddddddddddddddddddddddadfsdgsjlgfdgfsflksjsfldfldsfljfslfsfsfsfslfsfjslkfsfsddddddddddddddddddddddd
+	   adfsdgsjlgfdgfsflksjsfldfldsfljfslfsfsfsfslfsfjslkfsfsdddddddddddddddddddddddadfsdgsjlgfdgfsflksjsfldfldsfljfslfsfsfsfslfsfjslkfsfsddddddddddddddddddddddd
+	</p>
+    <script>
+	  /*
+	        what    is     css3
+   	css3是css2的升级版本，3只是版本号，它在css2.1的基础上增加了很多强大
+	的新功能，目前主流浏览器chrome，safari，firefox。opera，甚至360都
+	已经支持了css3大部分功能，ie10以后也开始全面支持css3了。
+
+	css3前缀：
+	在编写css3样式是，不同的浏览器可能需要不同的前缀，它表示css属性
+	或规则尚未成为w3c的标准的一部分，是浏览器的私有属性。虽然目前较新
+	版本的浏览器都是不需要前缀的，单为了更好的向前兼容前缀还是少不了的。
+	标准写法如下顺序，再在后面添加无前缀的。
+	
+	前缀              浏览器
+  -webkit           chrome和safari
+  -moz                firefox
+  -ms                 ie
+  -o                 opera
+ 
+  例：-webkit-border-radius:50%;
+	  -moz-border-radius:50%
+	  -ms-border-radius:50%
+  
+  查看css3兼容性网站   www.caniuse.com
+        http://www.runoob.com/cssref/css3-browsersupport.html
+
+  css3的功能
+
+  提供了更加强大且精准的选择器，提供了多种背景填充方案，可以实现
+  渐变颜色，可以改变元素的形状，角度等，报纸布局，弹性盒子，
+  ie6混杂模式的盒模型，新的计量单位，动画效果等等等。。。。。
+
+  但是css3的兼容性问题同样也显得格外重要，并不是所有css3属性都通过了
+  w3c标准，所以
+
+               
+		 border-radius ----圆角
+			   1
+   border-radius:50px 50px 10px 50px;
+             
+			   2
+   border-top-left-radius:20px;
+   border-top-right-radius:20px;
+   border-bottom-right-radius:20px;
+   border-bottom-left-radius:20px;
+			   3
+   border-top-left-radius:130px 100px;
+   border-bottom-right-radius:30px 50px;
+   border-top-right-radius:10px 10px;
+   border-bottom-left-radius:10px 10px;
+               4
+   border-radius:1em 2em 1em 2em
+
+
+
+            box-shadow ---  盒子阴影
+			                         (模糊程度)     (模糊大小)              (向内向外)
+   box-shadow: X轴偏移量 Y轴偏移量 [阴影模糊半径] [阴影扩展半径] [阴影颜色] [投影方式]
+   eg:
+     .box-shadow{
+		 box-shadow:4px 2px 6px 7px #23333 inset;
+	 }
+  
+   同一盒子，可以同时加多个阴影，阴影之间用’，‘隔开。
+  eg:
+    .box_shadow{
+		box-shadow:4px 2px 6px #foo,-4px -2px 6px #000,0px 0px 12px 5px #33ccoo inset;
+	}
+
+	    
+		  
+		  text-shadow ----   文本阴影
+ 
+ 语法
+ text-shadow:X-Offset Y-Offset blur color;
+ 
+ X-offset:  表示阴影的水平偏移距离，其值为正值是阴影向右偏移，反之向左偏移
+
+ Y-Offset:  是指阴影的垂直偏移距离，如果其值是正值，阴影向下偏移，反之向上偏移；
+
+ Blur:  是指阴影的模糊程度，其值不能是赋值，如果值越大，阴影越模糊，反之阴影越清晰，
+        如果不需要阴影模糊可以将Blur值设置为0；
+	
+ color: 是指阴影的颜色，其可以是rgba色
+
+ eg:
+    text-shadow:0 1px 1px #fff;
+
+	   
+	    
+		 颜色值RGBA
+
+ RGB是一种色彩标准，是由红(R),绿(G),蓝(B)的变化以及相互叠加来得到各式各样的颜色。
+ RGBA是在RGB的基础上增加了控制alpha透明度的参数
+
+ 语法：   color:raba(RGBA)
+ 以上R，G，B三个参数，正整数值的取值范围为：0-255.百分数值的取值范围为：0.0%-100%；
+ 超出范围的数值将被截止其最接近的取值极限，并非所有浏览器都支持使用百分数值。
+ A为透明度参数，取值在0-1之间，不可为负值。
+
+ 代码示例
+ background-color:rgba(100,120,60,0.5)
+ background:rgba(0,255,0,0.4);
+
+
+       渐变的背景颜色(Gradient)
+
+ css3的渐变分为两种
+
+ 1：线性渐变(linear-to)
+    
+	语法：linear-gradient([diretion],color[percent],color[percent],....)
+
+	direction角度的单位为"deg"也可以使用to bottom,to left,to top left等方式来表达。
+
+    eg:
+	   background:linear-gradient(to right,red,green,black);//向右
+	   background:linear-gradient(to left,red,green,black);//向左
+	   background:linear-gradient(to top,red,green,black);//向上
+	   background:linear-gradient(to bottom,red,green,black);//向下
+	   background:linear-gradient(to top right,red,green,black);//向右上
+	   background:linear-gradient(to top left,red,green,black);//向左上
+	   background:linear-gradient(to bottom right,red,green,black);//向右下
+	   background:linear-gradient(to bottom left,red,green,black);//向左下
+	   background:linear-gradient(180deg,red,green,black);//180度，可正，顺时针，可负，逆时针
+	   background:linear-gradient(180deg,red 10%,green 50%,black 40%);//180度渐变。红占10%,绿占50%，黑占40%；
+
+
+2：径向渐变(radial-at)
+   
+   语法：radial-gradient(shape at positon,color[percent],color...)
+
+   shape:放射的形状，可以为圆形circle，可以为椭圆cllipse
+
+   position:圆心位置，可以两个值，也可以一个，如果为一个时，第二个值默认center即50%；
+
+   值类型可以为，百分数，距离像素，也可以是方位值(left,top....)/*x轴主半径y轴次半径* /
+
+   eg:
+
+                              
+                                            
+											   circle圆形
+                                            X(背景left值)   Y(背景top)
+      background:radial-gradient(circle at 50%(x) 50%(y),red 10%,green 50%,black 10%,blue 30%);x的距离左50%，y的距离50%；
+	  background:radial-gradient(circle at center center,red 10%,green 50%,black 10%,blue 30%);等同50%，50%；
+	  background:radial-gradient(circle at top left,red 10%,green 50%,black 10%,blue 30%);//左上开始渐变，
+	  background:radial-gradient(circle at 10px 10px,red 10%,green 50%,black 10%,blue 30%);//(x)距离左边10px,(Y)距离top 10px；
+	  background:radial-gradient(circle at 100px,red 10%,green 50%,black 10%,blue 30%);//如果只填一个值，第二个默认center
+	  background:radial-gradient(circle 50px at center,red 10%,green 50%,black 10%,blue 90%);//渐变圆的半径50px, 圆形只有一个半径值
+	  background:radial-gradient(circle 50px at center,red 10%,green 50%,black 10%,blue 90%,transparent 100%);//渐变圆的半径50px,透明色为100%
+   
+                                           
+										      ellipse()
+                                         x      y
+     background:radial-gradient(ellipse 100px 200px at center,red 10%,green 50%,black 10%,blue 90%);//100px(x轴弧形扩充),200px(y轴扩充)，
+	                
+				
+				         
+						文字
+	 word-wrap:normal|break-word;
+
+	 文字边界换行
+
+	 @font-face{
+		 fontfamily:"myFirstFont";
+		 src:url('sansation_Light.ttf'),
+		     url('sansatoin_Light.eot')format('eot');
+	 }
+	 p{
+		 font-family:"myFristFont";
+	 }
+
+	 format,此值指的是你自定义的字体的格式，主要用来帮助浏览器识别浏览器对
+	 @font-face的兼容问题，这里涉及到一个字体format的问题，因为不同的浏览
+	 器对字体格式支持是不一致的，浏览器自身也无法通过路径后缀来判断字体
+
+字体网站：https://www.w3cplus.com/content/css3-font-face
+
+兼容：@font-face{
+	font-family:'diyfont';
+	src:url('diyfont.eot');//ie9+;
+	src:url('diyfont.eot?#iefix')format('embedded-opentype')//ie6-ie8
+	    url('diyfont.ttf')format('woff')//chrome firefox
+		url('diyfont.ttf')format('truetype'),//chrome,firefox,opera,safari,Android,ios4.2+*
+		url('diyfont.svg#fontname')format('svg');//ios4.1
+}
+     
+	
+ eg:word-wrap:break-word;//超出width自动换行。
+
+ eg: @font-face{
+	    font-family:"myFirstFamily";
+		src:url('./Broken Heart.ttf');
+	 }
+	 p{
+	  width:100px;
+	  border:1px solid black;
+	  overflow:hidden;
+	  word-wrap:break-word;
+	  font-family:"myFirstFamily";
+	 }
+           
+
+		     border-image -- 边框应用背景
+ 
+  border-image:url(xxx.png) number
+            stretch 拉伸，有多长拉多长。
+			repeat(和4角上 同等大小图片进行平铺当边框中间区域长度不是4角图片大小的整数倍时，会被切割)
+			铺满(round)(4角上的图片 进行拉伸平铺不会被切割)
+			(共三个参数)
+    number为截取指定图片四周的宽度作为border的背景填充部分
+	      (截取图可按border-width大小伸缩)，number为一个数字时复合写法
+		
+		最后一个属性为border-image的展示策略
+
+	  
+
+	     
+		   background-origin (背景图片起始位置)
+
+语法：
+    background-origin: border-box|padding-box|content-box;
+	参数分别表示背景图片是从边框，还是内边距(默认值)，或者是内容区域开始显示
+
+	eg:
+	    border:50px solid rgba(0,0,0,0.5);
+	    background-image:url('./1.jpg');
+		background-repeat:no-repeat;
+		background-origin:border-box;
+
+
+		   background-clip (剪裁背景)
+ 
+语法：
+    background-clip: border-box | padding-box | content-box | no-clip
+
+	参数分别表示从边框，或内填充，或者内容区域向外剪裁背景
+	
+	no-clip表示不裁切，和参数border-box显示同样的效果，
+
+	background-clip默认值为border-box。
+
+	text:background-clip:text;
+
+	从前景内容的形状(比如文字)作为裁剪区域向外裁剪，如此即可实现使用
+	背景作为填充色之类的遮罩效果
+	注意：webkit独有属性，且必须配合text-fill-color属性
+	-webkit-backgrouhd-clip:text;-webkit-text-fill-color:transparent
+	text-fill-color:-webkit-bakcground-clip;
+	-webkit-background-clip:text;
+	-webkit-text-fill-color:transparent;
+
+eg:
+        padding:40px;
+		border:50px solid rgba(0,0,0,0.5);
+	    background-image:url('./1.jpg');
+		background-repeat:no-repeat;
+		background-origin:content-box;  //从content区域引用背景图片，
+		background-clip:padding-box;//剪裁，留下padding和content区域；、
+		
+	 }
+
+   webkit独有属性
+
+    p{
+	   width:100px;
+	   word-wrap:break-word;
+	   background:url('./1.jpg');
+	   text-fill-color:-webkit-background-clip;
+	   -webkit-background-clip:text;
+	   -webkit-text-fill-color:transparent;
+
+	 }
+
+
+           
+
+		   background-size (背景图片尺寸)
+
+设置背景图片的大小， 以长度值或百分比显示，还可以通过cover和contain来对图片进行伸缩
+
+语法：
+  
+    background-size:auto | <长度值> | <百分比> | cover | contain
+
+	取值说明：
+	1：auto：默认值，不改变背景图片的原始高度和宽度；
+	2：<长度值>：成对出现如200px 50px 将背景图片宽高依次设置
+	   为前面两个值，当设置一个值时，将其作为图片宽度值来等比缩放；
+	3：<百分比>：0%-100%之间的任何值，将背景图片宽高依次设置为所在元素宽高
+	   乘以前面百分比得出的数值，当设置一个值时同上；
+	4：cover:用一张图片铺满整个背景，如果比例不符，则截断图片
+	5：contain:尽量让背景内，存在一整张图片
+
+
+	     background-positon: center center | 20% 20% | 20px 20px | top left
+	  */
+	</script>
+ </body>
+</html>

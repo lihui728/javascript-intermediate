@@ -1,0 +1,303 @@
+  <!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+     svg{
+	    border:1px solid black;
+	 }
+/*	 line{
+	    stroke:red;
+	 }
+	 rect{
+	    fill:transparent;
+		stroke:green;
+		stroke-width:10px;
+	 }
+	 circle{
+	    fill:white;
+		stroke:red;
+	 }
+	 ellipse{
+	    fill:white;
+		stroke:blue;
+	 }
+	 polyline{
+	    fill:white;
+		stroke:red;
+	 }
+	 polygon{
+	    fill:white;
+		stroke:red;
+	 }
+	 path{
+	   stroke:red;
+	   stroke-width:20px;
+	   stroke-dasharray:500px;
+	   animation:move 2s linear alternate infinite;
+	 }
+	 @keyframes move{
+	    0%{
+		   stroke-dashoffset:0px;
+		}
+		100%{
+		   stroke-dashoffset:500px;
+		}
+	 }*/
+	 
+  </style>
+ </head>
+ <body>
+    <input type="text">
+    <svg width=500 height=500>
+ <!-- <line x1=100 y1=100 x2=200  y2=100></line>
+	   <rect x="150" y="150" width="100" height="100" rx="10" ry="10"></rect>
+	   <circle r="50" cx="200" cy="100"></circle>
+	   <ellipse rx="100" ry="50" cx="300" cy="300"></ellipse>
+	   <polyline points="50 50,100 10,150 50,200 10,250 50,300 10"></polyline>
+	   <polygon points="50 50,100 10,150 50,200 10,250 50,300 10,350 50"></polygon>
+	   <path d="M 10 10 H 200,V 200 z"/>
+	    <path d="M 0 100 L 500 100" id="path1" >
+		<path id="path1" d="M 100 200 A 100 100 0 0 1 300 200"></path>
+	  <path id="path2" d="M 100 200 A 100 100 0 0 1 300 200"></path>
+	   -->
+	 
+	 
+	
+
+
+	</svg>
+     <script>
+	  
+	
+	     /*
+		   canvas通过js控制，svg作图是通过一个个标签来形成的。每一个路径都会当成一个标签，有一些基础图形的标签
+		   比如直线，圆，椭圆，矩形，但是单独的路径，标签，通过控制标签，来实现效果，svg是矢量图，放大不失真，
+		   canvas放大会失真
+                                 
+							都要在svg标签里面写标签
+		                          直线
+			<line x1='100' y1=100 x2=200 y2=100>//单单写了直线标签是没有显示效果的，还需要在css给line添加样式
+			                                    //eg：line{ stroke:red};
+
+							      矩形
+			<rect x="150" y="150" width="100" height="100" rx="10" ry="10"></rect>//rx,ry为圆角，默认填充黑色，当rx，ry到一定的值时，可以是圆形
+			eg:不想填充，需要描边效果
+			    rect{
+				fill:transparent;//填充透明色
+				stroke:green;//描边绿色
+				stroke-width:10px;//线宽
+	            }
+				                 
+								  圆形
+			<circle r="50" cx="200" cy="100"></circle>//半径r，在x200,y100的中心点开始画
+			eg:
+				circle{
+					fill:white;
+					stroke:red;
+				 }
+				         
+						         椭圆 
+			<ellipse rx="100" ry="50" cx="300" cy="300"></ellipse>//在rx半径100，ry半径50，起点为：cx300，yx=300
+			eg://矩形，圆形，椭圆，都默认填充黑色，不需要加其他css就可以显示，下面属性是描边效果
+			    ellipse{
+					fill:white;
+					stroke:blue;
+				 }
+				               
+							     折线，(多点链接)
+			<polyline points="50 50,100 10,150 50,200 10,250 50,300 10"></polyline>//默认填充不闭合。
+			eg:
+			   polyline{
+				fill:white;
+				stroke:red;
+			 }
+			                   
+							    多边形
+			<polygon points="50 50,100 10,150 50,200 10,250 50,300 10,350 50"></polygon>//和折线效果一样，但会闭合
+            eg:
+			    polygon{
+					fill:white;
+					stroke:red;
+				 }
+				                
+								 文本
+			 <text x=125 y=220>hellow,world</text>//开始点x=125 y=220
+
+			               
+						       样式属性
+			1：fill
+			2：stroke
+			3：stroke-width
+			4：stroke-opacity/fill-opacity
+			                 
+							  线条样式，效果请见图片
+							   stroke-linecap,
+							   stroke-linejoin
+
+							  
+							    path元素
+			大写绝对坐标，小写相对坐标，效果不一样。
+			M,m,L,l,H,h,V,v,A,a
+			1：M指令和L指令(相当于moveTo，lineTo)
+			<path d="M 10 10 L 20 10/">
+			eg:
+               path d="M 10 10 L 20 10,20 30,50 20"/>
+			    path{
+				   fill:white;
+				   stroke:red;
+				 }
+		    2:m指令和l指令
+			  <path d="m 100 l 20 10" />
+			 
+			 
+			  
+			3 :H和V指令(H水平方向，V垂直方向)
+			  <path d="M 100 100 H 200 V 200"/>
+			eg:<path d="M 10 10 H 200,V 200"/>
+
+			4:Z指令(闭合，不区分大小写)
+			  <path d="M 100 100 H 200 V 200 z"/>
+
+			 
+			        圆弧指令
+		  4：A指令 七个参数
+		     语法：rx ry x-axis- large-arc-flag sweep-flag x y
+			1:rx ry 圆弧的x轴半径和y轴半径
+			2:x-axis-rotation圆弧相对x轴的旋转角度，默认是顺时针，可以设置赋值
+			3:large-arc-flag表示圆弧路径是大圆弧还是小圆弧1大圆弧
+			4:sweep-flag表示从起点到终点是顺时针还是逆时针，1表示顺时针，0表示逆时针
+			5:xy表示终点坐标，绝对或相对
+			<path d="M 100 100 A 70 120 90 1 1 150 200">
+		  
+		  eg: <path d="M 100 100 A 50 50 0 0 1 200 100">
+		       
+			       贝塞尔曲线
+          1：二次贝塞尔
+		    Q x1y1,xy  
+			T x y
+		  eg:<path d="M 100 100 Q 150 10 300 200 T 400 100">//从M点开始 到 Qx1,y1 到xy，之后T延长
+
+		  2：三次贝塞尔曲线
+		    C x1 y1,x2 y2 ,x y
+			S x2 y2,xy
+          eg: <path d="M 0 100 C 100 10 200 10 300 200 S 400 100 500 0">//从M开始，c的三个控制点，S之后延长两个点
+
+		 svg网站，自动生成路径：http://editor.method.ac/
+
+		 svg滤镜：http://www.w3school.com.cn/svg/svg_filters_gaussian.asp
+
+		           
+				   svg路径动画
+				   stroke-dasharray:20px 。。。(画20px，空20px，可以多个值，按照多个值循环)
+				   stroke-dashoffset:20px(前提要stroke-dasharray有值，之后变化该值，实现动画效果)
+		eg:<path d="M 0 100 L 500 100" >
+		    path{
+			   stroke:red;
+			   stroke-width:20px;
+			   stroke-dasharray:20px;
+			 }
+      
+	    eg:抽风路径效果实现
+		   <path d="M 0 100 L 500 100" >
+
+		   path{
+			   stroke:red;
+			   stroke-width:20px;
+			   stroke-dasharray:500px;
+			   animation:move 2s linear alternate infinite;
+			 }
+			 @keyframes move{
+				0%{
+				   stroke-dashoffset:0px;
+				}
+				100%{
+				   stroke-dashoffset:500px;
+				}
+			 }
+			  
+		
+		 
+		 1：getTotalLength
+		    获取路径总长度
+		   eg:
+		     <path d="M 0 100 L 500 100" id="path1" >
+	         console.log(path1.getTotalLength())//500 
+		 
+		 2：getPointAtLength(x)
+		    获取路径上距离起始点距离x长度的点的坐标
+		 eg:
+		   	 <path d="M 0 100 L 500 100" id="path1" >
+	         console.log(path1.getPointAtLength(300))
+		 注：严格来说上面两方法只适用于path元素，但各个浏览器实现起来都会有一点区别。例如谷歌浏览器也能获取到line元素的路径长度
+
+
+
+
+		 ViewBox
+		 1:<svg width="400" height="300" viewBox="0,0,40,30"></svg>//设置了viewBox,即可画区域只有width：40，height:30,与svg等比。
+		                                                           //如果不等比，即会影响后面所画的元素。
+	    
+		2：preserveAspectRatio
+		   
+		   xMin xMid xMax -> x轴 左中右对齐
+		   YMin YMid YMax -> y轴 上中 吃饭饭付付付付付付付付付付付付付付付付付付付错错错把是从是从是从是从v                       下对齐
+		   meet slice none-> 设置填充方式
+		 eg:svg.setAttribute("preserveAspectRatio",'xMinYmin meet')
+
+		             
+					          仪表盘
+		HTML  
+		     <input type="text">
+               <svg width=500 height=500>
+				<path id="path1" d="M 100 200 A 100 100 0 0 1 300 200"></path>
+				<path id="path2" d="M 100 200 A 100 100 0 0 1 300 200"></path>
+				</svg>
+		
+		css:
+		     path{
+				fill:transparent;
+				stroke-width:15px;
+				stroke:#999;
+				stroke-linecap:round;
+
+			 }
+			  #path2{
+				stroke:red;
+				stroke-dasharray:1000px;
+				stroke-dashoffset:1000px;	
+			 }
+			 .active{
+				transition:all 3s linear;
+			 }
+			 input{
+			   position:absolute;
+			   top:51px;
+			   left:107px;
+			}
+
+		js:
+		    var input = document.getElementsByTagName("input")[0];
+			   var len = path2.getTotalLength();
+			   console.log(len);
+			   input.onblur = function (){
+				   var value = this.value;
+				   var num = len*value/100;
+				   path2.classList.add("active");
+				   path2.style.strokeDashoffset = 1000 - num + "px";
+			   }
+			   input.onfocus = function (){
+				   path2.classList.remove("active");
+				   path2.style.strokeDashoffset = "1000px";
+			   }
+
+
+		 */
+	 </script>
+ </body>
+</html>

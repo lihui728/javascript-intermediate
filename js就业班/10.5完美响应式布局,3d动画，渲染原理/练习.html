@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+  *{
+    margin:0;
+	padding:0;
+	list-style:none;
+  }
+  
+	html,body{
+        width:100%;
+	  height:100%;
+	}
+   .wrapper{
+      width:100%;
+	  height:100%;
+	  width:400px;
+	  height:400px;
+	
+	  animation:rotate 3s linear;
+	   left:50%;
+	   top:50%;
+	   margin-top:-250px;
+	   transform-style:preserve-3d;
+	   position:relative;
+	   transform:rotateX(-20deg)
+	 
+   }
+   
+   li{
+       width:200px;
+	   height:200px;
+	   line-height:200px;
+	   text-align:center;
+	   font-size:30px;
+	   display:inline-block;
+	   position:absolute;
+	   top:0;
+	   left:97px;
+   }
+  li:nth-of-type(1){
+      background:#9900ff;
+	  opacity:0.8;
+	  transform:rotateY(0deg) translateZ(200px);
+   }
+    li:nth-of-type(2){
+	  background:blue;
+	  opacity:0.8;
+	  transform:rotateY(60deg)translateZ(200px);
+   }
+    li:nth-of-type(3){
+	   background:green;
+	   opacity:0.8;
+	  transform:rotateY(120deg)translateZ(200px);
+   }
+    li:nth-of-type(4){
+	   background:#ff6666;
+	   opacity:0.8;
+	  transform:rotateY(180deg)translateZ(200px);
+   }
+    li:nth-of-type(5){
+	   background:#cc0033;
+	   opacity:0.8;
+	  transform:rotateY(240deg)translateZ(200px);
+   }
+    li:nth-of-type(6){
+	   background:#990099;
+	   opacity:0.8;
+	  transform:rotateY(300deg)translateZ(200px);
+   }
+  @keyframes rotate{
+     0%{
+	    transform:rotateX(-20deg) rotateY(0deg);
+	 }
+	 100%{
+        transform:rotateX(-20deg) rotateY(360deg);
+	 }
+  }
+  #div{
+     width:100px;
+	 height:100px;
+	 background:red;
+  }
+  </style>
+ </head>
+ <body>
+   <ul class="wrapper">
+     <li>1</li>
+	 <li>2</li>
+	 <li>3</li>
+	 <li>4</li>
+	 <li>5</li>
+	 <li>6</li>
+   </ul>
+   <div id="div"></div>
+  
+   <script>
+    /*  var li = document.getElementsByTagName("li")[0];
+	  
+     setInterval(function (){
+		console.log("rgba(" + parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+","+ parseInt(Math.random()*11)/10+")");
+        li.style.backgroundColor = "rgba(" + parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+","+ parseInt(Math.random()*11)/10+")";
+	 },30)*/
+	   
+   /*    var fragment = document.createDocumentFragment();
+	   var li = document.createElement("li");
+	   fragment.append(li);
+	   document.body.append(fragment);
+	   div.style.width="width:100px;height:100px;background:red";*/
+
+   </script>
+ </body>
+</html>

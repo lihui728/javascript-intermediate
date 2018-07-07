@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+  *{
+    margin:0;
+	padding:0;
+  }
+  img{
+    width:74px;
+	height:70px;
+  }
+    #pointer{
+	  width:8px;
+	  height:100px;
+	  position:absolute;
+	  top:33%;
+	  left:48%;
+	  border-bottom-left-radius:65%;
+	  border-bottom-right-radius:65%;
+	  transform-origin:top center;
+	  transform:rotateZ(-68deg);
+	  background:#d2d2d2;
+	  z-index:10;
+	}
+	.run{
+	  animation:Rotate 1s linear forwards;
+	}
+	.aa{ 
+	  animation:Rotate 1s linear reverse forwards;
+	}
+	@keyframes Rotate{
+	   0%{
+	     transform:rotateZ(-68deg);
+	   }
+	   100%{
+	     transform:rotateZ(-40deg);
+	   }
+	}
+	.rotate{
+	  position:absolute;
+	  top:50%;
+	  left:50%;
+	  margin-left:-75px;
+	  margin-top:-75px;
+	  height:150px;
+	  background:red;
+	  border-radius:50%;
+	  border:40px solid black;
+	  box-sizing:border-box;
+	/*animation:rota 5s linear infinite; */
+	  overflow:hidden;
+	}
+	@keyframes rota{
+	  0%{
+	    transform:rotateZ(0deg);
+	  }
+	  100%{
+	    transform:rotateZ(360deg)
+	  }
+	}
+	.botton{
+	   width:65px;
+	   height:25px;
+	   background:red;
+	}
+  </style>
+ </head>
+ <body>
+   <div id="pointer"> </div>
+   <div class="rotate">
+      <img src="./1.jpg">
+   </div>
+   <div class="botton">botton</div>
+   <script>
+      var botton = document.getElementsByClassName('botton')[0];
+	  var rotate = document.getElementsByClassName('rotate')[0];
+	  var pointer = document.getElementById('pointer');
+	  var key = true;
+	  botton.onclick = function (){
+		  if(key){
+			 rotate.style.animationPlayState = "running";
+             rotate.style.animation = "rota 5s linear infinite"
+			 pointer.className = "run";
+			 key = false;
+		  }else{
+			 rotate.style.animationPlayState = 'paused';
+             pointer.className = "";
+			 key = true;
+		  }
+	  }
+
+   </script>
+ </body>
+</html>

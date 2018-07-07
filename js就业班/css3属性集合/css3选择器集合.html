@@ -1,0 +1,100 @@
+
+	       css2选择器 
+		
+	div .class #id  ul li 
+	      
+		   
+		   css3选择器
+	      1:属性选择器
+  E[att^="val"]{...}选择匹配元素E，且E元素定义了属性att，其属性值以val开头的任何字符串
+
+  E[att$="val"]{...}选择匹配元素E,且E元素定义了属性att，其属性值以val结尾的任何字符串
+
+  E[att*="val"]{...}选择匹配元素E，且E定义了属性att，其属性值任意位置出现val，即属性值包含了val,位置不限。
+
+           根标签选择器
+  :root{} 等同html{}
+
+           
+		   not否定选择器
+  :not{} 
+  eg:
+     div:not(class="demo"){} 除了有类名demo的div，之外的div都要
+
+           
+		    empty 空标签选择器
+  :empty{}用来选择没有内容的元素，指的是一点内容都没有，哪怕是一个空格
+
+           target 目标元素选择器
+  :target{}用来匹配locatoin.hash选中的元素(即锚点元素)
+  eg:
+     div:targer{  //点击a标签,a标签中相应哈希值的div,被选中
+		 color:red;
+	 }
+     <a href="#demo"></div>
+	 <div id="#demo"></div>
+	    
+		   伪类选择器
+   :link   :hover  :active   :focus   :visited
+   
+   a:link{} 未被访问a标签的样式
+   a:visited{} 已被访问的a标签样式
+	:focus{}   聚焦之后的样式
+	:hover{}   鼠标悬停的样式
+	:active{}  正被点击的样式
+   link和visited为静态伪类，只能应用于超链接
+   hover,active,focus动态伪类       
+
+   :first-child  第一个子元素
+ eg:
+    li:first-child{} //第一个子元素必须为li
+	
+   :last-child  最后一个子元素
+
+   :nth-child(xxx){}第xxx个子元素
+ eg:li:nth-child(2){} //第二个子元素必须为li 
+
+   :nth-last-child(){}从后往前数
+   注：其父元素的第n个子元素，不论元素类型
+
+   下面的伪类选择器是找该子元素的类型顺序。
+   :first-of-type  第一个子元素
+   :last-of-type   最后一个子元素
+   :nth-of-type(2n){} 第xx个子元素 2n(0,2,4,6...) 2n+1(1,3,5....)
+   :nth-last-of-type(){}
+
+   :only-child 唯一子元素选择器，父元素只有它一个直接子元素。
+
+   :only-of-type 唯一子元素类型选择器。父元素只有它独立一个的类型元素。
+          
+		   伪元素
+	::selection   突出高亮显示的文本(用鼠标选择文本的时候)
+    eg:  p{ user-select:none} 不能选择文本
+	::first-letter  //选中字体的第一个
+	::first-line //选中字段中的第一行
+	::before    
+	::after
+	     
+		  状态类伪类选择器
+	:enabled(可用的元素)；:disabled(不可用的元素)
+  eg:
+     input:enabled{...}
+	 input:disabled{...}
+
+	      :checked(选择框的被选中状态)
+ 注:checked,radio的一些默认状态不可用属性进行改变，如边框颜色。
+
+  eg: input:checked + span  //input被选中找相邻的span
+
+          :read-only(选中只读的元素) :read-write选择非只读的元素
+		         状态类
+ eg:
+     <input type="text" readonly="readonly">//只读
+	 <input type="text"> //可写
+
+	   
+	        条件选择
+      ul > li 直接子元素
+	  div + span div相邻的span
+	  div ~ span div后面的兄弟节点span
+    

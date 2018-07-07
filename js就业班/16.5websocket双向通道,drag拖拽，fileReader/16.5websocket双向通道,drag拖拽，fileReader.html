@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+     #drag{
+	   width:100px;
+	   height:100px;
+	   background:red;
+	 }
+	 #target{
+	    width:200px;
+		height:200px;
+		background:blue;
+		margin-top:500px;
+	 }
+  </style>
+ </head>
+ <body>
+    <div id="drag" draggable="true"></div>
+    <div id="target"></div>
+   <script>
+  
+	       /*
+		     drag&drop
+	常用于各种拖动操作中
+
+	创建可拖动元素
+	  <div id="drag" draggable="true"></div>
+
+---------------------------------------------------------------------
+
+       拖拽相关的事件
+
+dragstart被拖拽元素 开始被拖拽时触发   e.dataTransfer.setData('data',e.target.id);
+
+dragend 被拖拽元素  拖拽完成时
+
+dragenter 目标元素 拖拽元素进入目标元素(是鼠标进入才会触发)
+
+dragover 目标元素 拖拽元素在目标元素上移动
+
+drop 目标元素 被拖拽的元素实在目标元素上同时鼠标放开触发的事件   e.dataTransfer.getData('data');
+需要阻止dragover的默认行为才会触发drop事件。
+
+eg:
+   drag.addEventListener('dragstart',function (){
+	   console.log('dragstart');
+   })
+   drag.addEventListener('dragend',function (){
+	   console.log('dragend');//最后触发
+   })
+   target.addEventListener('dragenter',function (){
+	   console.log('dragenter');
+   })
+   target.addEventListener('dragover',function (e){
+	   e.preventDefault();//取消默认事件，使drop触发。
+	   console.log('dragover');
+   })
+   target.addEventListener('drop',function (){
+	   console.log('drop');//在dragend前面触发
+   })
+
+
+eg:
+    drag.addEventListener('dragstart',function (e){
+	     e.dataTransfer.setData('data',this.id);//把自身的id传入
+   })
+   drag.addEventListener('dragend',function (){
+
+   })
+   target.addEventListener('dragenter',function (){
+	
+   })
+   target.addEventListener('dragover',function (e){
+	   e.preventDefault();
+	  
+   })
+   target.addEventListener('drop',function (e){
+	  
+	   var data = e.dataTransfer.getData('data');//获取到相关的id
+	   target.append(document.getElementById(data));//把插入到target
+   })
+
+   
+   ---------------------------------------------------------------------
+
+           使用拖拽上传文件
+	//拖拽上传文件，通过FileReader读取，然后在ajax上传
+
+ele.addEventListener('dragover',function (e){
+	e.preventDefault();
+},false);
+
+ele.addEventListener('drop',function (e){
+ //调用preventDefault()来避免浏览器对数据的默认处理(drop事件的默认行为是以链接形式打开)
+    e.preventDefault();
+	var dt = e.dataTransfer;
+	var files = dt.files;//文件
+},false)
+
+
+--------------------------------------------------------------------------
+
+           FileReader
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------
+
+            Web Socket
+
+webSocket对象提供了一组API，用于创建和管理WebSocket连接，
+以及通过连接发送和接受数据
+
+websocket其实是一个新协议，跟HTTP协议基本没有关系，只是为了
+兼容现有浏览器的握手规范而已，借用了HTTP的协议来完成握手。
+
+ 
+ 产生原因：
+
+1：在HTTP/1.0中，大多实现为每个请求/响应交换使用新的连接，(短连接)
+2：在HTTP/1.1中，一个连接也用于一次或多次请求/响应交换(长连接)
+3：HTTP协议中，服务端不能主动联系客户端，只能有客户端发起，
+4: webSoket服务器和客户端均可主动发送数据
+
+HTTP1.0(短连接)，比如有十张图片，那么发送一张就会断开一次，发第二张的时候
+。发送完了--断开，第三张依次类推。
+HTTP1.1(长连接)，一次性就可以了。保存一段时间不断开。
+HTTP1.1开始默认建立的是长连接，即一旦浏览器发起HTTP请求，建立的连接不会请求应答之后立刻断掉。
+		  
+
+
+	
+target.addEventListener('dragover',function (e){
+      e.preventDefault();
+})
+target.addEventListener('drop',function (e){
+	e.preventDefault();
+	var data = e.dataTransfer.files;
+	console.log(data);
+})
+		   */
+
+var ws = new WebSocket("wss://echo.websocket.org");
+
+/*ws.onopen = function (e){//连接
+	console.log("开始建立连接");
+	ws.send("Hello word");
+};
+ws.onmessage = function (e){
+	console.log("数据" + e.data);
+	ws.close();//关闭连接
+}
+ws.onclose = function (e){//关闭触发。
+	console.log('关闭连接');
+}*/
+  </script>
+ </body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "webclass",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lihui",
+  "license": "ISC",
+  "keywords": [
+    "html"
+  ],
+  "description": "",
+  "devDependencies": {
+    "file-loader": "^1.1.11",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.12.0"
+  }
+}

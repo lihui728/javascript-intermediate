@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <link rel="stylesheet" href=".index.css">
+  <style>
+  *{
+    margin:0;
+	padding:0;
+  }
+    .wrapper{
+	   transform-style:preserve-3d;
+	
+	   perspective-origin:bottom;
+	   width:400px;
+	   height:400px;
+	   border:1px solid black;
+	   position:relative;
+	}
+	/*.wrapper div{
+	   position:absolute;
+	   width:100px;
+	   height:100px;
+	   top:50%;
+	   left:50%;
+	   margin-left:-50px;
+	   margin-top:-50px;
+	   background:red;
+	   transform:rotate3d(1,1,1,45deg)
+	}*/
+	.wrapper div{
+	   width:200px;
+	   height:200px;
+	   margin-left:100px;
+	   margin-top:30px;
+	   background:red;
+	   backface-visibility:hidden;/*看不到背面*/
+	   transform:perspective(600px) rotate3d(1,0,0,42deg);
+	}
+	.wrapper div:nth-child(1){
+	   transform:perspective(600px) rotate3d(1,0,0,90deg) translateZ(100px);
+	}
+	.wrapper div:nth-child(2){
+	   transform:perspective(600px) rotate3d(1,0,0,-90deg) translateZ(100px);
+	}
+  </style>
+ </head>
+ <body>
+    <div class="wrapper">
+	   <div></div>
+	   <div></div>
+	 
+	</div>
+    <script>
+	     单位值
+		                 模拟移动端的meta
+                   视口              宽度 = 设备的宽度     最小缩放       最大缩放           不允许用户缩放       initial-scale=1.0(不放不缩)
+	  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+      当出现横线滚动条，那么怎么办？
+	  媒体查询，所有响应式的布局都是媒体查询做的。以前要做各种设备的网站，都是要做多份视觉效果。
+
+
+	  
+	  媒体查询是向不同设备提供不同样式的一种方式，它为每种类型的用户提供了最佳的体验。
+	  css2：media type
+	  media type(媒体类型)是css2中的一个非常有用属性，通过media type我们可以对不同的设备指定
+	  特定的样式，从而实现更丰富的界面。
+	  css3：media query
+	  media query是css3对media type的增强，事实上，我们可以将media query看成是
+	  media type+css属性(媒体特性Madia features)判断。
+
+	  媒体查询的引用方法有很多种
+	  link标签
+	  @import
+	  css3新增的@media
+
+	  媒体查询使用方法              (媒体类型) 
+	                               允许什么设备      媒体特性
+	     <link rel="stylesheet" media="screen and (max-width:800px)" href="index.css" />
+		 媒体类型(Media type):all(全部),screen(屏幕)，print(页面打印或打印预览模式)
+		 媒体特性(Media features):width(渲染区宽度)，device-width(设备宽度)
+		 Meadia Query 是css3 对 Media type的增强版，其实可以将Media Query看成Meadia Type(判断条件)+css(符合条件的样式规则)
+	  eg:
+	    <style>
+		   @media(max-width:600){
+			   .facet_sidebar{
+				   display:none;
+			   }
+		   }
+		</style>
+	
+	 eg:css3
+	    @media screen and (max-width:800px) and (min-width:600px){
+			 xxxxxxxxxxxxxxxx
+		}
+	
+
+	                  逻辑操作符
+	 合并多个媒体属性
+  eg:@media screen and (min-width:600px) and (max-width:100px)
+     合并多个媒体或合并媒体属性与媒体类型，一个基本的媒体查询，即一个媒体属性与默认指定的screen媒体类型
+
+	               
+				   指定备用功能，逗号相当于||
+	@media screen and (min-width:769px),print and (min-width:6in)
+    没有or关键词可用于指定备用的媒体功能，相反，可以将备用功能以逗号分割的形式列出
+	这样将样式应用到宽度超过769像素的屏幕后使用至少6英寸宽的纸张的打印设备。
+
+
+	              易混淆的宽度
+   device-width/height   width/height来作为的判定值。
+   device-width/height是设备的宽度(如电脑手机的宽度 不是浏览器的宽度)
+   widht/height使用documentElement.clientWidth,documentElement.clientHeight即viewport的值。
+
+
+                 浏览器渲染原理
+             1：处理HTML生成DOM树
+			 2：处理css生成CSSDOM树
+			 3：将两树合并成render树
+			 4：对render树进行布局计算
+			 5：将render树中的每一个节点绘制到屏幕上
+	
+	              细化分析
+1：浏览器把获取到的HTML代码解析成1个DOM树，html中的每个tag都是DOM树中的1个节点，
+   根节点就是我们常用的document对象(<html>tag),当然这里包含用js动态创建的dom节点
+
+2：浏览器把所有样式(主要包括和浏览器的默认样式设置)解析成样式结构体，在解析的过程中
+  会去掉浏览器不能识别的样式，生成cssDOM树，
+
+3：DOM tree 和CSSDOM tree 合并成 render tree，render tree中每个node都有自己的style，
+   而且render tree 不包含隐藏的节点(比如display:none的节点，还有无样式head节点)，
+   因为这些节点不会用于呈现，而且不会影响呈现的，
+   注意visibillty：hidden隐藏的元素还是会包含到render tree中的，因为visibility:hidden
+   会影响布局(layout),会占有 
+ 
+4：render tree构建完毕之后根据样式计算布局，布局阶段的输出结果成为"盒模型"（box model）
+  盒模型精确表达了窗口中每个元素的位置和大小，而且所有的相对的度量单位都被转化成了屏幕
+   的绝对像素位置(根据css2的标准，render tree中的每个节点都称为box(Box dimensions---盒子模型)，
+   box所有属性；width,height,margin,padding,left,top,border等)
+
+5：将这些信息渲染为屏幕上每个真实的像素点了，这个阶段称为“绘制”，或者“栅格化”(rasterizing)
+
+
+                    重绘，重排
+1：我们计算他们在当前设备中准确的位置和尺寸，这正是布局阶段要做的工作，该阶段在英语中也被称为“回流(reflow)”
+   当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。也会回流
+   （其实我觉得叫重新布局更简单明了写）。每个页面至少需要 一次回流，就是在页面第一次加载的时候。
+2:重绘(repaints)当render tree中的 一些元素需要更新属性，而这些属性只是影响元素当1外观，风格，
+  而不会影响布局的，比如backgrou-color.则叫做称为重绘。
+     
+	       重绘，重排会影响性能
+	蓝色：网络通信和 html解析
+	黄色：javascript执行
+	紫色：样式计算和布局，即重排。
+	绿色：重绘。
+            
+			    重绘，重排 性能
+		
+                 触发重排的方法
+  
+ 1：以下这些属性的方法需要返回最新的布局信息，重新计算渲染树，就会造成回流，触发重排以返回正确的值。
+    建议将他们合并到一起操作，可以减少回流的次数，这些属性包括：offsetTop，offsetLeft，offsetWidth，
+	offsetHeight;scrollTop,scrollWidth,scrollHeight;clientTop,clientWidth,clientHeight;getComputedStyle();
+	currentstyle()
+
+	提高网页性能，就是要降低重排的频率和成本，尽量少触发重新渲染。
+	dom变动和样式变动，都会触发重新渲染，但是浏览器 已经很智能了，会尽量把所有的变动
+	集中在一起。排成一个队例，然后一次性执行，尽量避免多次重新渲染。
+   
+    div.style.color="red";
+	div.style.background=" yellow";
+	div.style.left="10px"
+	div.style.width="20px"
+
+	但是浏览器只会触发一次重排和重绘
+
+2：一般来说，样式的写操作之后，如果有上面那些属性的读操作，都会引发浏览器立即重排，这种重排，不会形成之前队例优化。
+   
+   div.style.color="red";
+   var height = div.offsetHeight;
+   div.style.height = height + 'px';
+
+  bad:
+    div.style.left =  div.offsetLeft + "px";
+	div.style.top = div.offsetTop + "px";
+	重排重绘两次
+  
+  Good:
+    var left = div.offsetLeft + "px";
+	var top = div.offsetTop + "px";
+
+	div.style.left = left;
+	div.style.top = top;
+    放到队列一次执行重排重绘一次；
+
+  理论上的解决优化办法；
+
+  1：说到的，DOM的多个读操作(或多个写操作)，应该放在一起，不要连个读操作之间，加入一个写操作。
+
+  2：离线操作dom如使用隐藏元素 document.createDocumentFragment()  cloneNode();
+
+  3:修改样式的时候添加类名，或一次性添加到dom.style.cssText上等。
+    div.style.cssText="width:100px;height:100px;background:red";
+
+  以上都是理论上加速的方法。
+
+
+           
+		        动画
+     transform-style:flat | preserve-3d;
+	 flat:默认，子元素将不保留其3d位置。
+	 preserve-3d：子元素将保留其3d位置
+	 (父元素相当于空间，物体运动相当于在父元素空间运动，呈现3d)
+
+	 注意：transform-style属性需要设置在父元素中，高于任何嵌套的变形元素
+
+	 设置了transform-style:preserve-3d的 元素，就不能防止子元素溢出设置overflow:hidden;
+	 否则会导致preserve-3d失效；
+
+
+	 perspective-origin:默认值是50% 50%;正视，top：仰视
+
+	          多个透视点
+   在3d变形中，除了perspective属性可以激活一个3d空间之外，
+   在3d变形的函数中的perspective()也可以激活3d空间，他们
+   不同的地方是：perspective用在舞台元素上(变形元素们的共
+   同父元素)；perspectie()就是用在当前变形元素上，并且可以
+   与其他的transform函数一起使用。
+   eg：
+   .stage{
+	   perspective:600px
+   }
+  
+   eg:
+    .stage .box{
+	   transform:perspective(600px);
+	}
+  注意：当有多个变形元素是，第一种只有一个透视点，第二种每个
+      变形元素都有一个透视点。
+  正常人的透视点看到多样的物体元素，看到的形状都是不一样的，
+
+  3d变化是二人转：元素在转，坐标轴其实也在转。
+
+  eg:两个相同的元素，其中一个设置了rotateY(180deg)，然后同时
+    设置translateZ(100px);这时，他们在空间的距离是200px，
+
+	     css3动画性能优化
+1：尽可能多的利用硬件能力，如使用3d变形来开启GPU加速
+eg：
+   -webkit-transform：translate3d(0,0,0);
+   -moz-transform:translate3d(0,0,0);
+   -ms-transform:translate3d(...)
+   transform:translate(...)
+
+        动画过程有闪烁(通常发生在动画开始的时候)
+解决方法：
+     -webkit-backface-visibility:hidden;能否看到背面
+	 -moz-backface-visibility:hidden;
+	 -backface-visibility:hidden;
+	 -moz-perspective:1000;
+	 -ms-perspective:1000;
+	 perspective:1000;
+	       
+		   优化
+尽可能少的使用box-shadow与gradients(背景渐变)，这两个都是页面
+性能杀手，能避免尽量避免
+
+3：尽可能的让动画元素不在文档中，以减少重排。
+ eg：position:fixed; position:absolute;
+
+4:优化DOM reflow
+	</script>
+ </body>
+</html>

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+     .border{
+	   box-shadow:2px 2px 3px 0px red,2px 2px 3px 0px blue,2px 2px 3px green,2px 2px 3px black;
+	   height:100px;
+	   width:150px;
+       
+	   background:radial-gradient(ellipse 50% 50%,red,green)
+	  /* background:radial-gradient(ellipse*/
+	 }
+	 @font-face{
+	    font-family:"myfamily";
+		src:url('./Broken Heart.ttf');
+	 }
+	 p{
+	   width:80px;
+	   border: 30px solid transparent;
+	   border-image:url(./1.png) 30 stretch;
+	 
+	   color:rgba(200,190,42,0.5);
+	  }
+	 .origin{
+	   width:200px;
+	   height:200px;
+	   border:40px solid black;
+	   padding:40px;
+	   background-origin:padding-box;
+	   background-clip:content-box;
+	   background-image:url("./1.jpg");
+	   background-repeat:no-repeat;
+	   box-sizing:border-box;
+	 }
+	 .size{
+	   width:300px;
+	   height:300px;
+	 
+	   background-size:contain;
+	   background-repeat:no-repeat;
+	   border:1px solid black;
+	 }
+	 .position{
+	   width:20px;
+	    height:10px;
+		background:url("./2.png");
+		background-position:20px 30px;
+		background-repeat:no-repeat;
+	 }
+	 div[class^="po"]{
+	    color:red;
+	 }
+	 div[class$="ze"]{
+	    color:red;
+	 }
+	 div[class*="ti"]{
+	    color:green;
+	 }
+	 div:target{
+	   width:100px;
+	   height:100px;
+	   background-color:red;
+	 }
+	 a:link{
+	    color:red;
+	 }
+	 a:visited{
+	    color:green;
+	 }
+	 a:active{
+	   
+	 }
+	 p:first-letter{
+	   font-size:50px;
+	 }
+	 p:first-line{
+	   color:red;
+	 }
+	div[class$="rm"]{
+	   width:100px;
+	   height:100px;
+	   background:red;
+	   transform-origin:left top;
+	   transform:rotate3d(1,1,1,45deg);
+	   animation:rotate 5s linear infinite alternate-reverse;
+	 
+	}
+	@keyframes rotate{
+	   0%{
+	     transform:rotate3d(1,1,1,45deg);
+	   }
+	   100%{
+	     transform:rotate3d(1,1,1,405deg);
+	   }
+	}
+	.wrapper{
+	   position:absolute;
+	   top:50%;
+	   left:50%;
+	   width:100px;
+	   border:1px solid black;
+	}
+	.transition{
+	   width:100px;
+	   height:100px;
+	   background:black;
+	   transition:all 3s linear 2s;
+	}
+	.transition:hover{
+	   width:300px;
+	}
+  </style>
+ </head>
+ <body>
+    <a href="#">demo</a>
+    <div class="border"></div>
+	<p>苟利国家生死以，岂因祸福避趋之.fslkfjs;f/sfksddsfskdlfjsflsjfksflfdfsfsfsfssfsmklfsdjkl</p>
+	<div class="origin">origin</div>
+	<div class="size">size</div>
+	<div class="position la">aaaa</div>
+	<div id="demo">ss</div>
+	<div class="wrapper">
+    <div class="transform"></div>
+	</div>
+	<div class="transition">transition</div>
+	<script>
+	   setTimeout(function (){
+		   console.log(1);
+	   },0);
+	   new Promise(function executor(resolve){
+		   console.log(2);
+		   for(var i=0;i<10000;i++){
+			   i== 9999 && resolve();
+		   }
+		   console.log(3);
+		  }).then(function (){
+			  console.log(4);
+		  })
+		  console.log(5);
+	  
+
+	</script>
+ </body>
+</html>

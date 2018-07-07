@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <div 
+ </head>
+ <body>
+   <input type="file" id="file">
+   <button id="button">读取图片</button>
+   <input type="file" id="file1">
+   <button id='button1'>读取文体</button>
+   <div id="div"></div>
+   <div id="div1"></div>
+   <script>
+   var file = document.getElementById('file');
+     button.addEventListener('click',function (){
+	   if(file.value){
+			if(window.FileReader){
+			 var newFile = file.files[0]; 
+			 console.log(newFile);
+			 var reg = /image\/\w+/ig;
+			 if(reg.test(newFile.type)){
+                var fileReader = new FileReader();
+				fileReader.readAsDataURL(newFile);
+			//	fileReader.readAsText(newFile,'gbk');
+		  //      fileReader.readAsBinaryString(newFile);
+			//   fileReader.readAsArrayBuffer(newFile);
+				fileReader.onload = function (e){
+		     	console.log(e);
+         //       console.log(e.target['result']);
+			   div.innerHTML='<img src="'+this.result+'" alt=""/>';
+			//  console.log(e.target.result)
+			//		encodeURIComponent 
+			//e.target['result']
+				}
+			 }else{
+				 alert('请选择图片类型资源');
+			 }
+			}else{
+				alert('你的浏览器不支持该读取文件');
+			}
+	    }
+	 },false)
+
+	 function textFile(){
+		if(file1.value){
+		 var file = file1.files[0],
+		      reg = /text\/\w+/ig;
+		 if(reg.test(file.type)){
+			 var newFile = new FileReader();
+			 newFile.readAsText(file,'gbk');
+             newFile.onload = function (){
+				 var value = this.result;
+				 div1.innerHTML = value;
+			 }
+		 }else{
+			 alert('请选择文本类型文件');
+		 }
+	  }
+	}
+	button1.onclick = textFile;
+   </script>
+ </body>
+</html>

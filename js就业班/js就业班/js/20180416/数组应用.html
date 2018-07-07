@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    *{
+	 margin:0;
+	 padding:0;
+	 list-style:none;
+	}
+	html,body{
+	 height:100%;
+	}
+	.wapper{
+	  width:330px;
+	  height:600px;
+	  position:relative;
+	  top:200px;
+	  margin:0 auto;
+	  border:1px solid black;
+	}
+	.sreach{
+	 margin-top:15px;
+	 height:6%;
+	 
+	
+	 
+	}
+	.sreach .sreach-left{
+	   float:left;
+	}
+	.sreach .sreach-left input{
+	  border-radius:4px;
+	 
+	  outline:none;
+	}
+	.sreach .sreach-right{
+	  float:left;
+	}
+	.sreach .sreach-right ul li {
+	  width:40px;
+	  height:20px;
+	  line-height:20px;
+	  text-align:center;
+	  margin-left:10px;
+	  float:left;
+	  border-radius:5px;
+	  background-color:#d4d4d4;
+	}
+	.sa{
+	  background-color:#ff9900 !important;
+	}
+   
+	.centent{
+	 
+	 margin-top:10px;
+	 
+	}
+	.centent ul li{
+	  margin-top:10px;
+	  height:100%;
+	  
+	  background-color:#c8c8c8;
+	}
+	.centent ul li img{
+	  vertical-align:bottom;
+	  width:60px;
+	  height:50px;
+	}
+	.centent ul li span{
+	  vertical-align: 15px;
+	  margin-left:15px;
+	}
+  </style>
+ </head>
+ <body>
+   <div class='wapper'>
+      <div class='sreach'>
+	    <div class='sreach-left'>
+		  <input type='text'>
+		</div>
+		<div class='sreach-right'>
+		  <ul>
+		    <li class='sa'>all</li>
+			<li>male</li>
+			<li>fema</li>
+		  </ul>
+		</div>
+	  </div>
+	  <div class='centent'>
+	   <ul>
+	     <li>
+		   <img src="img/1.jpg">
+		   <span>fsf</span>
+		   <span>fsffsfsfdsfdsfsgdg</span>
+		 </li>
+		  <li>
+		   <img src="img/1.jpg">
+		   <span>fsf</span>
+		   <span>fsf</span>
+		 </li>
+		  <li>
+		   <img src="img/1.jpg">
+		   <span>fsf</span>
+		   <span>fsf</span>
+		 </li>
+		
+	   </ul>
+	  </div>
+   </div>
+<script>
+ var person = [
+    { name: '刘小华', src: '1.jpg', sex: 'male', des: '漂亮的女孩子' },
+    { name: '王花', src: '2.jpg', sex: 'male', des: '漂亮的程序猿' },
+    { name: '陈军', src: '3.jpg', sex: 'fema', des: '我是一个学霸' },
+    { name: '王华', src: '4.jpg', sex: 'fema', des: '我喜欢游泳' },
+    { name: '陈思思', src: '5.jpg', sex: 'male', des: '我喜欢看电影' },
+    { name: '陈学习', src: '6.jpg', sex: 'fema', des: '我爸我妈爱学习' },
+    { name: '王美丽', src: '7.jpg', sex: 'male', des: '我妈是美丽得妈妈' }
+];
+/*var search = document.getElementsByClassName('sreach-right')[0];
+var centent = document.getElementsByClassName('centent')[0];
+var input = document.getElementsByTagName('input')[0]
+var li = search.getElementsByTagName('li');
+var ul = centent.getElementsByTagName('ul')[0];
+function son(){
+	var newArr = [];
+	var newArr1 = [];
+for(var i=0;i<li.length;i++){ 
+  
+  (function (i){
+	li[i].onclick = function (){
+	var cn = document.getElementsByClassName('sa')[0];
+	 cn.className = '';
+	 li[i].className = 'sa';
+	 
+	if(li[i].innerHTML == 'all'){
+	  ul.innerHTML = "";
+	  var str='';
+	  for(var j=0;j<person.length;j++){
+		  var l = document.createElement('li');
+		  l.innerHTML = "<img src='img/"+person[j].src+"'><span>" + person[j].name + "</span><span>" + person[j].des +"</span>";
+		  ul.appendChild(l);
+		 
+	  }	 
+	}
+	if(li[i].innerHTML == 'male'){
+		ul.innerHTML = "";
+		
+		for(var j=0;j<person.length;j++){
+			if(person[j].sex == 'male'){
+				l = document.createElement('li');
+				l.innerHTML = "<img src='img/"+person[j].src+"'><span>" + person[j].name + "</span><span>" + person[j].des +"</span>";
+				 ul.appendChild(l);
+				 if(newArr.length == 0){
+				 newArr.push(person[j]);
+				 }
+			}
+		}
+		
+	}
+    
+	if(li[i].innerHTML == 'fema'){
+		ul.innerHTML = "";
+		for(var j=0;j<person.length;j++){
+            if(person[j].sex == 'fema'){
+				l = document.createElement('li');
+				l.innerHTML = "<img src='img/"+person[j].src+"'><span>" + person[j].name + "</span><span>" + person[j].des +"</span>";
+				 ul.appendChild(l);
+				 if(newArr1.length == 0){
+				  newArr1.push(person[j]);
+				 }
+			}  
+		}
+	}
+	}
+	}(i));
+  
+	
+}
+ return [newArr,newArr1];
+}
+var o = son();
+function tar(){
+	input.oninput = function (e){
+		var value = this.value;
+		
+		for(var i =0;i<li.length;i++){
+			
+			if(li[i].innerHTML == 'all'){
+				console.log('fs');
+				person.forEach(function (ele,index){
+					var name = ele.name;
+					var l;
+					for(var i=0;i<name.length;i++){
+						if(value == name[i]){
+                           ul.innerHTML = "";
+						   l = document.createElement('li');
+				           l.innerHTML = "<img src='img/"+ele.src+"'><span>" +ele.name + "</span><span>" + ele.des +"</span>";
+				           ul.appendChild(l);
+						}
+						else{value == ''}{
+						  
+						}
+					}
+
+				})
+			}
+		}
+	}
+}
+
+tar();*/
+
+var arr = [1,2,4,5,6,7,8];
+
+function text(){
+   return arr.filter(function (ele,index){
+	if(ele > 3){
+		return true;
+	}
+})
+}
+</script>
+ </body>
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    svg{
+	  border:1px solid black;
+	}
+	path{
+	  fill:#2385FF;
+	  stroke:black;
+	}
+	path:nth-child(2){
+	 fill:white;
+	}
+	ellipse{
+	 fill:white;
+	 stroke:black;
+	}
+	ellipse:nth-of-type(3){
+	  fill:black;
+	}
+	ellipse:nth-of-type(4){
+	  fill:black;
+	}
+	circle:nth-of-type(1){
+	  fill:#FF1A00;
+	}
+	line{
+	  stroke:black;
+	}
+	path:nth-of-type(3){
+	  fill:transparent;
+	  
+	}
+	line:nth-of-type(8){
+	   stroke-width:10px;
+	   stroke-linecap:round;
+	   stroke:red;
+	}
+	line:nth-of-type(9){
+	   stroke-width:20px;
+       stroke:#2385FF;
+	}
+	line:nth-of-type(10){
+	   stroke-width:20px;
+       stroke:#2385FF;
+	}
+	rect{
+	   fill:#2385FF;
+	}
+	circle:nth-of-type(2){
+	  fill:white;
+	  stroke:black;
+	}
+	circle:nth-of-type(3){
+	  fill:white;
+	  stroke:black;
+	}
+	path:nth-of-type(4){
+	   fill:white;
+	 
+	}
+	path:nth-of-type(5){
+	   fill:white;
+	 
+	}
+	circle:nth-of-type(4){
+	  fill:#D9C509;
+	  stroke:black;
+	}
+	path:nth-of-type(6){
+	   fill:white;
+	 
+	}
+	circle:nth-of-type(6){
+	  fill:transparent;
+	  stroke:#999;
+	  stroke-width:20px;
+	}
+	path:nth-of-type(13){
+	  fill:transparent;
+	  stroke:#999;
+	  stroke-width:20px;
+	 
+	}
+	path:nth-of-type(14){
+	  fill:transparent;
+	  stroke:red;
+	  stroke-width:20px;
+	  stroke-linecap:round;
+	  stroke-dasharray:30px 285px;
+	  stroke-dashoffset:315px;
+	  animation:rotate 2s linear infinite;
+	}
+	@keyframes rotate{
+	   0%{
+	      stroke-dashoffset:315px;   
+	   }
+	   100%{
+	     stroke-dashoffset:0px;
+	   }
+	}
+  </style>
+ </head>
+ <body>
+   <svg width="600" height='600'>
+       <path d="M 150 200 A 80 80 0 1 1 250 200"></path>
+	   <path d="M 165 200 A 60 55 0 1 1 235 200"></path>
+	   <ellipse rx=20 ry=23 cx=180 cy=110></ellipse>
+	   <ellipse rx=20 ry=23 cx=220 cy=110></ellipse>
+	   <ellipse rx=2 ry=5 cx=215 cy=118></ellipse>
+	   <ellipse rx=2 ry=5 cx=185 cy=118></ellipse>
+	   <circle r=9 cx=200 cy=133></circle>
+	   <line x1=200 y1=142 x2=200 y2=185></line>
+	   <path d="M 160 173 A 60 50 0 0 0 240 173"></path>
+	   <line x1=151 y1=138 x2=190 y2=146></line>
+	   <line x1=151 y1=153 x2=190 y2=152></line>
+	   <line x1=151 y1=168 x2=190 y2=158></line>
+	   <line x1=209 y1=146 x2=250 y2=138></line>
+	   <line x1=209 y1=152 x2=250 y2=153></line>
+	   <line x1=209 y1=158 x2=250 y2=168></line>
+	   <line x1=150 y1=205 x2=250 y2=205></line>
+	   <rect x=145 y=210 width=107 height=100></rect>
+	   <line x1=150 y1=220 x2=120 y2=208></line>
+	   <line x1=247 y1=220 x2=280 y2=238></line>
+	   <circle r=15 cx=111 cy=204></circle>
+	   <circle r=15 cx=286 cy=241></circle>
+	   <path d="M 193 310 A 6 5 0 1 1 208 310"></path>
+	   <ellipse rx=35 ry=11 cx=162 cy=310></ellipse>
+	   <ellipse rx=35 ry=11 cx=238 cy=310></ellipse>
+	   <path d="M 159 210 A 45 45 0 1 0 239 210"></path>
+	   <circle r=12 cx=200 cy=215></circle>
+	   <line x1=192 y1=208 x2=208 y2=208></line>
+	   <line x1=190 y1=212 x2=210 y2=212></line>
+	   <circle r=4 cx=200 cy=219></circle>
+	   <line x1=200 y1=219 x2=200 y2=226></line>
+	   <path d="M 170 235 A 25 25 0 1 0 228 235 Z"></path>
+       <path d="M 146 222 L 146 300"></path>
+	   <path d="M 250 225 L 250 300"></path>
+	   <path d="M 146 228 L 116 218"></path>
+	   <path d="M 147 208 L 123 198"></path>
+	   <path d="M 250 210 L 280 228"></path>
+	   <path d="M 250 232 L 271 244"></path>
+
+	   <!-圆形loading加载-->
+
+	   <path d="M 400 450 A 50 50 0 1 1 401 450 Z"></path>
+	    <path d="M 400 450 A 50 50 0 1 1 401 450 Z"></path>
+   </svg>
+ </body>
+</html>

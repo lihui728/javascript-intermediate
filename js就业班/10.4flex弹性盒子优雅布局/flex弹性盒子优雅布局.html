@@ -1,0 +1,391 @@
+	                columns(多列布局)
+   为了能在web页面中方便实现类似报纸，杂志那种多列排版的布局
+   w3c特意个css3增加了一个多列布局模块(css Multi Column Layout Module)。
+   它主要应用文本的多列布局方面，这种布局在报纸和杂志上都使用了几十年，
+   但要在web页面上实现这样的效果。还是有相当大的难度。庆幸的是，css3的
+   多列布局可以轻松实现。
+
+   语法：
+        columns:[column][column-count];
+		column-width:指每一列的宽度，根据容器宽度自适应(最小宽度)
+		column-count:指规定的列数，唯一精准的是列数。
+		不要两个一起使用 会乱
+		     
+   属性：
+        1：column-gap
+
+			eg:(column-gap:10px;)
+			column-gap：设置列与列之间的宽度 ，直接用数值表示即可
+			column-gar主要用来设置列与列之间的间距，如果没有显示设置column-gap值时，其值大小会根据浏览器默认的font-size来定        
+
+        2:column-rule
+            column-rule是不占用任何空间位置，在列与列之间改变其宽度不会改变任何列的位置
+            
+		    column-rule-width:宽度
+	           类似border-width属性，主要用来定义列边框的宽度，其默认值为"medium"
+			   column-rule-width属性接受任意浮点数，但不接受负值。
+			   但也像border-width属性一样，可以使用关键词:medium,thick和thin。
+			
+		    column-rule-style:样式
+			   类似border-style属性，主要用来定义边框样式，其默认值为"none";
+			   column-rule-style属性值与border-style属性相同。
+			   包括none，hidden,dotted,dashed.solid,double,groove,ridge,inset,outset;
+			
+			column-rule-color:颜色
+			   类似border-color属性；
+		
+		3:column-span:1/all
+		   
+		  设置多列布局元素内的子元素，可以跨列，类似标题效果，即一个新闻标题要横跨所有内容列，注：此属性要在子元素设置。
+          eg: h1{
+		       column-span:all;
+		     }
+
+		     <h1>标题</h1>
+			 <p>...</p>
+			 <p>...</p>
+
+	
+	                  hack2
+     虽然设置的列宽大于元素容器的宽度(两列的宽度 加上默认的gap大于width)，但并不会让元素内容按列的宽度进行布局而撑破元素容器，
+	 他只会把列宽降到与元素容器宽度相等
+
+	 解决办法:
+	     column-width = (width-(n-1))*font-size/n
+		 其中n大于或等于2；并且其他值为默认值
+		    如当n为2时，所设置的column-width 大于上面公式算出的值，那么就会变成1列
+			(opera下最好再减一个1px，当然如果你是中文的话也最好这样做，减1-2px，至于为什么，只有opera能解释清楚)
+			.colBigWidth{
+				width:400px;
+				border:1px solid #008800;
+				-moz-column-width:200px;
+				-webkit-column-width:200px;
+				column-width:200px;
+			}
+            
+			       盒模型
+	
+	在css中盒模型被分为两种，第一种是w3c的标准盒模型，另一种是ie6混杂模式的传统模型。他们都是对元素计算尺寸的模型。
+	但他们的不同是计算的方式不同
+    
+	1：w3c标准盒模型
+	   element空间高度(盒子) = width + padding + border;
+	   width为内容高度，即width不包括padding和border
+
+	2:ie6混杂模式盒模型//<!doctype html>删除，和在ie6以下的浏览器浏览
+	  内容高度(盒子) = width - padding -border
+	  即设置width的数值就是element的空间高度，width包含padding和border
+
+	  css3中有一个可以选择盒模型的属性
+	  box-sizing:border-box/content-box
+
+	  content-box为w3c标准盒子
+	  border-box为ie6混杂模式的盒子
+  
+			 弹性盒子display:flex
+	默认向主轴(x)排序,块级元素不会换行，改变主轴flex-direction: column;(y)
+    flex为复合属性，且必须配合父元素display:flex使用。
+
+	以下6个属性设置在项目(子元素)上：
+    flex-grow: 放大比例饿
+    flex-shrink: 缩小比例
+	flex-basis：伸缩基准值
+	flex:是flex-grow,flex-shrink和flex-basis的简写
+	order:排列顺序
+	align-self:单个项目对齐方式
+
+  1:flex-grow
+    根据所设置的比例分配盒子所剩余的空间
+	扩展:左右两栏布局 默认值0；
+       eg:
+		 主轴(x)默认主轴排序   侧轴/交叉轴(y)
+		 <div class="box">//容器
+		   <div class="item"></div> //子元素叫做项目
+		   <div class="item"></div>
+		   <div class="item"></div>
+		</div>		 
+	  eg:
+		 .box{
+			 width:400px;
+			 height:500px;
+			 border:1px solid black;
+			 display:flex;
+		 }
+		 .item{
+			height:20px;
+			width:20px; //每个项目width为20px
+			border:1px solid black;
+		 }
+
+   //将父元素的width减去3个子元素的width=3*20=60;得出剩下340px;平均分6份,大概为56.6一份
+		 .box .item:nth-child(1){
+			flex-grow:1;//，分一份，20px+56.6px
+		 }
+		 .box .item:nth-child(2){
+		   flex-grow:2;//分两份 20px+(56.6px * 2)
+		 }
+		 .box .item:nth-child(3){
+		   flex-grow:3;//分三份 20px+(56.6px * 3)
+		 }
+		
+
+	  eg:左右定宽，中间自适应
+		 .flex{
+			width:100%;
+			border:1px solid black;
+			display:flex;
+		 }
+		 .fl{
+			height:100px;
+			border:1px solid red;
+		 }
+		 .fl:nth-child(1){
+			width:200px;
+		 }
+		 .fl:nth-child(2){
+			flex-grow:1;
+		 }
+		 .fl:nth-child(3){
+			width:200px;
+		 }
+	  
+	  dom结构:
+		<div class="flex">
+		  <div class="fl"></div>
+		  <div class="fl"></div>
+		  <div class="fl"></div>
+		</div>
+
+  2：fiex-shrink
+		置元素的收缩比例 -- 多出盒子的部分，按照比例的大小砍掉相应的大小。即比例越大，被砍的越大，默认值1；
+		.demo{
+			flex-shrink:number;
+		}
+		eg:
+		  .flex{
+			width:500px;
+			border:1px solid black;
+			display:flex;
+		 }
+		 .fl{
+			width:200px; //每个项目200px,共600px,超出父元素500px
+			height:100px;//默认每个项目子元素都有默认flex-shrink:1这个属性；
+			border:1px solid red;//有多少个子元素就有多少分。每个1:1：1的比例，超出的100px，
+			                    //有三个子元素，就100/3=33.3px,每个子元素减去对应的33.3width
+		 }                
+		 .fl:nth-child(1){
+			flex-shrink:1;//占一份，将代表这个项目，多出的100px，占完，即-100px;
+		 }
+		 .fl:nth-child(2){
+			flex-shrink:0;//不占
+		 }
+		 .fl:nth-child(3){
+			flex-shrink:0;//不占   
+		 }
+	  dom: 
+	   <div class="flex">
+		  <div class="fl"></div>
+		  <div class="fl"></div>
+		  <div class="fl"></div>
+		</div>
+
+  3:flex-basis
+         伸缩基准值,项目占据主轴的时间
+		
+		 该属性设置元素的宽度或高度，当然width也可以用来设置元素宽度，如果元素上同时出现width和flex-basis，
+		 
+		 那么flex-basis会覆盖width的值
+		
+		 子元素宽度尽可能按照basis来如果基准值相加大于容器宽度那么 下面又下面公式分配宽度给子元素
+		 (flex-basis/(flex-basis相加)) * 容器的宽度   
+     eg:
+		.flex{
+			width:500px;
+			border:1px solid black;
+			display:flex;
+			/*flex-direction:column;*/改变主轴为侧轴，那么flex-basis的值则会覆盖height的值。
+		 }
+		 .fl{
+			width:200px;
+			flex-basis:120px;//默认主轴，所以会覆盖width的值。 并且项目不会平均铺满父级元素。
+			height:100px;
+			border:1px solid red;
+		 }
+		  
+			   flex(上面所有属性的简写)
+                      flex-grow   flex-shrink        flex-basis
+	flex:1   -->   flex:1              1                0%;
+	flex:3   -->   flex:3 1 0%；
+   
+    注意：flexbox布局和原来的布局是两个概念，部分css属性在flexbox盒子里面不起作用，
+	     eg:float,clear,column,vertical-align 等等。
+	
+   	              order(项目属性)
+	 number定义项目的排列顺序，数值越小，排列越靠前，默认为0；
+  eg: .demo{
+		 order:number
+	 }
+	 
+			     align-self(项目属性)自己
+	align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。
+	默认值为auto,表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。
+  eg:demo{                                             
+	  align-self:auto | flex-start | flex-end | center | baseline | stretch;
+  }
+  flex-end:下面
+  center:中间
+  baseline:基准线(按照子元素的里面的文字对齐);
+           如果有一个项目没有文字内容，那么将会找这个项目最下边和其他项目的文字对齐;
+  stretch:不设高的情况,项目继承容器的height,有height,这个属性不会生效;
+
+  eg:baseline 
+	 .wrapper{
+	    width:600px;
+		height:700px;
+		display:flex;
+		border:1px solid black;
+	 }
+	 .item{
+	    height:100px;
+		flex-grow:1;
+		align-self:baseline;
+	    border:1px solid black;
+	 }
+	.item:nth-child(1){
+	   order:-1;
+	 }
+	 .item:nth-child(2){
+       order:12;
+	 }
+	 .item:nth-child(3){
+	   order:-5;
+	   margin-top:20px;  
+	 }
+   
+ eg:stretch
+
+               容器属性(6个)
+
+ 1：flex-direction  决定主轴的方向
+ 2：flex-wrap       是否换行
+ 3：flex-flow  flex-direction 和 flex-wrap 的简写
+ 4：justify-content  项目在主轴上的对齐方式
+ 5：align-items      在侧轴上如何对齐
+ 6：align-content    多根轴线的对齐方式。
+
+           flex-direction属性决定主轴的方向，即项目的排列方向
+ .box{               主轴     反向主轴      侧轴     反向侧轴
+	 flex-direction:  row |  row-reverse | column | column-reverse
+ }
+
+ row(默认值)：主轴为水平方向，起点在左端。
+ row-reverse：主轴为水平方向，起点在右端。
+ column:主轴为垂直方向，起点在上沿。
+ column-reverse:主轴为垂直方向，起点在下沿。
+     
+		  flex-wrap属性(换行)
+
+默认情况下，项目都排在一条线(又称轴线)上，flex-wrap属性定义，如果一条轴线排线不下，该如何换行？
+
+多行情况下，项目会撑开整个父级
+
+.box{
+	flex-wrap:nowrap | wrap | wrap-reverse;
+}
+ (1) nowrap(默认)；不换行
+ (2) wrap:换行，第一行在上方。
+ (3) wrap-reverse:换行，第一行在下方。
+        
+
+		3：flex-flow
+flex-flow属性是flex-diretion属性和flex-wrap属性的简写形式，默认值row nowrap。
+.box{
+	flex-flow:<flex-direction> || < flex-wrap>
+}
+
+eg:flex-flow:row-reverse wrap;
+
+       justify-content属性
+justify-content属性定义了项目在主轴上的对齐方式
+.box{
+	 justify-content:flex-start | flex-end | center | space-between | space-around;
+}
+
+它可能取5个值，具体对齐方式与轴的方向有关。下面假设主轴为从左到右。
+flex-start(默认值) ： 左对齐
+flex-end:   右对齐
+center:   居中
+space-between: 两端对齐(第一个项目靠左边和最后一个项目靠右边)，项目之间的间隔都相等。
+space-around： 每个项目两侧的间隔相等(每个项目都有左右两侧的相等间隔)，所以，项目之间的间隔比项目与边框的间隔大一部。
+space-evenly: 间隔左右间隔一个项目的width的距离
+
+eg:实现居中对齐
+    .wrapper{
+	    width:600px;
+		height:700px;
+		display:flex;
+        flex-wrap:wrap;
+	    justify-content:space-around; //居中对齐
+		border:1px solid black;
+	 }
+	 .item{
+	    width:80px;
+        height:100px;
+		flex-grow:0;	
+	    border:1px solid black;
+		
+	 }
+  
+align-items容器属性(和项目的align-self一样。align-self会覆盖align-items)
+align-items属性定义项目在侧轴上如何对齐。
+
+.box{
+	align-items:flex-start | flex-end | center | baseline | stretch;
+}
+
+它可能取5个值。具体的对齐方式与交叉轴的方向有关，下面假设交叉轴从上到下
+flex-start:交叉轴的起点对齐
+flex-end: 交叉轴的终点对齐。
+center:交叉轴的中点对齐。
+baseline:项目的第一行文字的基线对齐。
+stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。
+
+     align-content属性（和justify-content差不多，换行差生多跟轴。）
+align-content属性定义了多根轴线的对齐方式，如果项目只有一一根轴线，该属性不起作用。
+.box{
+	align-content:flex-start  | flex-end | center | space-between | space-around | stretch;
+}
+
+该属性可能取6个值。
+flex-start: 与交叉轴的起点对齐
+flex-end:与交叉轴的终点对齐
+center:与交叉轴的中点对齐
+space-between:与交叉轴两端对齐，轴线之间的间隔平均分布
+space-around:每根轴线两侧的间隔都相等，所有，轴线之间的间隔比轴线比边框的间隔大一倍。
+stretch(默认值)：轴线占满整个交叉轴
+
+eg:垂直水平居中
+     .wrapper{
+	    width:600px;
+		height:700px;
+		display:flex;
+	    flex-wrap:wrap;
+		border:1px solid black;
+		justify-content:center;
+		align-items:center;
+	 }
+	 .item{
+	    width:200px;
+        height:100px;
+		flex-grow:0;	
+	    border:1px solid black;	
+	 }
+
+
+透明属性值，三角形
+    .wrapper{
+	    width:0px;
+		height:0px;
+       border:200px solid transparent;
+	   border-right:200px solid red;		
+	 }

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	/*  浏览器--》受到同源策略(协议，端口，域名)保持一致 安全性限制
+
+	  跨域--》iframe,服务器代理中转，，domain--jsonp（GET） 
+
+	  同源   get  post 同源两个请求方式都可以使用
+	  非同源  get   非同源只有get可以使用
+	  
+
+      CORS(服务器端) -->跨域资源共享  (后端)--》node.js也可以
+      CORS分两种，一种简单请求，一种非简单请求
+	  access-control-allow-origin
+
+	  $(document).ready()// dom结构渲染完毕，如果有多个doucment.ready， 会执行多个
+	  window.onload = function (){}//页面所有资源都加载完，dom，css，img等等
+	  如果 有多个window.onload，只会执行一个，执行后面的
+   
+	           
+			        jsonp
+	
+	  function addScript(url){
+		  var script = document.createElement('script');
+		  script.setAttribute('type','text/javascript');
+		  script.src = url;
+		  document.body.appendChild(script);
+	  }
+	  window.onload = function (){
+		  var address = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=ren&cb=jQuery";
+		  addScript(address);
+	  }
+	  function jQuery(data){
+		  console.log(data);
+	  }
+	          
+			    封装ajax jsonp
+
+	  	*/
+        当时dataType是jsonp，但url是满足同源策略的，直接发送ajax，请求方式类型，传那个用哪个，post或get，
+		如果是非同源，请求方式类型，只有get可用，也就是说，post也得get请求方式发送,dataType为jsonp的是，有两种情况
+		第一种是同源，第二种是非同源，如果是同源的话，那么就正常发送ajax.如果是非同源都得转成get请求
+
+		//服务器端(后台)所做的是，拿到前端jsonp传来的回调函数，处理。abc({"a":"1"})//拼接为这样的格式，abc可变
+
+		//ajax,可以发送同源，可以发送非同源。非同源就用jsonp，同源正常发送ajax请求。
+	var $ = {
+			ajax : function (param){
+		        if(param.dataType == 'jsonp'){//dataType类型为jsonp
+					var isOrigin = true;
+					//param.ulr == 页面url
+					 if(param.url.indexOf('http:') == 0){
+						 var rh = param.url.split("/")[2];
+					     if(window.location.host != rh){
+							 isOrigin = false;
+						 }
+					 }else if(param.url.indexOf('https:') == 0){
+						  var rh = param.url.split("/")[2];
+					     if(window.location.host != rh){
+							 isOrigin = false;
+							 console.log('rrr');
+				    	 }
+					 }else{
+						 isOrigin = true;
+					 }
+			
+					 if(isOrigin){//同源 ajax
+						  var ajax = new XMLHttpRequest();//创建ajax对象
+						  ajax.open(param.type,param.url);//传入type类型，get或post和url
+						  ajax.send(param.data);//传入data，发送请求，到服务器
+                          ajax.onreadystatechange = function (){//监听状态
+							  if(ajax.readyState == 4 && ajax.status == 200){//请求完成，和请求成功，当 readyState 等于 4 且状态为 200 时，表示响应已就绪
+								  param.success(ajax.responseText);//ajax.responseText,服务器响应,获得字符串形式的响应数据,也就是后台传回来的数据
+							  }
+						  }
+					 }else{//非同源  jsonp
+						 window.abc = param.success;//也就是window.abc = function (data){console.log(data)};数据回来，即可执行。abc是变量，不能写死。
+						 var script = document.createElement('script');
+						 script.setAttribute('type','text/javascript');
+						 script.src = param.url;//param对象写入url
+						 document.body.appendChild(script);
+					 }
+				}
+			}
+		}
+		var param = {
+			type : 'post',
+			url : './a.json',
+			data : "wd",
+			dataType : 'jsonp',
+			success : function (data){
+                 console.log(data); 
+			}
+		}
+		$.ajax(param);
+
+		//animate   ajax  jsonp
+	</script>
+ </body>
+</html>

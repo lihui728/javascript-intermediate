@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <link rel="stylesheet" href="./bootstrap.css">
+  <style>
+     span .h1{
+	    font-size:0;
+	 }
+	 img{
+	    widht:200px;
+		height:200px;
+	 }
+	 .row .col-md-1{
+	   background:red;
+	 }
+	 .row .item:nth-child(1){
+	    background:red;
+	 }
+	 .row .item:nth-child(2){
+	    background:green;
+	 }
+	 .row .item:nth-child(3){
+	    background:blue;
+	 }
+	.item1{
+	  background:red;
+	}
+	.item2{
+	  background:green;
+	}
+	.item3{
+	  background:black;
+	}
+  </style>
+ </head>
+ <body>
+   <div class="row">
+      <div class="col-md-9 col-md-push-3 item1">fsfs</div>
+	  <div class="col-md-3 col-md-pull-9 item2">fsfs</div>
+   </div>
+	<script>
+	         表格
+	<table class="table table-border table-hover table-condensed">//table-border(边框表格) table-hover(hover样式) table-condensed(紧缩表格)
+	   <tr class="active">
+	     <th>#</th>
+		 <th>First</th>
+		 <th>Last Name</th>
+		 <th>Username</th>
+	   </tr>
+	   <tr  class="success">
+	     <th>#</th>
+	     <th>First</th>
+		 <th>Last Name</th>
+		 <th>Username</th>
+	   </tr>
+	   <tr class="info">
+	     <th>#</th>
+	     <th>First</th>
+		 <th>Last Name</th>
+		 <th>Username</th>
+	   </tr>
+	</table>
+	     
+		 乱七八糟
+      <p class="text-lowercase">Text-Lowercased小写</p>
+	<p class="text-uppercase">Text-uppercase大写</p>
+	<p class="text-capitalize">text-capitalize首字母大写</p>
+	<abbr title="attribus">attr</abbr>
+	<ul class="list-inline">
+	  <li>1</li>
+      <li>2</li>
+	   <li>3</li>
+	    <li>4</li>
+		 <li>5</li>
+		  <li>6</li>
+	</ul>
+	<code>&lt;a&gt;</code>
+	<var>y</var>=<var>m</var><var>x</var> + <var>b</var>
+
+
+	     form表单
+ <form>
+	  <div class="form-group">
+	    <label for="input1">Email</label>
+		<input type="mail" class="form-control" id="input1" placeholder="Email">
+	  </div>
+	  <div>
+	    <label for="password">password</label>
+		<input type="password" class="form-control" id="password" placeholder="Password">
+	  </div>
+	  <div class="form-group">
+	    <label for="file">file</label>
+		<input type="file" id="file" >
+	  </div>
+	  <button type="submit" class="btn btn-default">submit</button>
+	</form>  
+	    
+		响应式form表单，小于768px，生效，都要设置label标签，不生效设置sr-only,隐藏
+  <form class="form-inline">
+     <div class="form-group">
+	   <label for="username">username</label>
+	   <input type="text" class="form-control" id="username" placeholder="username">
+	 </div>
+	 <div class="form-group">
+	   <label for="password">password</label>
+	     <input type="password" class="form-control" id="passwrod" placeholder="password">
+	 </div>
+   </form>
+  
+ eg:   <form class="form-inline">
+     <div class="form-group">
+	   <label for="username" class="sr-only">username</label>
+	   <input type="text" class="form-control" id="username" placeholder="username">
+	 </div>
+	 <div class="form-group ">
+	   <label for="password" class="sr-only">password</label>
+	     <input type="password" class="form-control" id="passwrod" placeholder="password">
+	 </div>
+   </form>
+
+         表单
+  <form class="form-inline">
+    <div class="form-group">
+	  <label class="sr-only"></label>
+	  <div class="input-group">
+	  <div class="input-group-addon">$</div>
+	  <input type="text" class="form-control" placeholder="Amnou">
+	  <div class="input-group-addon">.00</div>
+	  </div>
+	</div>
+	<button class="btn btn-primary">Transfer cash</button>
+  </form>
+
+
+ <button type="button" class="btn btn-default btn-lg">默认样式</button>
+  <button type="button" class="btn btn-primary btn-sm">(首选项)paimary</button>
+  <button type="button" class="btn btn-success btn-xs">(成功)Success</button>
+  <button type="button" class="btn btn-info">(一般信息)info</button>
+  <button type="button" class="btn btn-warning">(警告)Warning</button>
+  <button type="button" class="btn btn-danger">(危险)Danger</button>
+  <button type="button" class="btn btn-link">(连接)Link</button>
+
+                  块级元素
+    <button type="button" class="btn btn-default btn-block">1</button>
+	<button type="button" class="btn btn-default btn-block">2</button>
+
+	             img
+	
+	 <img src="./1.jpg" class="img-rounded">
+   <img src="./1.jpg" class="img-circle">
+   <img src="./1.jpg" class="img-thumbnail">
+
+
+              font颜色
+ <p class="text-muted">对光反射方式放松放松给对方割发代首</p>
+   <p class="text-primary">对光反射方式放松放松给对方割发代首</p>
+   <p class="text-success">对光反射方式放松放松给对方割发代首</p>
+   <p class="text-info">对光反射方式放松放松给对方割发代首</p>
+   <p class="text-warning">对光反射方式放松放松给对方割发代首</p>
+   <p class="text-danger">对光反射方式放松放松给对方割发代首</p>
+      
+	         背景颜色
+    <p class="bg-primary">对光反射方式放松放松给对方割发代首</p>
+   <p class="bg-success">对光反射方式放松放松给对方割发代首</p>
+   <p class="bg-info">对光反射方式放松放松给对方割发代首</p>
+   <p class="bg-warning">对光反射方式放松放松给对方割发代首</p>
+   <p class="bg-danger">对光反射方式放松放松给对方割发代首</p>
+	
+
+	        栅格系统row
+  	<div class="container-fluid">
+	  <div class="row">
+	     <div class="col-xs-2 col-md-7 item col-lg-5">.col-xs-12 .col-md-8</div>
+		 <div class="col-xs-8 col-md-2 item col-lg-6">.col-xs-6 .col-md-4</div>
+		 <div class="col-xs-2 col-md-3 item col-lg-1">dsfffffsfdfds</div>
+	  </div>
+	</div>
+
+	     
+		   col-xs-offset
+   
+    div class="row">
+  <div class="col-sm-5 col-md-6">.col-sm-5 .col-md-6</div>
+  <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0">.col-sm-5 .col-sm-offset-2 .col-md-6 .col-md-offset-0</div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 col-md-5 col-lg-6">.col-sm-6 .col-md-5 .col-lg-6</div>
+  <div class="col-sm-6 col-md-5 col-md-offset-2 col-lg-6 col-lg-offset-0">.col-sm-6 .col-md-5 .col-md-offset-2 .col-lg-6 .col-lg-offset-0</div>
+</div>
+        
+         
+		 嵌套
+<div class="row">
+      <div class="col-sm-9 item1">aaaa
+	    <div class="row">
+		  <div class="col-xs-8 col-sm-6 item2">
+		    bbb
+		  </div>
+		  <div class="col-xs-4 col-sm-6 item3">
+		     ccc
+		  </div>
+		</div>
+	  </div>
+   </div>
+	<script>
+ </body>
+</html>
+
+
+
+

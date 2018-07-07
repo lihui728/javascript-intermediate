@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+   
+   *{
+    margin:0;
+	padding:0;
+	list-style:none;
+   }
+  li:nth-of-type(1){
+     color:red;
+  }
+  ul:only-of-type{
+     width:100px;
+	 height:100px;
+	 background:red;
+  }
+  input:enabled{
+     background:red;
+  }
+  input:disabled{
+     background:green;
+  }
+  input:checked + span{
+     display:inline;
+  }
+  span{
+     display:none;
+  }
+  p{
+    width:100px;
+	border:1px solid black;
+	word-wrap:break-word;
+  }
+  p::first-letter{
+     font-size:30px;
+  }
+  p::first-line{
+     color:red;
+  }
+  .wrapper{
+    width:400px;
+	height:400px;
+	border:1px solid black;
+	text-align:center;
+	position:relative;
+  }
+  input{
+    margin-right:30px;
+	width:26px;
+	height:26px;
+  }
+  .wrapper div{
+     width:400px;
+	 height:369px;
+	 position:absolute; 
+	 top:26px;`
+	 left:0;
+	 background:red;
+	  display:none;
+  }
+
+  input:checked + div{
+     display:block;
+  }
+  </style>
+ </head>
+ <body>
+    <li>0</li>
+	<ul>
+	  <li>1</li>
+	  <li>2</li>
+	  <li>3</li>
+	</ul>
+	<div><p>a</p></div>
+      <li>4</li>
+	<input type="text" readonly>
+	<input type="password">
+	<input type="checkbox" name="aa" checked>
+	<input type="checkbox" name="aa">
+	<span>aa</span>
+	<input type="radio" name="bb" checked>
+	<input type="radio" name="bb">
+	<span>bn</span>
+	<p>fsfffffffffffffsfsfsgsgsdgdfsfsdfsfsfs</p>
+	<div class="wrapper">
+	   <input type="radio" checked name="aa">
+	     <div>radio1</div>
+	   <input type="radio" name="aa">
+	   <div>radio2</div>
+	   <input type="radio" name="aa">
+	   <div>radio3</div>
+	   
+	   
+	</div>
+    <script>
+	  /*
+	 css2选择器   div .class #id ul li ul>li
+
+	          css3选择器
+	
+              属性选择器
+E[att^="val"]{...} 选择匹配元素E,且E元素定义了属性att,器属性值以val开头的任何字符串
+
+E[att$="val"]{...}选择匹配元素E,且E元素定义了属性att，其属性值以val结尾的任何字符串
+
+E[att*="val"]{...}选在匹配元素E,且E元素定义了属性att，其属性值任意位置出现val，即属性值包含了val，位置不限、
+
+eg:
+   li[class~='la']
+   li[class^='la'];以la开头
+   li[class$='la'];以la结尾
+   li[class*='la'];任意class出现la，都true
+   
+
+初级伪类选择器：伪类用于向某些选择器添加特殊的效果
+
+1.root 根标签选择器
+ ":root"选择器等同于<html>元素，简单点说：
+  
+ :root{background:red};
+ html{background:red};
+ 得到的效果等同
+ 建议使用：root(xml等)
+
+2：not否定选择器
+ 用法和jQuery中的not类似，可以排除某些特定条件的元素
+ div:not([class="demo"]){
+	 background-color:red;
+ }
+ eg:
+    :not(li){//除了li
+		background-color:red;
+	}
+ 意思为除了class为demo的div以外，所有的div的背景颜色都变红、
+
+ 
+               
+			  伪类选择器
+	 link  :visted   active   focus
+伪元素选择：伪元素的效果是需要通过添加一个实际的元素才能达到的。
+
+css3对伪元素进行了一定的调整，在以前的基础增加了一个；
+也就是现在变成了::first-letter,::first-line,::before，::after
+
+另外还增加一个::selection
+
+::selection
+
+::selection选择器是用来匹配突出显示的文本(用鼠标选择文本的时候)。
+浏览器默认情况下，用鼠标选择网页文本是以"蓝色的背景，白色的字体"显示的
+属性：user-select:none;
+
+注：火狐下必须加-moz-moz-：selectoin
+
+eg:
+	  p::first-letter{
+		 font-size:30px;
+	  }
+	  p::first-line{
+		 color:red;
+	  }
+
+	  p{//不能选中文本。
+      user-select:none;
+      }
+
+
+            伪类和伪元素的区别
+
+伪类的效果可以通过添加一个实际的类来达到
+
+伪元素的效果则需要通过添加一个实际的元素才能达到
+
+这也是为什么他们一个称为伪类，一个称为伪元素的原因。
+
+
+       empty(空标签选择器)  target(目标元素选择器)
+
+               
+			  empty 空标签选择器
+
+用来选择没有内容的元素，不在文档树中的元素，这里的没有内容，
+指的是一点内容都没有，哪怕是一个空格。
+
+ 
+              target 目标元素选择器
+
+用来匹配被location.hash 选中的元素(即锚点元素)
+选择
+
+
+eg： 
+		.aa{
+			 width:100px;
+			 height:100px;
+			 background:red;
+			 position:absolute;
+			 top:500px; 
+		   }
+		   .aa:nth-child(5){
+			  top:1000px;
+		   }
+		   .aa:nth-child(6){
+			  top:1500px;
+		   }
+		   .aa:target{
+			  background:green;
+		   }
+		  </style>
+		 </head>
+		 <body>
+		  
+		   <a href="#item">click1</a>
+		   <a href="#item1">click2</a>
+		   <a href="#item2">click3</a>
+		  <div id="item" class="aa"></div>
+		  <div id="item1" class="aa"></div>
+		  <div id="item2" class="aa"></div>
+
+            
+			 锚点
+  <a href="#item">click</a>
+  <div id="item" class="aa"></div>
+ 
+
+           伪类选择器
+
+:first-child  第一个子元素
+:last-chidl   最后一个子元素
+:nth-child(){}第xx个子元素，n代表变量自然数
+:nth-last-child(){}从后往前数
+
+以上四个选择器均有弊端，即如果当前位置元素不是前面所修饰的元素，那么无效
+ 
+  注：其父元素的第n个子元素，不论元素的类型
+
+
+
+ li:first-child{ //找第一个子元素，并且为li的。
+      color:red;
+   }
+ 
+ li:last-child{//找最后一个子元素，并且为li的，如果后面是script的，则选择不上。
+     color:red;
+   }
+ 
+  li:nth-child(1){//找任意的元素下面的第一个元素，并且为li，如果第一个子元素不是li的话，则选择不上。
+     color:red;
+  }
+  
+  li:nth-child(even/odd)
+
+  li:nth-child(2n)填表达式。 0 2 4 6 //n从零开始
+  li:nth-child(2n+1)  1  3  5  7
+
+
+ 
+
+:first-of-type 第一个子元素
+:last-of-type 最后一个子元素
+:nth-of-type(2n){}第xxx个子元素，n代表变量自然数
+:nth-last-of-type(){}从后往前数
+
+此种选择器，限制了类型。即在所修饰元素的类型下选择特定位置的元素。
+
+eg:
+
+li:first-of-type{//找第一个类型为li的子元素，不在乎是第几个子元素，只在乎该类型li，作为一个子元素，作为该类型的第一个类型。。
+	 background:red;
+}
+
+li:last-of-type{//找最后一个类型为li的子元素，不在乎是第几个子元素，只在乎该类型li,作为一个子元素，作为该类型的最后一个类型。
+}
+
+li:nth-of-type(1){//找该类型第一个出现子元素li，不在乎是第几个字元素。
+     color:red;
+  }
+
+li:nth-last-of-type(2){//从后往前找该类型第一个出现子元素li，不在乎是第几个字元素。
+     color:red;
+  }
+
+       
+
+:only-child 唯一子元素选择器
+            选择是独生子的子元素，即该子元素不能有兄弟元素，它的父元素只有它一个直接子元素。
+			注意：选择的元素是独生子子元素，而非有唯一子元素的父元素
+
+:only-of-type 如果要选择第某类特定的子元素(p)在兄弟节点中是此类元素唯一个的话 就需要用到这个属性了。
+
+
+           
+		    状态类伪类选择器
+	       :enabled(可用的元素),:disabled(不可用的元素)
+
+ 在web的表单中，有些表单元素有可用("enabled")和不可用
+ 
+ ("disabled")状态，比如输入框，密码框，复选框等。在默认情况下。这些表单元素都处在可用状态。
+ 那么我们可以通过伪类选择qienabled进行选择，disabled则相反；
+
+ eg：
+    input:enabled{....}
+	input:disabled{....}
+
+	       
+		    :checked(选择框的被选中状态)
+
+注：checked，radio的一些默认状态不可用属性进行改变，如边框 颜色。
+
+eg:
+   input:checked + span  //input被选中找相邻的span。
+   dom结构    <input type="text"><span></span>
+     
+	      
+		  :read-only(选中只读的元素)  :read-write选择非只读的元素
+		            状态类。
+
+ eg:
+     <input type="text" readonly="readonly">//只读
+
+	 <input type="text"> //可写
+	  */
+	</script>
+ </body>
+</html>

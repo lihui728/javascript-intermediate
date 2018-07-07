@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+   *{
+    margin:0;
+	padding:0;
+   }
+    #wrapper{
+	   border:1px solid #000;
+	}
+	#canvas2{
+	 
+	}
+  </style>
+ </head>
+ <body>
+   <canvas id="wrapper" width=500 height=500></canvas>
+   <canvas id="canvas2" width=120 height=120></canvas>
+    <script>
+	       /*            Canvas与Svg
+   他们两个都可以做图形，但应用场景不一样。Canavs是在一个标签上面写东西，理解为画布，可以说是在一个画布上面画东西
+   svg每个路径都是一个标签，如果表格非常大，线路很多，svg做的话需要很多的标签，用Canvas做，只是一个画布。
+                  
+				        Canvas的应用场景
+  1：游戏     2：图表        3：动画        4：codepen.io(HTML5动效)
+
+  var oCanvas1 = document.getElementById("canvas1");//画布
+
+  单单画布还不行，还需要画布的上下文对象，上下文对象为画布提供了很多的方法属性，画图颜色，已经获取像素点等等，
+  每个画布都有独立的上下文对象，如果想在画布上面画东西，必须拿到上下文对象。在上下文对象中使用它的属性和方法
+  进行图形和绘制。上下文对象可以通俗的理解为画布
+  
+  var ctx1 = oCanvasl.getContext("2d");
+
+
+                        重点
+1：fill和stroke方法都是作用在当前的所有子路径；
+
+2：完成一条路径后要重新开始另一条路径时必须使用beginPath()方法，beginPath开始子路径的一个新的集合
+
+
+ var canvas = document.getElementById("wrapper");
+   var ctx = canvas.getContext('2d');
+   
+   ctx.moveTo(50,100);
+   ctx.lineTo(100,100);
+   ctx.lineTo(100,150);
+   ctx.closePath();
+   ctx.lineWidth = 10;
+   ctx.strokeStyle = "blue"
+   ctx.fillStyle = "red";
+   ctx.fill();
+   ctx.stroke();
+
+   
+   ctx.moveTo(150,100);
+   ctx.lineTo(200,100);
+   ctx.lineTo(200,150);
+   ctx.fillStyle = "black";
+   ctx.fill();
+
+                 矩形
+
+   1：ctx.rect(x,y,dx,dy);//xy代表起始点，dx,dy代表宽高，使用这个还要执行 一下fill(),和stroke()其中一个。
+    eg:ctx.rect(100,100,200,200);
+	   ctx.stroke();
+
+   2:ctx.fillRect(x,y,dx,dy)//xy代表起始点，dx,dy代表宽高,直接执行填充
+    eg:ctx.fillRect(100,100,200,200);
+   
+   3:ctx.strokeRect(x,y,w,h)//xy代表起始点，dx,dy代表宽高,直接执行描边
+
+   这几个方法都开启一条新的路径。不会影响其他路径
+
+              
+			    
+
+               擦除当前区域
+  
+   1：ctx.clearRect(x,y,dx,dy);//xy代表起始点，dx,dy代表宽高,擦除区域
+
+   2:实现矩形落地动画
+
+               弧形
+   1：arc(x,y,r,起始弧度，结束弧度，弧形的方向)Math.PI是180度，
+    eg: ctx.arc(100,100,20,0,Math.PI*2,0);//前两个参数100，为起始点，20为半径，0为起始弧度，90度是结束弧度，0为顺时针
+	                                     //上面的Math.PI / 2 只能整数，如果想拿到77，那么该这样写：Math.PI / 180 * 77
+	eg:ctx.arc(100,100,20,0,Math.PI/2,1);
+
+   2：角以弧度计，0顺时针1  逆时针
+
+                    l练习
+   var canvas = document.getElementById("wrapper");
+   var ctx = canvas.getContext("2d");
+   var w = canvas.width;
+   var h = canvas.height;
+   ctx.moveTo(100,100);
+   ctx.lineTo(200,100);
+   ctx.arc(100,100,100,0,Math.PI/3,1);//不同时针，效果不同。
+   ctx.closePath();
+   ctx.stroke();
+
+    
+	               圆角
+  1：ctx.arcTo(x1,y1,x2,y2,r);
+
+  2:绘制的弧线与当前点和x1，y1连线，x1，y1和x2，y2连线都相切
+
+
+               练习圆角矩形
+	
+   var canvas = document.getElementById("wrapper");
+   var ctx = canvas.getContext("2d");
+   ctx.moveTo(150,100);
+   ctx.arcTo(200,100,200,200,30);//画笔停留在200,200，所以就不用moveTo了
+   ctx.arcTo(200,200,100,200,30);
+   ctx.arcTo(100,200,100,100,30);
+   ctx.arcTo(100,100,200,100,30);
+   ctx.closePath();
+   ctx.stroke();
+   
+             
+			   贝塞尔曲线
+  
+  1：quadraticCurveTo(x1,y1,ex,ey)二次贝塞尔曲线。
+     
+	 x1,y1控制点
+	 ex,ey结束点
+
+   eg: 
+     var canvas = document.getElementById("wrapper");
+	 var ctx = canvas.getContext("2d");
+	 ctx.moveTo(100,200);
+	 ctx.quadraticCurveTo(150,100,300,200);
+	 ctx.stroke();
+  
+  2：bezierCurveTo(x1,y2,x2,y2,ex,ey)三次贝塞尔曲线
+    x1，y1,x2,y2控制点
+	ex,ey结束点。
+
+	  eg:
+	 var canvas = document.getElementById("wrapper");
+	 var ctx = canvas.getContext("2d");
+	 ctx.moveTo(100,200);
+	 ctx.bezierCurveTo(50,100,200,100,300,200)
+	 ctx.stroke();
+
+	           坐标轴转换
+  1：translate(dx,dy) 重新映射画布上的(0,0)位置
+  2：scale(sx,sy) 缩放当前绘图
+  3：rotate(Math.PI)旋转当前的绘图
+  4：save()restore()
+     保存当前图像状态的一份拷贝
+	 从栈中淡出存储的图形状态并恢复//栈中遵循先进后出的顺序，例：在画布中保存多个save()，那么执行restore()弹出的第一个
+	                                 save()，是最后保存的save();
+  5：setTransform(a,b,c,d,e,f)先重置在变换，例：在前面设置了translate,scale,rotate都会被清空，一般有这个方法 
+    参数:水平缩放，水平倾斜，垂直倾斜，垂直缩放，水平移动，垂直移动
+  6：transform(a,b,c,d,e,f)在之前的基础上变换 例：在前面设置了translate,scale,rotate不会被清空
+
+
+              translate//平移了整个画布。所有路径都受到影响。
+	 var canvas = document.getElementById("wrapper");
+     var ctx = canvas.getContext("2d");
+	 ctx.translate(100,100);
+	 ctx.fillRect(0,0,100,100);//并不是相对应肉眼的0,0开始画，相对于translate移动之后的位置开始画
+
+	          
+			  sava(),restore();
+
+	 var canvas = document.getElementById("wrapper");
+	 var ctx = canvas.getContext("2d");
+	 ctx.save(); //第一个保存图形
+	 ctx.translate(100,100);
+     ctx.save();//第二个
+	 ctx.fillRect(0,0,100,100);
+	 ctx.restore();//弹出恢复第二个图形
+	 ctx.restore();//恢复第一个图形状态。
+	 ctx.fillRect(0,0,100,100);
+
+	           
+			   scale(x,y)//缩放当前绘图
+
+	  var canvas = document.getElementById("wrapper");
+	  var ctx = canvas.getContext("2d");
+	  ctx.scale(2,1);//缩放当前绘图，x为2倍
+	  ctx.fillRect(100(x),0,100(w),100);//x也受到影响，x肉眼看也是2倍也就是200，w也2倍。200
+
+	            rotate(Math.PI)//旋转当前画布
+	 var canvas = document.getElementById("wrapper");
+	  var ctx = canvas.getContext("2d");
+	  ctx.rotate(Math.PI/4);
+	  ctx.fillRect(0,0,100,100);
+
+  
+				
+				
+				填充图案
+   
+   1：createPattern(image,"repeate | repeat-x | repeat-y | no-repeat")
+   2:img元素(image对象)，canvas元素，video元素(有图形的)
+   eg:image对象
+      var img = new Image();
+	  img.src = "./1.jpg";
+	  
+	  img.onload = function (){
+		var canvas = document.getElementById("wrapper");
+	   var ctx = canvas.getContext("2d");
+	   ctx.fillStyle = ctx.createPattern(img,"no-repeat");
+	   ctx.fillRect(0,0,500,500)
+	 
+	  }
+	
+   eg:canvas
+      var canvas = document.getElementById("wrapper");
+	  var ctx = canvas.getContext("2d");
+	  var canvas2 = document.getElementById("canvas2");
+	  var ctx2 = canvas2.getContext("2d");
+      ctx2.fillRect(0,0,100,100);
+	  ctx.fillStyle = ctx.createPattern(canvas2,"repeat");
+	  ctx.fillRect(0,0,500,500);
+
+
+
+	            渐变
+ 
+ 1：createLinearGradient(x1,y1,x2,y2);线性渐变必须在填充渐变的区域里定义渐变，否则没有效果
+                         从x1，y1开始点，到x2，y2结束点
+
+ 2：createRadialGradient(x1,y1,r1,x2,y2,r2);径向渐变
+
+ 3：bg.addColorStop(p,color);
+
+ eg:线性渐变
+       
+	 var canvas = document.getElementById("wrapper");
+	 var ctx = canvas.getContext("2d");
+	 var bg = ctx.createLinearGradient(0,0,500,50);
+	 bg.addColorStop(0,"red");
+	 bg.addColorStop(0.5,"orange");
+	 bg.addColorStop(1,"green");
+	 ctx.fillStyle = bg;
+	 ctx.fillRect(0,0,500,500);
+
+eg:径向渐变
+   
+     var canvas = document.getElementById("wrapper");
+	 var ctx = canvas.getContext("2d");
+	 var bg = ctx.createRadialGradient(250,250,40,250,250,80);
+	 bg.addColorStop(0,"white");
+	 bg.addColorStop(0.5,"black");
+	 bg.addColorStop(1,"white");
+	 ctx.fillStyle = bg;
+	 ctx.fillRect(0,0,500,500);
+
+	            
+eg:练习
+    
+	var canvas = document.getElementById("wrapper");
+	var ctx = canvas.getContext("2d");
+	var bg = ctx.createLinearGradient(0,0,0,150);//从0，0到0,150表示正下方向渐变
+    bg.addColorStop(0.1,"black");//占0.1
+	bg.addColorStop(0.9,"white");//占0.9
+	ctx.fillStyle = bg;
+	ctx.fillRect(0,0,500,150);
+		
+					*/ 
+   
+   
+   
+	</script>
+ </body>
+</html>

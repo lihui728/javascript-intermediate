@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+   <button id='button'>点击</button>
+   <ul id="ul"></ul>
+   <form>
+      <input type="text" name='username' id='username'>
+	  <input type="text" name="age" id='age'>
+	  <input type="submit" id='sub'>
+   </form>
+   <script>
+     button.onclick = function (){
+		 ajax('get','./getNews.php','',son,true);
+	 }
+	 sub.onclick = function (e){
+		 e.preventDefault();
+		 var value = 'username='+ username.value + '&age=' + age.value;
+		 ajax('post','./post.php',value,post,true)
+	 }
+	 function ajax(method,url,date,callback,flag){
+     var xhr = null;
+	 if(window.XMLHttpRequest){
+		 xhr = new XMLHttpRequest();
+	 }else{
+		 xhr = new ActiveXObject('Microsoft.XMLHttp');
+	 }
+	 method = method.toUpperCase()
+	 if(method == 'POST'){
+		  xhr.open(method,url,flag);
+		  xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+		  xhr.send(date);
+	 }else if(method == 'GET'){
+		 xhr.open(method,url + '?' + date,flag);
+		  xhr.send();
+
+	 }
+	
+	 xhr.onreadystatechange = function (){
+		 if(xhr.readyState == 4){
+			 if(xhr.status == 200){
+				
+				callback(xhr.responseText);
+			 }
+		 }
+	 }
+	 }
+
+
+
+	 function son(date){
+		 var date = JSON.parse(date);
+		 var str = ''
+		 console.log(date);
+		date.forEach(function (ele,index){
+			str += "<li>"+ele.title+""+ele.date+"</li>"
+			
+		})
+		ul.innerHTML = str;
+	 }
+	 function post(date){
+	    alert(date);
+	 }
+   </script>
+ </body>
+</html>

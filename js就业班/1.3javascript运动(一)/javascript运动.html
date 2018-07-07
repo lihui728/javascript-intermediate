@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ <style>
+   div{
+     width:100px;
+	 height:100px;
+	 background:red;
+	 position:absolute;
+	 top:0;
+	 left:0;
+	 opacity:1;
+	 margin-top:100px;
+   }
+   div:nth-child(2){
+      top:200px;
+   }
+ </style>
+ </head> 
+ <body>
+    <div></div>
+	<div></div>
+	<script src="./startMove.js"></script>
+	<script>
+	  var oDivArray = document.getElementsByTagName('div');
+	  var targetObj = {
+		  width : 400,
+		  height : 400,
+		  opacity : 50,
+		  left : 300,
+		  top : 200,
+	  }
+	  oDivArray[0].onclick = function (){
+		  startMove(this,targetObj,function test(){
+			  startMove(oDivArray[1],targetObj);
+		  })
+	  }
+	</script>
+ </body>
+</html>

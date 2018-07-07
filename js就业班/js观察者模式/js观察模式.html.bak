@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	  var event = {};  //发布者(hr)
+	  event.clietList = []; //发布者的缓存列表
+	  event.listen = function(fn){//增加订阅者函数
+		  //evnet.clientList = [fn,]
+		
+		  this.clietList.push(fn);
+	  }
+	  event.trigger = function (){
+		  for(var i=0;i<this.clietList.length;i++){
+			  var fn = this.clientList[i];
+			  fn.apply(this,arguments);
+		  }
+	  }
+	  event.listen(function (time){
+		  console.log('正式上班时间：' + time)
+	  });
+	  event.trigger('2016/10','yes')
+	</script>
+ </body>
+</html>

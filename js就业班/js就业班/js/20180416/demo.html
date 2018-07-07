@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = [2018, 04, 16];
+
+
+        Array.prototype.myReduce = function (fn, init) {
+            var len = this.length;
+            var pre = init;
+            var i = 0;
+            if (init === undefined) {
+                pre = this[0];
+                i = 1;
+            }
+            for (i; i < len; i++) {
+                pre = fn(pre, this[i], i);
+            }
+            return pre;
+        }
+        var r = arr.myReduce(function (preTotal, ele, index) {
+            return preTotal - ele;
+        }, 100);
+
+     
+  var arr1 = [1,2,3,5,6,7,7,8];
+
+
+
+
+    </script>
+</body>
+
+</html>

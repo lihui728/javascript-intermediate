@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+  *{
+    margin:0;
+	padding:0;
+	list-style:none;
+  }
+  .warpper{
+    width:400px;
+	height:500px;
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin-top:-250px;
+	margin-left:-200px;
+	border:1px solid black;
+  }
+  ul li{
+     display:inline-block;
+	 margin:30px 42px;
+	 width:40px;
+	 height:20px;
+	 text-align:center;
+	 line-height:20px;
+	 background-color:#c2c2c2;
+  }
+  .warpper ul .son{
+    background-color:red;
+  }
+  .warpper div{
+     width:400px;
+	 height:410px;
+	 display:none;
+	 background-color:red;
+  }
+  .warpper .a{
+     display:block;
+  }
+  
+  </style>
+ </head>
+ <body>
+   <div class='warpper'>
+      <ul>
+	    <li class='son'>1</li>
+		<li>2</li>
+		<li>3</li>
+	  </ul>
+	  <div class='a'>1</div>
+	  <div>2</div>
+	  <div>3</div>
+   </div>
+   <script src="./jquery-3.3.1.js"></script>
+   <script>
+     $('li').click(function (){
+		 $('.son').removeClass('son');
+		 $(this).addClass('son');
+		 $('.a').removeClass('a');
+		 $('.warpper div').eq($(this).index()).addClass('a');
+
+	 })
+   </script>
+ </body>
+</html>

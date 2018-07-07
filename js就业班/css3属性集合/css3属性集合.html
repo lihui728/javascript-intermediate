@@ -1,0 +1,158 @@
+
+    border-radius -- 圆角(可以em单位)
+
+             （1）
+	border-radius:50%; //全部50%
+		      (2)
+	border-top-left-radius:10px;//上，左各10px;
+	border-top-right-radius:10px;//上，右各10px
+	border-bottom-right-radius:10px;
+	border-bottom-left-radius:10px;
+             (3)
+	border-top-left-radius:10px 20px;//上边10px，左边20px
+	border-top-right-radius:10px 20px;
+	border-bottom-left-radius:10px 20px;
+	border-bottom-right-radius:10px 20px;
+		
+                             
+				 box-shadow --- 盒子阴影（默认值ouset）
+
+		 (同一盒子，可以添加多个阴影，用逗号隔开)outset外，inset内
+                 (四个边都要阴影只需调整x，y的值。)
+	   语法：box-shadow:x轴偏移量  Y轴偏移量  阴影模糊半径(模糊程度)  阴影扩展半径(模糊大小)  阴影颜色  投影方式(向内向外)
+	       eg单个:box-shadow:1px 2px 2px 1px black inset;
+		   eg多个：box-shadow:1px 2px 2px 1px black,2px 1px 1px 2px red,...............;
+
+		                 
+						    text-shadow --- 文字阴影
+				
+	   语法：text-shadow: x  y 模糊程度 颜色
+	         eg:2px 1px 3px red;
+
+
+			                 颜色rgba
+	   
+	   语法：color:rgba(255,255,255,0.2) //满255表示纯红，绿，蓝，最后一个参数透视值
+
+
+	                     渐变背景颜色(Gradient)
+		  
+		    两种渐变(1:线性渐变(linear-to),2:radial-at)
+      
+	1:线性渐变(linear-to)
+    
+	    语法：linear-gradient(diretoin(方向) color [占多少百分比],多个color [占多少百分比].....)
+
+		direction可以deg角度，或to top,to left,to top left等方式来表达
+	
+	eg: 
+	   background:linear-gradient(to top,red,green);
+	   background:linear-gradient(to top left,red,green);
+	   background:linear-gradient(45deg,red,green);
+	   background:linear-gradient(45deg,red 10%,green 10%)
+
+	2:径向渐变(radial-at)
+
+	  语法：radial-gradient(shape at position,color [占多少百分比],color [占多少百分比]....)
+
+           shape:放射的形状，可以为圆形circle，椭圆ellipse,
+		   position:圆心位置，可以两个值，也可以一个，为一个时候，第二个值默认center即50%
+                    值类型可以为：百分数，距离像素，可以left,top..../*第一个值代表x轴主半径y轴次半径*/
+		    
+    eg:
+	   background:radial-gradient(circle at 50% 50%,red,green);
+	   background:radial-gradient(circle at center top,red,green);
+	   bakcground-radial-gradient(circle at 100px 200px,red,green);
+	   background-radial-gradient(circle at 50% 50%,red 20%,green 20%);
+	 
+    eg(cllipse):
+       background:radial-gradient(ellipse at 50% 50%,red,green)		 
+
+
+
+	                     文字
+		
+	   word-wrap:noraml || break-word;   文字边界换行
+
+	eg:
+	   @font-face{
+		   font-family:"myfamily";
+		   src:url("./字体.ttf")
+	   }
+	   p{
+		   font-family:"myfamily";
+		   word-wrap:break-word;
+	   }
+
+
+
+				  border-image -- 边框应用背景
+
+  语法：border-image:url(./xx.png) number  stretch/repeat/round;
+
+       stretch 拉伸，有多长拉多长
+
+
+              background-origin(背景图片起始位置)
+  
+  语法：background-origin:border-box | padding-box | content-box;
+        参数分别表示背景图片是从边框，还是内边距(默认值) 或者是内容区域开始显示
+
+   eg:
+      .origin{
+		  width:200px;
+		  height:200px;
+		  background-image:url('./xxx.jpg');
+		  background-repeat:no-repeat;
+		  background-origin:content-box;
+	  }
+   
+      
+
+			   background-clip(剪切背景)
+		
+   语法：background-clip:border-box | padding-box | content-box | no-clip;
+         参数分别表示从边框，或内填充，或者内容区域向外剪裁背景
+         no-clip表示不剪切，和参数border-box显示同样的效果。默认值border-box;
+	
+   eg:.origin{
+	   width:200px;
+	   height:200px;
+	   background:url('./1.jpg');
+	   background-origin:padding-box;
+	   background-clip:content-box;
+	   background-repeat:no-repeat;
+	   border-sizing:border-box;
+
+    }
+
+	        
+			  background-size(背景图片尺寸)
+
+  语法：background-size:auto | 像素 | 百分比 | cover | contain;
+
+  取值说明:
+          1:auto:默认值，不改变背景图片的原始高度和宽度
+		  2：像素：成对出现如200px 50px 将背景图片宽高依次设置，一个值(宽高)
+		  3：百分比，一个值或两个值
+		  4：cover:用一张图片铺满整个背景，如果比例不符，则截断图片
+		  5：contain：尽量让背景，存在一整张图片
+
+
+             background-position(图片定位)
+	
+语法：background-position:center center | 20% 20% | 20px 20px | top left;
+
+   eg:
+      .position{
+		  width:200px;
+		  height:200px;
+		  background:url("./2.png");
+		  background-repeat:no-repeat;
+		  background-position:10px 10px;
+	  }
+	        
+
+	 </script>
+ </body>
+</html>

@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <button>暂停/播放</button>
+ <!--  <audio src="./1.mp3" controls autoplay preload="auto" loop></audio>
+   <video src="./1.mp4" width=500 height=400 controls poster="./1.jpg"></video> -->
+      <script>
+	    /*
+		   h5播放不需要插件。
+		   audio(音频)  video(视频)
+		   
+		   谷歌autoplay不生效方法：
+           1：地址栏输入chrome://flags
+		   2：搜索Autoplay policy
+		   3：将选项更改为 No user gesture is requ....
+                
+			     属性
+	1: controls 控件，audio，和video需要显示出来的，都要加这个属性
+	2: autoplay 自动播放
+	3: preload(none/metadata/auto)预加载，规定是否在页面加载后载入视频
+	  * none 不需要加载数据
+	  * metadata 元数据诸如时长，比特率，帧大小这样的元数据，而不是
+	    媒体内容需要加载，例如，图片并不需要知道每个像素对应的颜色，
+		只需要知道width，height，大小。就是元数据。
+	  *auto浏览器 应当加载它认为适量的媒体内容(一般写这个属性就好了)
+	4:loop是否循环播放音/视频。
+	 eg:<audiv src="./1.mp3" autoplay controls loop prelod="auto"></audio>
+    5:poster(video独有)上面4个属性video通用
+	  当视频不可用时，使用一张图片替代，否则是空白，一般都是把第一帧截图，放上，
+	  为了防止各浏览器的显示不同效果的情况
+	 eg:<video src="1.mp4" poster="封面.jpg" controls></video>
+			
+			  多类型资源
+  
+  <audio id="music">
+     <source src="成都.mp3" type="audio/mpeg">//如果不能播放mp3就播放下面一条。type能帮助浏览器更快识别资源，当然也可以不写。
+	 <source src="成都.ogg" type="audio/ogg">
+  </audio>
+
+             
+			  脚本化
+onplay,onpause,onended,onseeking,都有触发函数；
+eg:video.onplay = function (){}
+
+var audio = document.getElementById('audio');
+
+var audio = new Audio('./laojie.mp3');
+
+var audiv = document.createElement('video');
+
+video不能通过new 只有audio可以new
+
+eg:设置属性
+	var audio = document.createElement('audio');
+		audio.src = "./1.mp3";
+		audio.controls = "controls";
+		audio.autoplay = true;
+		audio.preload = 'auto';
+		document.querySelector('body').append(audio);
+
+
+	var audio1 = new Audio('./1.mp3');
+		audio1.src = "./1.mp3";
+		audio1.controls = "controls/true";
+		audio1.autoplay = true;
+		audio1.preload = 'auto';
+		document.querySelector('body').append(audio1);
+
+	var video = document.createElement('video');
+		video.src = "./1.mp4";
+		video.width = 500;
+		video.height = 500;
+		video.controls = 'controls';
+		document.body.append(video);
+		window.onload = function (){
+			console.log(decodeURI(video.currentSrc));//异步加载,解码
+		//file:///K:/javascript/js%E5%B0%B1%E4%B8%9A%E7%8F%AD/16.4audio,video%E9%9F%B3%E8%A7%86%E9%A2%91/1.mp4
+		}
+ 
+  currentSrc 资源链接，媒体数据的url地址。注意：window.onload
+			  方法
+  可以自己写样式绑定点击事件，触发video.play();
+ 1：play()  方法 播放,
+ eg:video.play();
+ 2：pause() 方法 暂停
+ eg:video.pause();
+ 3：load() 方法
+ eg:video.load()
+ (用于可以重播播放，或者更新视频来源)
+ 重新加载视频/音频元素，用于在更改来源或其他设置后对音频/视频元素进行更新。
+ 
+元数据加载完也有事件，当前的播放的这个数据加载完之后，也有个事件
+
+
+          音量volume属性
+
+表示播放音量，介于0(静音)~1(最大音量)之间，默认1，将muted属性设置为muted则会进入静音模式，
+设置为true 则会恢复之前指定的音量继续播放，
+超过范围会报错[0,1]
+
+eg:
+   audio.volume = 0.5;
+   audio.volume = 1;
+   audio.vulume = false;//静音
+   audio.vulume = true;//最大
+   audio.muted = true;//静音
+   audio.muted = false;//最大
+
+
+        播放速率playbackRate
+
+用于指定媒体播放的速度。该属性值为1.0表示正常速度，大于1则表示‘快进’，
+0~1之间表示‘慢放’，负值表示回放。(其他浏览器不支持，0.0.1-16)
+每个浏览器实现的会有差别，具体看浏览器实现
+
+eg:
+  video.playbackRate = 16  谷歌最高
+  video.playbackRate = 1; 正常
+  video.playbackRata = 0.9~0慢放
+
+
+       currentTime/duration属性
+
+currentTime设置或返回音频/视频播放的当前位置
+eg:
+  audio.currentTime = 50;//可以做快进功能 audio.currentTime += 50;
+                        //可以做音乐播放的进度条 
+  buttion3.addEventListener('click',function (){
+	  console.log(audio.currentTime);
+  })
+
+eg:
+   video.currentTime = 300 //设置播放条到5分钟
+   video.currentTime;//取值
+
+
+duration返回当前音频/视频的时长(window.onload);.单位秒
+
+eg
+  console.log(video.duration);//NaN值
+	window.onload = function (){
+		console.log(video.duration);//354.797
+	}
+
+
+---------------------------------------------------------
+
+       played/buffered/seekable
+
+played属性返回已经播放(看过)的时间段，buffered属性返回当前已经
+缓冲的时间段，seekable属性则返回用户可以跳转的时间段，这三个属性
+都是TimeRanges对象，每个对象都有一个length属性已经start()和end()方法。
+length属性表示当前的一个时间段，start()与end()分别返回当前时间段的起始时间点
+和结束时间点(单位是秒，起始参数是0)；
+
+下面代码确定当前缓存内容的百分比
+var percent_loaded = Math.floor(video.buffered.end(0) / video.duration*100)
+
+played:比如在播放的是候，跳过了这一段视频，那么在这里就会产生一段距离。
+可以返回到跳过之前的一帧开始。
+
+eg:其他两个属性也有下面额属性
+   video.played.length = n  //n代表n段。
+   video.played.start(0); //返回记录在起始0段的时间段在的秒数。108.565985；
+   video.played.end(2); //返回记录在结束2段的时间段在的秒数，269.829959；
+
+
+       
+	   paused/seeking/ended
+	  
+这三个属性用来查询媒体播放状态。paused为true表示播放器暂停。
+seeking为true表示播放器正在调到一个新的播放点，如果播放器播放完
+媒体并且停下来。则ended属性为true
+
+eg: paused
+    单个button暂停和播放
+	var button = document.getElementsByTagName('button')[0];
+	button.addEventListener('click',function (){
+		if(video.paused){
+		   video.play();
+		}else{
+			video.pause();
+		}
+	  
+	},false)
+
+
+eg:seeking(进度条到一个新点触发，currentTime也可以触发，只要到了一个新点)
+	1:video.addEventListener('seeking',function (){
+		console.log(888);
+	 })
+
+	2:video.seeking //不到新点为false，到了新点为true；
+
+
+eg：ended
+
+  1:video.ended //播放结束而且暂停为true，其他为false；
+
+  2:video.addEventListener('ended',function (){//播放结束而且暂停触发
+		console.log(888);
+	})
+
+
+
+--------------------------------------------------------------------------------
+       
+	     canPlayType
+
+var a = new Audio();//和<source src="成都.mp3" type="audio/mpeg">，差不多。
+if(a.canPlayType('audio/mp3')){//判断是否支持mp3，可以判断多种音乐格式
+    a.src = "./成都.mp3";
+	a.play();
+}
+
+
+--------------------------------------------------------------------------------
+
+          事件
+play 开始播放触发
+pause 暂停触发
+loadedmetadata 浏览器获取完媒体的元素触发，元数据比loadeddata先触发
+loadeddata 浏览器已经加载完当前帧数据，准备播放时触发，注意ie8
+ended当前播放结束后触发
+
+
+   
+    error事件在音频/视频(audio/video)加载发生错误时触发
+
+MediaError对象的code属性返回一个数字值，它表示音频/视频的错误状态:
+
+1 = MEDIA_ERR_ABORTED  -取回过程被用户中止
+2 = MEDIA_ERR_NETWORK    当下载是发生错误
+3 = MEDIA_ERR_DECODE      但解码时发生错误
+4 = MEDIA_ERR_SRC_NOT_SUPPORTED  不支持音频/视频
+
+---------------------------------------------------------------------------------
+   
+
+		readyState属性音频的当前就绪状态
+		一般的状态都是要最后4的状态，其他状态的播发不出来
+	
+表示音频元素的就绪状态
+ 
+  0 = HAVE_NOTHING-没有关于音频是否就绪的信息
+  1 = HAVE_METADATA-关于音频就绪的元数据。
+  2 = HAVE_CURRENT_DATA-关于当前播放位置的数据是可用的，但没有足够的数据
+    来播放下一帧/毫秒
+  3 = HAVE_FUTURE_DATA -当前及至少下一帧的数据可用的
+  4 = HAVE_ENOUGH_DATA - 可用数据足以开始播放
+
+
+
+        
+		 networkState属性返回音频的当前网络状态
+
+表示音频元素的当前网络状态：
+    0 = NETWORK_EMPTY - 音频尚未初始化
+	1 = NETWORK_IDLE - 音频是活动的且已选取资源，但并未使用网络
+	2 = NEWWORK_LOADING 浏览器正在下载数据
+	3 = NEWWORK_NO_SOURCE - 未找到音频来源
+			*/
+
+
+var video = document.createElement('video');
+		video.src = "./1.mp4";
+		video.width = 500;
+		video.height = 500;
+		video.controls = 'controls';
+		document.body.append(video);
+		window.onload = function (){
+			console.log(decodeURI(video.currentSrc));//异步加载,解码
+		//file:///K:/javascript/js%E5%B0%B1%E4%B8%9A%E7%8F%AD/16.4audio,video%E9%9F%B3%E8%A7%86%E9%A2%91/1.mp4
+		}
+
+video.addEventListener('ended',function (){
+	console.log(888);
+})
+	  </script>
+ </body>
+</html>

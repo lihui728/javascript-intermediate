@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    li{
+	  display:inline-block;
+	  width:100px;
+	  height:100px;
+	  border:1px solid black;
+	  display: table-cell;
+	  vertical-align:bottom;
+	}
+  </style>
+ </head>
+ <body>
+  <div></div>
+  <ul>
+    <li>fsfsfs</li>
+  </ul>
+   <script scr="./jquery.js"></script>
+    <script>
+	   var arr = [[1,2,4,[3,45,[45],[12],[78,[12]]]]];
+	   var newArr = [];
+	   function test(arr){
+		   for(var i=0;i<arr.length;i++){
+			   if(typeof(arr[i]) == "object" ){
+				   test(arr[i]);
+			   }else{
+				   newArr.push(arr[i]);
+			   }
+		   }
+
+	   }
+	   test(arr);
+
+	   
+	</script>
+ </body>
+</html>

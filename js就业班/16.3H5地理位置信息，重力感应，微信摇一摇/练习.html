@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	   if (navigator.geolocation) {
+    console.info(navigator.geolocation);
+} else {
+    console.log('你的浏览器不支持地理定位');
+}
+
+if (navigator.geolocation) {
+    //获取地理位置需要等比较长的一段时间
+    //尤其是在PC段，根据IP获取的
+    navigator.geolocation.getCurrentPosition(successCB, errorCB);
+} else {
+    console.log('你的浏览器不支持地理定位');
+}
+//获取地理位置成功
+function successCB(position) {
+    console.info(position);
+    console.log('位置精度:'+position.coords.accuracy);
+    console.log('维度：'+position.coords.latitude);
+    console.log('经度：'+position.coords.longitude);
+}
+//获取地理位置失败
+function errorCB(error) {
+    console.error(error);
+    var msg='';
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            msg = "用户拒绝对获取地理位置的请求。"
+            break;
+        case error.POSITION_UNAVAILABLE:
+            msg = "位置信息是不可用的。"
+            break;
+        case error.TIMEOUT:
+            msg = "请求用户地理位置超时。"
+            break;
+        case error.UNKNOWN_ERROR:
+            msg = "未知错误。"
+            break;
+    }
+    console.error(msg);
+}
+
+
+	</script>
+ </body>
+</html>

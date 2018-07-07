@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    div{
+	  width:100px;
+	  height:100px;
+	  background:red;
+	  position:absolute;
+	  top:0;
+	  left:0;
+	}
+  </style>
+ </head>
+ <body>
+    <div id="div"></div>
+    <script>
+    
+	 
+     
+			
+			/*		   
+					   requestAnimationFrame
+					       客户端存储
+						     历史记录
+							worker
+		
+	一：requestAnimationFrame
+	 
+      1：页面刷新前执行一次
+
+	  2:1000ms 60fps --》 16ms
+
+	  3：cancelAnimationFrame
+
+	  4:用法和setTimeout类似
+
+	  5：兼容性(h5提供的api，支持ie10以上的浏览器。)
+	  
+	  requestAnimationFrame(f);
+	  cancelAnimationFrame(id);
+
+     用setInterval和setTimeout做动画缺点：由于这两个都是异步任务，要等到主线程任务都执行完了，才执行，所有导致
+	 动画要比设置的时间延迟执行，就算这个两个设置了0ms，也不是立即执行，大概4ms之后。二：设置的时间短，容易掉帧。 
+	 比如说设置4毫米，页面不刷新，正常来说浏览器刷新页面为16ms，但也不准确，根据电脑的硬件的问题，可能，16ms之后
+	 才刷新页面。也就是16ms之内的可能执行了0-3次的运动，如果执行了3次，那么这个页面刷新要到16ms才刷新一次，肉眼
+	 所看见的运动，并不是元素正在运动，而是通过页面刷新，所连贯的一帧帧画面，形成肉眼的动画。那么16ms之内执行了三次。
+	 那么3次所移动距离都不显示，等到16ms页面刷新，那么中间移动距离的帧就看不到，所以设置时间短，会掉帧，。设置大的
+	 话，卡顿。最好设置16ms的等到页面刷新。再执行，记住16ms也不绝对。根据电脑的性能，和当前电脑的运行的状态。
+     
+	 以上的缺点：所以requestAnimationFrame在浏览器页面刷新前执行一次，不需传时间。
+
+	 兼容性写法
+
+	 window.requestAnimationFrame = (fucntion (){
+		 return window.requestAnimationFrame ||
+		        window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame ||
+				function (callback){
+                    window.setTimeount(callback,1000/60);
+				};
+	 }())
+    
+	取消兼容性写法
+   
+    window.cancelAnimationFrame = (function (){
+		 return window.cancelAnimationFrame ||
+		        window.webkitCancelAnimationFrame ||
+				window.mozCancelAnimationFrame ||
+				function (id){
+					window.clearTimeout(id);
+				};
+	}())
+
+
+	setTimeout()
+	 
+		var div = document.getElementById("div");
+				 var timer = null;
+				 function move(){
+					 clearTimeout(timer);
+					 if(div.offsetLeft >= 300){
+						 clearTimeout(timer);
+						 div.style.left = "300px";
+					 }else{
+						 timer = setTimeout(function (){
+							 div.style.left = div.offsetLeft + 10 + "px";
+							 move();
+						 },1000/60)
+					 }
+				 }
+				 move();
+
+
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+   requestAnimationFrame
+     
+	     window.requestAnimationFrame = (function (){
+		 return window.requestAnimationFrame ||
+		        window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame ||
+				function (callback){
+                    window.setTimeount(callback,1000/60);
+		};
+	 }())
+    
+
+	   
+		window.cancelAnimationFrame = (function (){
+			 return window.cancelAnimationFrame ||
+					window.webkitCancelAnimationFrame ||
+					window.mozCancelAnimationFrame ||
+					function (id){
+						window.clearTimeout(id);
+					};
+		}())
+
+
+			 var div = document.getElementById("div");
+			 var timer = null;
+			 function move(){
+				 cancelAnimationFrame(timer);
+				 if(div.offsetLeft >= 300){
+					 cancelAnimationFrame(timer);
+					 div.style.left = "300px";
+				 }else{			
+					div.style.left = div.offsetLeft + 10 + "px";
+					timer = requestAnimationFrame(move);
+
+				 }
+			 }
+			 move();
+
+
+			         
+					   客户端存储(ie8以上)
+					  
+			storage(存储量大，没有路径限制，不需要在http中来回传输)
+		    cookie(存储量小(4k)，有路径限制，cookie在传递过程中，会放到响应头当中，发送过去，服务器会以响应头的形式，返回回来。会
+					          随着http进行网络传输，比较浪费宽带，路径不相同取不到数据,)
+					
+
+			
+                       
+					  storage
+			localstorage//永久存储
+			sessionstorage//临时存储
+
+	  eg:
+	    sessionStorage和localStorage的一样设置
+		localStorage.num = 123;
+		localStorage.name = "aimee";//存储一个字符串
+		localStorage.info = JSON.stringify({name:"aimee",company:"duyi"});//存储一个json对象
+		console.log(localStorage.info);//取值为json对象
+		console.log(JSON.parse(localStorage.info));//转换对象
+		sessionStorage.hui = "lihui";
+		sessionStorage.hui = "李辉"
+
+
+		          
+				  存储的有效期
+	   
+	   localStorage -> 永久的，除非手动删除
+	   sessionStorage --> 临时，窗口关闭就没有了。
+
+
+
+	                API
+	   1：setItem(name,val)设置属性值
+	   2：getItem(name)获得属性值
+	   3：removeItem(name)移出属性
+	   4：clear()清楚属性
+
+	  eg:
+	     localStorage.setItem("li","hui");
+         localStorage.getItem("li");
+		 localStorage.removeItem("li");
+		 localStorage.clear();
+
+	            
+				  
+				  作用域
+	   两个都受到作用域的限制，必须满足同源策略，如果不满足同源策略，则取不到值。
+	   localStorage同源可以取值，sessionStorage受到窗口限制，同源也不可以取值，
+	   关闭的窗口的值就会清空
+	   localStorage --> 文档源限制
+	   sessionStorage --> 文档源限制 + 窗口
+
+	         
+
+			      cookie
+		
+	   1：存储信息到用户的设备上，数据量较小(4k左右)
+	   
+	   2：navigator.cookieEnabled
+	      检测是否启用了cookie；
+
+	   3：设置cookie值
+	      document.cookie = "name = aimee";
+		  (每次只能设置一个值，因为浏览器会认为后面的键值对是这个cookie的属性)
+       
+	   4：获得cookie值
+	      document.cookie
+	 
+	   5:不建议出现分号，逗号，空格的奇怪的符号，乱码
+	     encodeURLComponent()
+		 decodeURLComponent()
+	   
+	   6:
+	     function getCookie(name){
+			 var name = name + "=";
+			 var ca = document.cookie.split(';');
+			 for(var i = 0;i < ca.length;i++){
+				 var c = ca[i];
+				 while(c.charAt(0)=='')c=c.substring(1);
+				 if(c.indexOf(name)!=-1)return c.substring(name.length,c.length);
+			 }
+			 return "";
+		 }
+		
+	    7:设置cookie存储期限
+          document.cookie = "name=scott;max-age=1000";
+		  单位/秒
+		
+		8：expires当前时间加上保存
+		  var timestamp = (new date()).getTime()+1000;
+		  var expires = new Date(timestamp).toGMTString();
+		  document.cookie = "name=scott;expires=" + expires;
+		
+		9：domain,..通过domain的方式，那个域和到那个域下访问cookie；
+		
+		10：path,受到路径的限制，可以改路径
+
+
+		          history//历史记录， 放到栈中，遵循先进后出
+		
+		1：history.back();//往后翻一页
+
+		2: history.forward()//往前翻一页
+
+		3：history.go(n);负数往后翻，正数向前翻
+
+		4：history.length;历史记录的条数
+
+         
+				 为什么要管理历史记录
+		为了给用户提供更方便的操作，比如用户现在访问那个网站，之前访问网站。现在想回退一下，
+		看一下之前访问的网站，之后点一下回退，管理历史记录，方便用户
+		
+		      history api的作用？
+		帮我们进行管理历史记录，不用用户点击前进，后退，其他操作，通过代码方式，调用api进行调用。
+		
+
+		           SPA(单页面应用。)//大型网站采用多页面，小网站比较小，采用单页面实现
+		一个页面的应用。头和尾不同，内容比较小的网站就可以使用单页面
+
+
+----------------------------------------------------------------------------------------------------------		
+		
+		
+		        通过修改hash和hashchange事件来实现历史记录管理 
+
+		无论是pushState还是replaceState，能添加和替换历史记录，
+		但是不刷新页面，不刷新导致了，地址虽然已经显示demo.html了，
+		内容还是index.html，一般不传一个新的页面，传一个标志。
+		下面·写也会添加到历史记录里面。因为它不会刷新，所以放一个
+		新的页面的也没有太多的必要。一般传一个参数，让它添加历史记录。 
+       eg:history.pushState('?one')
+
+
+		1，pushState
+
+		 history.pushState(state,title,ulr);添加一条历史记录
+
+		eg: history.pushState(null,null,'./demo.html');//添加，回退到index.html
+
+		2：replaceState
+		 
+		 history.replaceState(state,title,url);替换当前的历史记录
+		   
+		eg:history.replaceState(null,null,'?one');//替换，回退到第一个页面
+		 
+		
+		             参数
+	    
+		state：一个与指定网址相关的状态对象，popstate事件触发时，
+		该对象会传入回调函数中。如果不需要这个对象，此处可以填null
+
+		title：新页面的标题，但是所有浏览器目前都忽略这个值，因此
+		这个可以填null
+
+		url：新的网址，必须与当前页面处在同一个域。浏览器的地址栏
+		将显示这个网址。 
+
+                
+				    事件
+	  1：popstate事件
+	     历史记录发生改变时触发//比如向前翻，向后翻，历史记录发生变化，就会 触发popstate，下面两个方法不会触发。
+		 调用history.pushState()或者history.replaceState()不会触发popstate事件
+       
+	   eg：
+	       history.pushState({name:"aimee"},null,"?one");
+			 window.addEventListener('popstate',function (e){
+				 console.log(e);//刷新不会触发popstate，向后回退，向前前进，触发。
+				 console.log(e.state);//stata值在?one页面触发
+			 })
+
+	  2：hashchange事件
+	     当页面的hash值改变的时候触发，常用于构建单页面应用
+
+
+
+	history.pushState({name:'one'},null,'?one');
+	window.addEventListener('popstate',function(){
+		console.log(888);
+	},false)
+
+
+eg:利用ajax和popstate走前进和后退的数据交互
+
+   function get(value){
+    $.ajax({
+		type : "GET",
+		url : "http://localhost/getDate.php?page=" + value,
+	
+		success : function (data){
+	        $('#wrapper div:nth-child(4)').text(data);
+		}
+	})
+   }
+   
+	history.pushState({name:'one'},null,'?one');
+	window.addEventListener('popstate',function (e){
+         console.log(e.state['name']);
+		 get(e.state['name'])
+	})
+	$("#wrapper .item").on('click',function (){
+		var att = $(this).attr('date');
+		history.pushState({name:att},null,'?'+ att);
+		get(att);
+
+	})
+
+
+
+hashchange //也是通过前进后退触发。
+
+
+    $.ajax({
+		type : "GET",
+		url : "http://localhost/getDate.php?page=" + value,
+	
+		success : function (data){
+			
+	        $('#wrapper div:nth-child(4)').text(data);
+		}
+	})
+   }
+   history.pushState(null,null,'#=1');
+   window.addEventListener('hashchange',function (){
+	   var hash = location.hash;
+	   if(hash == "#=3"){
+		   hash = 'three';
+	   }else if(hash == "#=2"){
+		   hash = 'two';
+	   }else{
+		   hash = 'one';
+	   }
+	  get(hash);
+   })
+   $('#wrapper .item').on('click',function (){
+	   var text = $(this).text();
+	    history.pushState(null,null,'#='+text);
+   })
+
+
+
+-----------------------------------------------------------------------------------------------------------
+
+				  worker(这个属于专用worker，还用一个共享worker，共享worker兼容不好)
+	  
+	   var worker = new Worker('worker.js');
+	   worker文件必须和主文件满足同源策略；
+       (比如说，在代码中，有一个非常耗时的任务，那么在执行的时候，下面的代码就不会执行。常这种情况，我们能不能创建一个线程，
+	    异步的去操作它。那么创建一个线程，异步的操作，把结果返回给主线程就可以了。那么就可以用worker)
+
+
+                worker和主线程之间的通信
+		
+	  1：postMessage(n)方法/发送数据
+
+	  2：message事件//接受数据
+
+	  eg:  index.html //需要开启服务器
+	  var worker = new Worker('./worker.js');//创建worker对象
+		 worker.postMessage(10);//发送一个数据
+		 worker.onmessage = function (e){
+			 console.log(e.data);
+	    }
+		   worker.js
+		onmessage = function (e){
+				postMessage(deay(e.data));
+		  }
+		function deay(data){
+				return data * data;
+	    }
+	             
+			
+			   结束一个worker
+	
+	close()在worker作用域中调用(worker.js)//worker.js文件上面调用的
+
+	terminate()在worker对象上调用(主进程的worker对象上worker.terminata)//主文件主线程上面调用的。最好主线程断开。
+
+	eg:   index.html
+       var worker = new Worker('./worker.js');//创建worker对象
+		 worker.postMessage(10);//发送一个数据
+	
+		 worker.postMessage("aa");
+		
+		 worker.onmessage = function (e){
+			 console.log(e.data);
+			//worker.terminate();//主线程断开，如果放在外面的，则一次都没有发送，这种断开比较好，
+	    }
+	    
+
+		  
+		   
+		   worker.js
+
+		 onmessage = function (e){
+			console.log(e.data);
+			close();//work作用断开，
+			postMessage(deay(e.data));
+		}
+		function deay(data){
+			return data * data;
+		} 
+
+
+	
+	 worker其他特性
+	    
+	 1，importScripts('./math1.js','./math2.js');
+        worker只是window的子集，只能实现部分功能，不能获取到window，document，所有这里不要引出jquery，
+		zepto，可以引入一些计算类的库(不能获取到windowm,document，所以jquery就拿不到对象了，dom元素是无法
+		操作，获取不到。worker只能进行一些数据的处理，计算，处理很大数据量，那这时候就可以把交给worker处理，
+		由worker异步处理，把处理的结果返回，不耽误主线程的进行)
+
+     2：作用域globalWorkerScope
+	    可以继续生成worker对象(chrome暂时还不支持，浏览器支持情况不好)
+		下面worker可以使用
+	    navigator
+		XMLHttpRequest
+		setTimeout/serinterval
+	*/
+	
+	</script>
+  
+ </body>
+</html>

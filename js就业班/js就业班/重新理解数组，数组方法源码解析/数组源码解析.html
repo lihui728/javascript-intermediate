@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	   
+	  
+	  /*      //forEach源码解析
+	       
+	          数组原型上的方法
+			 //第一个参数索引的值，第二个参数索引，第三个参数arr的整个数组
+			 //原方法的this指向window
+	    arr.forEach(function (ele,index,arr){
+		   console.log(ele + " " + index + " " + arr);
+		   console.log(this);
+	   }) 
+    
+             数组原型上自定义的myForEach方法
+        Array.prototype.myForEach = function (fn){
+             for(var i = 0 ;i < this.length;i++){
+				 fn.call(this,this[i],i,this);
+			 }
+	   }
+	   arr.myForEach(function (ele,index,arr){
+		    console.log(this);
+	   });
+	      
+		      
+
+			 filter源码解析
+	   //判断执行条件，为true返回一个新数组，需要变量接收，为false的时候，抛弃
+
+	   var newArr = arr.filter(function (ele,index,arr){
+		return ele > 4;
+    	})
+                
+	    Array.prototype.myFilter = function (fn){
+		var newArr = [];   //创建一个数组	
+		for(var i = 0;i<this.length;i++){   //遍历数组
+		  fn.call(this,this[i],i,this) ? newArr.push(this[i]) : ''; //三目运算符,如果fn()执行为true，数组插入一位
+		}                                                           //false,什么也不干
+		return newArr;
+    	}
+
+	    var newArr = arr.myFilter(function (ele,index,arr){
+		return ele > 7;
+	  })
+	           
+			   map();源码解析
+			  不会对原来的数组进行改变
+		 var newArr = arr.map(function (ele,index,arr){
+		 return ele * ele;
+	    })
+                  
+				  数组myMap()自定义方法
+		Array.prototype.myMap = function (fn){
+		   var newArr = [];
+		   for(var i = 0;i<this.length;i++){
+			  newArr.push(fn.call(this,this[i],i,this));	
+		   }
+		   return newArr;
+	   }
+     var newArr = arr.myMap(function (ele,index,arr){
+	    return ele * ele;
+	 })
+
+
+	         every()//判断，只有一个条件不符合，都返回false,只返回false和true两个值
+	var str = arr.every(function (ele,index){
+		 return ele > 2;
+   })
+     
+	          every源码解析	     
+		Array.prototype.myEvery = function (fn){
+			for(var i =0;i < this.length;i++){
+				if(!fn.call(this,this[i],i,this)){
+					return false;
+				}
+				
+			}
+			return true;
+		}
+	  var newArr = arr.myEvery(function (ele,index){
+			return ele > 5;
+		})
+		  
+		      
+
+			some()//判断，只有一个条件符合，都返回true，
+		
+                some源码解析
+		Array.prototype.mySome = function (fn){
+		for(var i =0;i < this.length;i++){
+			if(fn.call(this,this[i],i,this)){
+				return true;
+			}
+			
+		}
+		return false;
+	}
+  var newArr = arr.mySome(function (ele,index){
+		return ele > 9;
+	})
+
+	       
+		     reduce()//重点
+   //reduce()方法接收一个函数作为累加器，数组的每个值(从左到右)开始缩减
+   //最终计算为一个值。
+   //reduce()可以作为一个高价函数，用于函数的compose；compose(组合函数的应用)
+   //注意：reduce()对于空数组是不会执行回调函数的
+
+
+    var arr = [1,2,3,4,5,6,7,8];
+   var newArr = arr.reduce(function (per,ele,index){
+		return per + ele;
+	})
+	Array.prototype.myReduce = function (fn,per){
+		var i;
+
+	    per == undefined ?(per = this[0],i=1) : i =0;
+		console.log(per);
+		console.log(i);
+		for(var i = 0;i < this.length;i++){
+           per = fn.call(this,per,this[i],i,this)
+		}
+		return per;
+	}
+    var newArr = arr.myReduce(function (per,ele,index,arr){
+	  // console.log(per);
+
+	},100)
+	 
+	*/
+    
+
+	//取到的cookie值的字符串格式
+	//document.cookie => 'key1 = value1;key2 = value2;key3 = value3';
+	var cookieStr = 'key1 = value1;key2 = value2;key3 = value3';
+    //是个字符串
+   //值按;分号拆分;
+	var cookieArr = cookieStr.split(';');
+	//值为 ["key1 = value1", "key2 = value2", "key3 = value3"] //变成数组
+   
+   var cookieObj = {} //创建一个新对象;
+
+   //利用reduce
+
+   var newArr = cookieArr.reduce(function (preval,ele,index,arr){
+        //'key1=value1'
+		//'key2=value2'
+		//'key3=value3'
+	     var arr = ele.split(" = ");//按等号拆，三个独立的数组
+		 //["key1","value1"]  遍历第一次，直接执行下一步 preval[arr[0]] = arr[1];
+		  //["key2","value2"] 第二次 直接执行下一步 preval[arr[0]] = arr[1];
+		   //["key3","value3"]第三次 直接执行下一步 preval[arr[0]] = arr[1];
+        //循环三遍 arr是个独立新的数组
+	
+		  preval[arr[0]] = arr[1]; //循环三遍，
+		  //preval是个对象preval.arr[0]
+		  //preval.key1 = value1;
+		  //preval.key2 = value2;
+		  //preval.key3 = value3;
+		  console.log(arr[0]);
+		console.log(arr[1]);
+		return preval;//返回对象preval
+   },cookieObj)
+   
+	   
+      
+	</script>
+ </body>
+</html>

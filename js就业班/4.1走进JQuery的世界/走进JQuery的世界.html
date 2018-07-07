@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+  <div id='Div'></div>
+  <div>
+     <p></p>
+	 <p class='a b'></p>
+	 <p></p>
+	 <p></p>
+	 <p></p>
+	 <p></p>
+  </div>
+  <input type='text'>
+   <script src='./jquery-3.3.1.js'></script>
+    <script>
+	 /* 
+	                   JQuery
+		jquery的思想好，好在链式调用，基于原型编程，兼容性做得非常好，在jquery中，
+        不需要兼容，源码都把兼容做好了，如果在开发的是时候需要兼容ie6以前的浏览器。
+        在jquery1.8版本中，把ie6的所有的方法都兼容到了。在后面的更新中，把兼容性
+		的代码都剔除掉了。如果jquery把所有兼容的方法，都放进去，那它的代码量是非常
+		重的。在现在浏览器中就没兼容ie6以前的浏览器。那么jquery用起来比较轻。而且
+		大部分浏览器也不兼容ie6了，包括ie6自身为不维护。如果要兼容ie6，需要下1.8
+		版本之前的。
+		               Jquery版本
+		jquery和压缩和没压缩的版本。
+		如果是阅读源码的话，就有没压缩的版本，
+		如果是放在服务器，供用户浏览的话就有压缩版本。
+
+        jquery类库中有很多方法我们都是用不到的，相对于比较浪费。有些公司为了
+		更轻量化，需要用的方法从jquery拿出来自己封装适合自己一个类似jquery的类库。
+		供公司使用。其他方法都不要。只封装自己一些常用的方法。这样类库就会非常轻。
+		但思想上和jquery一样。
+
+		              zepto(移动端)
+		在移动端有个类库叫zepto。和jquery的用法一样，可能只有个别的api不同，
+		zepto是迷你版的jquery，在PC端一般用jquery，毕竟方法比较全。在pc端
+		不会在意80多k的文件，在移动端就会在意了，所以就出现zepto，zepto
+		留下了jquery非常重要，常用的方法，移动端一般会使用zepto，zepto还在
+		移动端，在jquery基础添加了一些事件，因为移动端有触屏事件，添加了
+		一些触屏事件
+
+		             jquery学习注意点
+		
+		jquery只是辅佐工具，不能替代js，方法再全也总是有缺失的，
+        (如果在开发的过程中，想要某个方法，在jquery中没有的话，还
+		是需要自己用js的实现。jquery只是个辅佐工具。
+		)
+
+		jquery需要分阶段学习，jquery，应由浅入深。
+		(最后的阶段，需要看jquery的源码，了解封装的思想，重点，如果说在开发过程中
+		需要的jquery是怎样用，需要把它的思想留下来，只会用是不行的。只会用的
+		就只会永远用别人的库。在公司开发一段时间后，需要这个思想的，并且自己能
+		封装类似jquery的类库，
+		)
+
+		jQuery应用方法很多，躲到令人发指，学习是，应该把常用的方法运用熟练，
+		对于一些不常用的方法，我们常常先了解其用途，现用现查API
+		(www.jquery123.com是中文jquery的网站，jquery css88)
+
+		             开始jquery世界
+		.选择元素
+		
+		(1)$();里面和css选择一样，注意对选择出的一组元素，一起处理，省略循环，
+		      这里在js里是不允许的。
+	    
+		(2)里面可以写css选择器，原生dom，jquery对象，null/undefined,
+		   函数function(){}、selector/content等
+		   eg:$('.demo').css('background-color':'red');
+		 
+		(3)jquery特有的选择规则(选出来的是jquery对象)
+		   $('ul>li:first')//直接子元素，ul里面li第一个
+		   $('ul>li:eq(2)');//直接子元素，ul里面li选择索引从零开始
+		   $('ul>li:odd/even');//直接子元素，ul里面li奇偶
+		 
+		(4)
+		   filter('box/[title=hello]');
+		   has();find();eq();not();is()->true/false;
+
+		---------------------------------------------------------------------
+                      css选择器
+		$('#demo')id,
+		$('.demo')class
+        $('.demo p'),$('.demo div'),
+		$()可以添加css选择器。css选择可以怎样写，$()这里面就可以怎样写。
+		   
+		              原生dom
+		var Div = document.getElementsByTagName('div');
+	   console.log(Div);//<div id="Div"></div>
+
+	   console.log($(Div));//jQuery.fn.init [div#Div]
+	  // (返回一个类数组，并且继承jquery原型上面的方法，__proto__是jquery原型上面的方法)
+	    
+		             jquery对象
+		通过jquery获取出来的类数组，继承了jquery原型的上面的一些放，我们把这个类数组
+		或者这个对象，叫做jquery对象，
+
+		$($('.demo'))-->$($('jquery对象'))
+
+		console.log($($('#Div')));//jQuery.fn.init [div#Div]
+							  // 0:div#Div
+							 //	 length:1
+							//	 __proto__:Object(0)
+	  
+
+
+               null/undefined/false(返回没有元素的类数组)
+
+		 console.log($(null/undefined));//jQuery.fn.init {}
+	                                  //__proto__: Object(0)
+               
+			       
+				   函数function (){}
+
+	   $(function (){})里面添加函数，会把函数立即执行
+	   
+	   $(function (){
+		 console.log('a');
+	   })
+	            
+				  还可以添加两个参数
+	 例：$('p','div') 找到有div的父级元素的p
+
+         $ == jQuery;  $() == jQuery();函数执行
+		 function jQuery(selector,context){
+              if.....
+		 }
+		 jQuery('div');
+		 传入一个参数，然后根据参数进行筛选，里面进行判断，传入id的形式
+		 怎样处理？传进两个参数怎样处理？传入原生dom怎样处理？
+		            
+					szeele
+		 我们可以写很多形式的参数
+		 例$('div > p span'),$('.demo'),$('#demo')
+		 在jquery中有个单独的一块，叫sizeele，sezeele是用来选择上面特殊的写法的;
+		 $('div > p span'),$('.demo'),$('#demo')等等都是通过szeele来查找的。
+		 szeele是号称查找dom元素最快的一种方式，szeele是利用正则进行匹配的，
+         在后来的，在开发的时候，单独把szeele摘出来了。因为它主要负责查找dom
+		 元素的。用来查找dom元素，如果在开发的时候只想用jquery查找元素的，
+		 那么可以从网上下载一个szeele就可以，szeele可以辅佐向jquery一样获取dom，
+		 但是它没有jquery的其他方法了。
+		      
+			       直接子元素
+			$('div>p:first').html(1);
+			$('div>p:eq(2)').html(2);
+			$('div>p:last').html('last');
+			$('div>p:even').css('color','red');
+			$('div>p:odd').css('color','red');
+			   
+			       filter()(筛选)
+  1：$('div p').filter('.a').html('a');//找div p带有.a的className;
+
+  2: $('div p').filter(function (index){
+		 return true;//全部
+		 return false;//全都不要
+		 return index > 2;//大于2的索引
+		 
+	 }).html(2)
+	             
+				   not()(与filter功能一样，功能相反。)
+   1：$('div p').not('.a').html('a');//找div p不带有.a的className;
+   2： $('div p').not(function (index){
+			//   return true//条件为真都不要,都不选
+		//	   return false//条件为假都要；，都选
+			   return index > 2 //大于2都不要，选不要大于2
+		}).html(2);
+
+		           
+				   has(有)
+	$('div').has('p').html('aa');//找有p标签的div标签。选择div
+
+	$('div').find('p').html('aa');//在div标签中找p标签，选中p
+
+	              
+				  eq()
+		$('div:eq(1)').html('aa');//找索引1的div
+		$('div').eq(1).html('aa');//找索引1的div
+
+		          is()
+	console.log($('div p').eq(1).is('.a'));//判断p是否有.a,返回true和false;
+
+          
+			  
+			   jQuery函数写法
+	(jQuery当中，方法都是函数式写法)
+	css()写法
+	0:css(width)//取值，return了这个值之后，就无法return对象，进行链式调用了。
+	1:css('colr','red')
+	2:css({clor:'red',width:100,height:'100px'})
+
+	html()写法(不传是取值，传了就是赋值)
+    $('div').html('<span>span</span>')//识别html标签，
+	$('div').text('<span>span</span>')//不识别html标签，文本内容
+	console.log($('div').html());//取值,能取标签
+	console.log($('div').text());//取值，不能取标签，取文本内容
+
+	$()的对象上面原型定义了css()，html()的方法。
+	$('div').css('color','red').html('123');
+	在调用html之前，前面$('div').css('color','red')执行完return出来也是个jquery对象，
+	之后再进行.html();才可以执行这个方法。
+
+	
+	都是函数式(函数调用)
+
+	比如说
+	js->innerHTMl = 123;jq->html(123);
+	js->onclick = function (){};jq->click(function (){});
+
+    jquery和js的关系
+	不能混用，但是可以一起存在->this
+
+	取值赋值函数统一性
+	html();text();css();attr();prop();
+	html()当取值是，是取第一个赋值赋一组、
+
+	      
+   
+              子节点
+	css()取值相当于getComputed,赋值相当于dom.style***;
+
+	css()赋值赋一组 取值取一个(第一个颜色会在内部转换成rgb)
+
+	atrr()prop()取值赋值和上面一样
+
+	attr()函数主要依赖的是Element对象的getAttrbute()和setAttribute()两个方法。
+
+	prop()函数主要依赖的则是js中原生的对象属性获取和设置方式。
+
+	因为jQuery认为：attribute的checked,selected,disabled就是表示该属性初始状态的值，
+	property的checked,selected,disabled才表示该属性实时状态的值(值为true或false);
+
+	next();下一个兄弟节点
+	prev();上一个兄弟节点
+	index();当前兄弟节点中的索引
+
+	   
+	         attr()
+             
+ 原	var div = document.getElementsByTagName('div')[0];
+ 生	div.className = 'xian';//先天就有的特性，可以设置，没有设置不上。
+ j	div.setAttribute('li','hui');//先天没有的，通过setAttribute设置
+ s	console.log(div.getAttribute('li'));//通过getAttribute获取
+   
+ J  $('div:eq(0)').attr('li','h'); == div.setAttribute('li','hui');//设置
+ Q  $('div:eq(0)').attr('li') == div.getAttribute('li');//取值
+	    
+		     prop()
+	$('div:eq(0)').prop('class','h'); 
+	div.className = 'xian';//先天就有的特性，可以设置，没有设置不上。
+	    
+		     checked
+    <input type="checkbox" checked>//如果两个值相等checked='checked'，可以只写一个
+	$('input').attr('checked')//checked
+	$('input').prop('checked')//true
+	原生input.getAttribute('checked')//''
+	         如果input的checked多选框没有被选中
+	$('input').attr('checked')//checked
+	$('input').prop('checked')//false,实时的。
+	原生input.getAttribute('checked')//''
+	         如果input的属性checked没有
+	$('input').attr('checked')//undefined
+	$('input').prop('checked')//false,实时的。
+	原生input.getAttribute('checked')//null
+
+
+	selected,disabled(输入框不可输入)
+
+	<select>
+	   <option>1</option>
+	   <option>2</option>
+	   <option selected>3</option>和check一样prop('selected')被选selected就true;
+	                              否false;attr,只看有没有selected这个属性
+	</select>
+
+	<input type='text' disabled>//为道理一样,prop('disable')true;
+    
+	结尾：attr主要input里有checked的就是checked,没有就undefined
+	      prop不管input里有没有checked这个属性，只要多选框选上了
+		  就true,没选上就false;实时 
+
+	   
+	         removeClass(),addClass(),$(this);
+	     
+	 例：<div class='a b'></div>
+	    $('.a').removeClass('a')//清除类名，有多个类名只清除一个,<div class='b'></div>
+        $('.a').removeClass()//不写类名，把class都清除掉<div class></div>
+
+		addClass('xxx')//增加类名
+		
+		$(this)
+		在jq里写this.addClass('xxx')是错误的，因为返回this是原生dom的。
+		要把它转换成jq对象-->$(this);
+ 
+           
+		   next();下一个兄弟节点
+		   prev();上一个兄弟节点
+		   index();当前兄弟节点中的索引
+           
+		   $('div p').eq(1).next().html('2');
+		   $('div p').eq(1).prev().html('2');
+		   console.log($('div p').eq(1).index());//1  用于轮播图索引
+	
+		 */
+
+    
+		
+     
+	
+	
+	 
+	       
+	</script>
+ </body>
+</html>
