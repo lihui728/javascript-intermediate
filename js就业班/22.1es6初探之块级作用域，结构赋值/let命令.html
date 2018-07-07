@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+           试题：
+		      var name = "World";
+			  (function (){
+				  if(typeof name === "undefined"){
+					  var name = 'jack';
+					  console.log('Goodbye' + name);
+				  }else{
+					  console.log('Hellow' + name);
+				  }
+			  }())//Goodbye World
+
+			   var name = "World";
+			  (function (){
+				  if(typeof name === "undefined"){
+					  let name = 'jack';
+					  console.log('Goodbye' + name);
+				  }else{
+					  console.log('Hellow' + name);
+				  }
+			  }())//hellow world
+
+                      ECMASCRIPT6
+                ESMASCRIPT(制定规范) & javascript(网景公司创造出来的语言，开始脚本语言有很多种，javascript只是其中一个，实现规范)
+
+				   LET和CONST以及块级作用域
+               
+			   
+			       var(在es6之前只分为函数作用域和全局作用域)
+        eg1:
+		  var arr = [];
+		  for(var i = 0;i < 10;i++){//由var定义的变量作用域只有两种，函数作用域和全局作用，那么不属于函数，只属于全局，污染全局变量
+			  arr[i] = function (){
+				  console.log(i);//访问全局的i
+			  }
+		  }
+		  arr[7]();//10；
+		  console.log(i);//在全局可以访问到，输出10
+        
+	    
+		eg2：
+		
+           var num = 10;
+		   function fn(){
+			   //var num 
+			   console.log(num);//undefined
+			   if(false){
+				   var num = 100;//预编译，存在变量声明提升，导致函数作用域，前面访问的num是undifined，并不是访问全局的变量
+			      //  num = 10;
+			    }
+		   }
+		
+		
+		eg3:
+		    if(false){ //if里面写函数，不同的浏览器对这个的解释不同，有点存在函数声明整体提升，有点不提升。
+			          //在es3和es5规范在if里面不能写函数 声明的，但是浏览器并不遵从这个规范 
+				 // function fn(){};
+				 //如果有这个需求，要访问到这个函数
+				  var fn = fucntion (){}//解决
+			  }
+			  console.log(fn);
+
+
+			   1：块级作用域，(在它的代码段之间才有效,{代码段})
+            
+			   2：let命令
+			      基本用法
+				  不存在变量提升
+				  暂时性死区(只要块级作用域内存在let命令，它所声明的变量就绑定(binding)这个区域，不再受外部的影响)
+				  不允许重复声明
+			 
+			 
+			 eg:暂时性死区
+			     var tmp = 123;
+				 if(true){
+					 tmp = 'abc';//ReferenceError:tmp is not defined
+					 let tmp;
+				 }
+			  上面代码中，存在全局变量tmp，但是块级作用域内let有声明了一个局部的变量tmp，导致后者绑定这个块级作用域，
+			  所以在let声明变量前，对tmp赋值会报错
+
+			  Es6明确规定，如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域，
+			  凡是在声明之前就使用这些变量，就会报错
+
+			  总之，在代码块内，使用let命令声明变量之前，该变量都是不可用的，这在语法上，称为“暂时性死区”
+
+
+
+             eg1： 
+			      a = 2
+			      let a = 10//a is no defined
+			
+			 eg2:
+			    var arr = [];
+				for(var i = 0;i <10;i++){
+					arr[i] = function (){console.log(i)};
+				}
+				arr[2];//10,因为var i,成了全局变量。9<10,执行完代码块，然后++，i成10
+				 
+					1：解决方案
+				var arr = [];
+		  
+				for(var i = 0;i<10;i++){
+						(function (i){
+							arr[i] = function (){console.log(i)};
+						}(i))
+					}
+				 console.log(i)//i暴露在全局
+
+				    2：解决方案
+
+				   var arr = [];
+					for(let i=0;i<10;i++){
+						arr[i]=function (){
+							console.log(i);
+						}
+					}
+				  
+				  arr[5]//5
+				  变量i是let声明的，当前的i只在本轮循环有效，所以每一次循环的i其实都是一个新的变量，
+				  所以最后输出的是6。你可能会问，如果每一轮循环的变量i都是重新声明的，
+				  那它怎么知道上一轮循环的值，从而计算出本轮循环的值？这是因为 JavaScript 引擎内部会记住上一轮循环的值，
+				  初始化本轮的变量i时，就在上一轮循环的基础上进行计算。
+
+		eg:不能重复(防止代码过多，容易重复，用var声明变量，不会报错后面的会把前面的覆盖，let重复会报错)
+		   1：
+		     let m = 100;
+		     let m = 1;//1-3执行SyntaxError: Identifier 'm' has already been declared
+		   2：
+		     var m = 100;
+		     let m = 2;
+		   3:
+		      let m = 2;
+		      var m =3;
+           4:
+		      m =2;
+		      let m = 5;//4执行 ReferenceError: m is not defined
+
+
+	     eg:
+		   for(let i = 0;i < 10;i++){
+				let i = 123;//10个123，let不允许在同一个块级作用域内，重复声明，也就是这是两个不同块级的作用域  
+				console.log(i);                                                                                    
+			}    
+			
+        作用域结构如下 ，不同层级
+		     let  //如果有全局let i，那它是这个位置
+			 {
+				 let  i
+				 {
+					 let i
+				 }
+			 }
+		    
+	
+                    
+			 */
+			
+		   
+    </script>
+</body>
+
+</html>

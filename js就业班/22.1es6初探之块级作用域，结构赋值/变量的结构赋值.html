@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <script>
+	   //模式匹配
+	   //数组结构赋值
+    //   let a = 10, b = 10,c = 10;
+
+	//   let [a,b,c] = [1,2,3] //a=1,b=2,c=3,数组结构赋值
+
+	//   let [a,[b,[c]]] = [1,[2,[3]]]//a=1,b=2,c=3,数组嵌套赋值
+
+	//   let [a,b] = [2]//a=2,b=undefined这个称为结构失败,结构失败定义的值是undefined
+
+	//   let [a,b] = [1,2,3]//这个溢出，多余，称为不完全结构，多余数值没有变量去承载
+
+	//   let [a] = 1//报错  Uncaught TypeError: 1 is not iterable,需要加[]
+
+	//   let [x=10] = [20] //20,默认值，如果这样写let [x=10] = []，则x为10
+    //   let [x=10] = [undefined]//10，默认值
+    //   let [x=10] = [null]//null
+	/*eg:
+		function fn(){
+			console.log('aaaa');
+			return 3
+		}
+		let [a=fn()] = []//当右边的数组为undefned，执行默认值，执行fn(),打印aaa，返回3，a=3;
+		lef [a=fn()] = [20]//右边的数组对应，不为undefined，不执行默认值，a=20
+	逻辑--》右边数组[0] === undefined ? x = fn() : x = 20
+  */
+     
+
+	   //对象结构赋值
+    // let {bar,foo} = {bar:123,foo:234};//有序
+	// console.log(bar,foo)//123,234
+    
+	// let {bar,foo} = {foo:234,bar:123};//无序，对象赋值没有顺序，对对象的理解应该是无序，取值不是按顺序，是通过key:value的方式
+	// console.log(bar,foo)//123,234    //拿到相应的key，找到相应的value，和数组不同，1就是1,
+
+	// let {bar} = {foo:234}
+    // console.log(bar); //undefined
+
+	// let {bar} = {bar:undefined}
+	//  console.log(bar)//undefined
+
+	//   let {bar} = {bar:null};
+	 //  console.log(bar);//null
+
+	 //实质  let {aa:aa,bb:bb} = {aa:123,bb:234}//aa:aa前面的aa是模式，根据模式进行匹配,当key和value相同时时候，aa:aa简写为aa
+     //     let{foo:bar} = {foo:123};//foo提供的是模式，根据模式进行匹配
+	 //     console.log(bar);//123
+	 //     console.log(foo);//foo is not undefined 
+
+	
+	 //对象嵌套结构赋值
+/*	 let obj = {
+		 p : [
+		   'hello',
+		   {y:123}
+		 ]
+	 }
+	 let {p:[x,{y:aa}]} = obj;
+	 console.log(x,aa)  //hello,123*/
+	// console.log(p);//p is not defined,p是模式  p:[],[]是p模式匹配的内容
+	// console.log(y); //y is not defined，y是模式 
+
+	//拿出p出来
+/*  let obj = {
+		  p : [
+		   'hello',
+		  {y:123}
+		  ]
+	  }
+	  let {p,p:[x,y]} = obj;
+	  console.log(x,y)//hello,{y:123}
+	  console.log(p);// ["hello", {y:123}]
+	  */
+	
+   //对象默认值
+   //  let {x=3} = {};
+   //  console.log(x);//3
+       
+ //	   let {x:aa,y=3} = {x:1} // === let {x:aa,y=3} = {x:1,y=undefined}
+ //	   console.log(aa,y);//1,3
+ 
+ //数组和对象的结构赋值，数组按照结构顺序赋值，对象按照结构key:value赋值
+
+// let [a,b,c,d] = 'love';//var str = 'love', str[2]==v,str是一个类数组，所以可以按照数组结构赋值
+// console.log(a,b,c,d);//l,o,v,e
+// let {length} = '123a';//长度,并不是有的属性可以，只有length，'123a'.length
+// console.log(length)//4
+//let {to} = '123' //undefined
+   
+//对象和对象的结构赋值
+//   let {pow,ceil,floor} = Math;//理解var Math = {ceil:function (){},floor:function (){}}因为Math对象有相同结构的方法，把方法赋给对应的值，即可使用该方法，不需要调用。
+//   console.log(floor(2.5));//2
+//   console.log(ceil(2.5));//3
+
+//  对象包装类赋值
+//   let {toString} = 123;//通过赋值，123是Number包装类，促使toString成为了Number包装类的toString
+//   console.log(toString == Number.prototype.toString)//true，如果没有上面的赋值，为false；
+//   let {toString:s} = false;//通过赋值，false是Boolean包装类，促使toString成为了Boolean包装类的toString
+//   console.log(s == Boolean.prototype.toString)//true，如果没有上面的赋值，为false；
+
+ //let arr = [[1,2],[3,4]].map(function ([a,b]){
+//	return a + b;
+//})
+//console.log(arr);[3,7]
+//map方法
+//map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。
+//map() 方法按照原始数组元素顺序依次处理元素。
+//注意： map() 不会对空数组进行检测。
+//注意： map() 不会改变原始数组。
+//程序执行流程，[[1,2],[3,4]]调用map方法,map循环，形参为[a,b],实质第一次循环是[1,2],第二次循环[3,4]，
+ //            下面代码为return a + b;也就是第一次循环为3，返回一个新数组，第二次循环为7，也就数[3,7]
+
+
+ //使用场景
+ // swap ,函数返回值的结构
+
+ //swap交换
+// let a=1,b=2,temp
+// temp = a
+// a = b
+// b = temp
+
+//swap用法
+//   let a = 1,b =2;
+//   console.log(a,b);//1,2
+//   [a,b] = [b,a]
+//   console.log(a,b)//2,1
+
+//函数返回的结构
+  function methods(){
+	  return {
+		  add : function (){},
+		  sum : function (){}
+	  }
+  }
+  let {add,sum} = methods();//{add:function (),sum:function (){}}
+  console.log(add,sum)//add funtion... sum function
+	</script>
+ </body>
+</html>
