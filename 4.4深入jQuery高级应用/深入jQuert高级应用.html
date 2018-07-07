@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <div id = 'div'>div</div>
+    <iframe src='./index.html'></iframe><!--内联框架-->
+     <script src='./jquery-3.3.1.js'></script>
+	 <script>
+	      /*
+		                      //实例方法
+          需要选择出来的dom元素，把jquery对象返回出来，然后在执行方法的，叫做实例方法。
+		  {0:div,length:1,__proto__:}.html()
+		  定义在原型上面，原本自身没的方法，回去原型上面找
+          实例方法都定义原型
+		  例：$('div').html()//实例方法
+		     
+			                //工具方法
+		  不用把某些实例选择出来。只需要$.xxx(),就可以执行。
+		  定义在函数上面的叫做工具方法，
+		  例：
+		     var arr = [ 1,2,3]
+		     $.type(arr);
+
+			function jQuery(){
+				
+			}
+			jQuery.type = function (){}//方法
+			jQuery.aa = 123;//属性
+			JQuery.type();
+
+			函数也是对象，但凡是对象都是属性的集合
+           
+		                 
+						  jQuery工具方法
+			以$.*** jQuery.***这种方法调用此类方法定义在jQuery函数上面
+
+			$.type()判断 参数的数据类型
+
+			原生js判断类型的三种方法
+			
+			例如
+			    1：arr instanceof  Array  
+				2: arr.constructor Array
+				3:Object.prototype.toString.call(arr)
+            1,2两种有局限性3比较通用
+
+			$.trim 消除空格
+			$.proxy()改变this指针方向  参数1:function 2：函数执行期上下文
+
+
+			          
+					        原生js判断类型
+		  例：instanceof
+		      var arr = [1,2,3]
+			  function test(){}
+		      console.log(arr instanceof Array);//true
+			  console.log(arr instanceof Object);//true
+			  console.log(arr instanceof Function);//false
+			  console.log(test instanceof Function);//true
+			  console.log(test instanceof Object);//true
+			  console.log(test instanceof Array);//false
+
+	      例：arr.constructor
+              var arr = [1,2,3]
+			  function test(){}
+			  console.log(arr.constructor == Array);//true
+			  console.log(arr.constructor == Object);//false
+			  console.log(test.constructor == Function);//true
+			  console.log(test.constructor == Object);//false
+		  例：{}.toString.call(xxx);
+		      var arr = [1,2,3]
+			  function test(){}
+			  console.log({}.toString.call(arr));//[Object Array]
+			  console.log({}.toString.call('aaa'));//[Object String]
+              console.log({}.toString.call(123));//[Object Number]
+			  console.log({}.toString.call(false));//[Object Boolean]
+			  console.log({}.toString.call(test));//[Object Function]
+			  console.log({}.toString.call(undefined))//[Object Undefined]
+              console.log({}.toString.call(null))//[Object Null]
+			  console.log({}.toString.call({}));//[Object Object]
+		
+		例：
+		   <iframe src='./index.html'></iframe>//在用iframe跨域的时候，获取到index窗口的arr数组;
+		                                       //用constructor也不是不精准的，
+											   //在本地可以true,在跨域就false;
+											   //toString比较精准
+		    var a = document.getElementsByTagName('iframe')[0]; 
+			a.onload = function (){
+				var b = a.contentWindow.arr;
+				console.log(b);
+				console.log(b.constructor == Array);//false
+			}
+
+			         jQuery方法 $.type()
+		
+		 var arr = [];
+		 function test(){};
+		
+		console.log($.type(arr));//array
+		console.log($.type(test));//function 
+		console.log($.type({}));//object
+		console.log($.type(undefined))//undefined
+		console.log($.type(null));//null
+		console.log($.type(123));//number
+		console.log($.type('123'));//string
+		console.log($.type(true))//boolean
+
+
+		      $.trim 消除两边空格//利用正则匹配，只能消除两边的，中间的不能
+		var  b = '          fsfjkflsdfklgjfslkgjglsdgkl        ';
+		console.log('|' +b + '|');
+		console.log('|' + $.trim(b) + '|');
+
+		   
+		     $.proxy()改变this指针方向 (在开发过程中用的比较少)
+	    参数1：function 参数2：函数执行期上下文；
+
+		例
+		function show(a,b){
+			console.log(this);
+			console.log(a + b);
+		}
+		var obj = {
+			name : 'li',
+		}
+		var fn = $.proxy(show,obj);//返回一个this指向obj的show函数；
+		fn(1,2)//==$.proxy(show,obj)(1,2)
+
+		传参形式：都行   类似柯里化思想
+        $.proxy(show,obj,1)(2);
+		$.proxy(show,obj,1,2)();
+		$.proxy(show,obj,)(1,2);
+
+
+		例： 柯里化
+		   function show(nianji,number){
+			   console.log(nianji);
+			   console.log(number);
+		   }
+		   var fn = $.proxy(show,obj,14)
+		   fn(1);
+		   fn(2);
+		   fn(3);
+		
+		例：jq
+           var obj = {
+			init : function (){
+				this.click();
+			},
+			click : function (){
+				
+			   $('#div').click($.proxy(this.cb,this,1,2));
+			  // $('#div').click(this.cb);
+			  //不改变this指向，那么cb函数执行，this指向div。div.aa()执行报is not function
+			 //用this指向还有一个好处，可以传参数，原来的系统click是不可以传参数的
+			},
+			cb : function (a,b){
+				console.log(a+b);
+			   this.aa();
+			},
+			aa : function (){
+               console.log('aa');
+			},
+		}
+		
+		 obj.init(); 
+		 
+	     例：原生js
+		   var obj = {
+			 init : function (){
+				 this.click();
+			 },
+			 click : function (){
+				div.onclick = function (){obj.cb.call(obj)};
+			 },
+			 cb : function (){
+				 console.log('cb');
+				 this.aa(obj);
+			 },
+			 aa : function (){
+				 console.log('aa');
+			 },
+		 }
+		 obj.init();
+
+
+
+
+		 1:$.noConflict()防止冲突
+
+		 在很多javaScript库使用$作为一个函数或变量名，正如jquery做的一样。
+		 如果我们需要同时使用jQuery和其他javascript库，我们可以使用
+		 $.noConfilct把$控制权交给其他库
+
+		 2：$.parseJSON()字符转换成json要求非常严格 外部是单引号  内部属性是双引号
+		    不需要回车符
+		 
+		 3：$.makeArray把类数组转换成数组
+
+
+		 jQuery高级
+
+		 $.extend()插件扩展1提供新的jQuery工具方法
+		 $.fn.extend()插件扩展2提供新的jQuery实例方法 及组合是实例 不是工具方法
+
+		           
+					
+					$.noConflict()
+         如果引入了两个js类库，恰巧两个类库也使用$,jQuery的全局变量，那下面的jQuery
+		 会把上面的变量给覆盖掉。解决方法，一个js类库，不再用$全局变量，把$交到其他
+		 变量接收，另一个类库继续使用$;
+
+		 var myjQuery = $.noConflict();//交给myjQuery
+		 console.log(myjQuery('div'));//调用
+		 console.log($('div'));//上面的权限已经交给了其他人，
+		                      //$就没有权限作废了，报 $ is not a function 
+
+		例：
+		  var myjQuery = $ //因为$是引用，将它赋给myjQuery的是一个地址，$还拿这地址
+		                  //所以$还是起作用的。
+		
+		例子：
+        在一个页面当中，要加载使用多个不同版本jQuery的对象(文件)；
+		1：在业务采用新版本jQuery，但是里面引入一些的jQuery插件。
+		jQuery插件是很多都是支持之前版本的，新版本可能不支持，
+		这时候可能就要再引入之前的版本jQuery的版本了。
+     
+	    还有一个情况，在维护的一个业务，由于各种原因引入了一些老版本的jQuery，
+		开发的时候使用时新版本
+
+		                
+						 
+
+
+						 $.parseJSON() 
+
+		JSON格式
+		var obj = {
+			 "aa"  : 123,
+			 "bb"  : "dg",//字符创必须加双引号
+		}
+       
+	 例:
+		  var obj = {
+				  aa  : 123,
+				 bb  : "dg",//字符创必须加双引号
+			}
+		  var str = JSON.stringify(obj);//把对象转换成JSON
+		  console.log(str);//{"aa":123,"bb":"dg"}
+		  console.log(JSON.parse(str));//把JSON转换成对象{aa: 123, bb: "dg"}原生js
+		  console.log($.parseJSON(str));//把JSON转换成对象{aa: 123, bb: "dg"}jq
+		    
+			            
+						 
+
+				 $.makeArray把类数组转换成数组
+
+      var obj = {
+			'1' : 'li',
+			'2' : 'lihui',
+			lengt : 2,
+			push : Array.prototype.push
+		}
+
+	  console.log($.makeArray(obj));
+
+
+	     $.extend()插件扩展1提供新的jQuery工具方法
+		 在jquery源码中用extend扩展了很多的方法，大部分方法都是基于这个方法实现的
+		 extend定义在$的函数上面的
+            
+	     $.fn.extend插件扩展2提供新的jQuery实例方法//$.fn==$.prototype
+		  extend绑定到jQuery函数上面，又绑定jQuery的prototype上面
+
+         extend可以扩展出一个新的工具方法或者实例方法
+
+         扩展工具方法()
+		例$.extend({
+			  aa : function (){
+				  console.log('aa');
+			  }
+		  })
+		  $.aa()   
+        例：去掉左侧空格工具方法
+		     $.extend({
+				leftTrim : function (str){
+                     var reg = /^\s+/g;
+					 return str.replace(reg,'');
+				}
+			})
+			var str = '   fslkfdsfjlkds';
+			console.log('|'+ $.leftTrim(str));
+        
+		 扩展实例方法(如果不是对dom操作，没必要把它绑定到原型上面)
+
+           $.fn.extend({
+			  aa : function (){
+				  console.log('aa');
+			  }
+		  })
+		  console.log($('div').aa());
+	    
+
+	  
+	  2：extend可以扩展实例方法和工具方法，还可以合并，合并一些对象
+      
+	   例：  var obj = {
+			  person1 : {
+				  name : 'li',
+				  age  : '18',
+			  },
+			  num : 1,
+		  }
+
+		  var obj1 = {
+		     person2  : {
+				 name : 'hui',
+				 age : 18,
+			 },  
+			num : 2,
+		  }
+		//  $.extend(obj,obj1);//将obj1合并到obj,是浅层克隆，某一方改变了引用值的内容，两个的引用值的内容都会改变,如果出现了属性名出现了重复，后面的会进行覆盖前面的值。
+		 // console.log(obj.person2.name = 'aaa');//aaa
+		 // console.log(obj1.person2.name) //aaa;s
+			  $.extend(true,obj,obj1)//前面加true为深层克隆，两方的引用值指针指向的地址不同。
+			  console.log(obj.person2.name = 'aaa');//aaa
+			  console.log(obj1.person2.name)//hui
+			  
+			//$.fn.extend(obj,obj1)//也可以在原型上合拼 
+
+	  
+
+	  3例：
+	   var obj1 = {
+		   aa : function (){
+
+		   }
+	   }
+
+	   $.extend(obj1);//相当于$.extend({aa:fucntion (){}}),给jQuery添加了一个方法
+
+	   //$.extend(obj1)也是合拼，obj1的值要合拼到$上面去，通过$.extend给$添加一个工具方法，
+
+	   //添加了一个$.aa()，这个方法，那也就是说，我帮obj1的值都合拼到了$的身上去了、
+
+	   //所以extend是创建工具方法，还是实例方法，还是合并对象，无论是哪一种，都是合拼的意思
+
+	   //只不过合并的对象不相同
+
+	   //$.fn.extend(obj1);	是创建了一个实例方法，也就是把obj1里面aa方法合拼到$.fn的身上去了。
+	   
+    重点：extend非常重要，jquery当中就是通过extend，添加了很多方法。比如：eq,html等等，
+	      都是通过extend添加上的，大部分都是
+
+
+
+  1：$.extend({leftTrim:function (){}})//编写方法1
+  
+  2：$.fn.extend({drag:function()}) //编写方法2
+
+  3：var cb = $.Callbacks()//回调函数--》返回回调函数对象
+
+  4：cb.add(function aaa(){})给回调对象添加函数 
+     cb.add(function bbb(){})
+   
+  5：add的添加方式add(aaa,bbb)或add([aaa,bbb]);
+
+  6:cb.fire()--->触发添加的函数 重复fire也会重复执行
+
+  7：在局部作用域例用cb.add()函数也会触发
+
+               
+			   
+			   var cb = $.Callbacks()//回调函数--》返回回调函数对象c
+   
+   1：Callbacks可以对回调函数的队列进行管理
+
+   2：$.Callbacks()--》四个参数
+         once只执行一次fire()方法
+		 
+		 memory 记忆
+
+		 unique oCb.add(aa,aa,aa);只执行一次aa
+
+		 stopOnFalse
+		       function bb(){
+				   console.log('bb');
+				   return false;
+			   }
+			   var oCb = $.Callbacks('stopOnFalse');
+   
+   例：function fn1(){
+			console.log('fn1');
+		}
+		function fn2(){
+			console.log('fn2');
+		}
+		function fn3(){
+			console.log('fn3');
+		}
+		var cb = $.Callbacks();
+		cb.add(fn1,fn2,fn3);
+		cb.fire();//可以执行多次
+   
+    
+	例：参数once
+	    function fn1(){
+			console.log('fn1');
+		}
+		function fn2(){
+			console.log('fn2');
+		}
+		function fn3(){
+			console.log('fn3');
+		}
+		var cb = $.Callbacks('once');
+		cb.add(fn1,fn2,fn3);
+		cb.fire();//执行
+		cb.fire();//不执行
+		cb.fire();//不执行
+		cb.fire();//不执行
+	  
+	 例：参数unique 
+		 function fn1(){
+			console.log('fn1');
+		}
+		function fn2(){
+			console.log('fn2');
+		}
+		function fn3(){
+			console.log('fn3');
+		}
+		var cb = $.Callbacks('unique');
+		cb.add(fn1,fn1);
+		cb.add(fn1);//不填参数执行3次fn，unique,重复只执行一次
+		cb.fire();		       
+	
+	 例：参数 memory
+         function fn1(){
+			console.log('fn1');
+		}
+		function fn2(){
+			console.log('fn2');
+		}
+		function fn3(){
+			console.log('fn3');
+		}
+		var cb = $.Callbacks('memory');//当读取到menory的时候，
+		cb.add(fn1,fn2);              //前面进行过fire()触发
+		cb.fire();                    //后面add的添加，也会firey()一下
+		cb.add(fn3);//cb.fire()，在上面执行了，在后面添加也可以执行。
+    
+	 例：参数stopOnFalse
+	   	function fn1(){
+			console.log('fn1');
+		}
+		function fn2(){
+			console.log('fn2');
+			return false;
+		}
+		function fn3(){
+			console.log('fn3');
+		}
+	    var cb = $.Callbacks('stopOnFalse');//读取到fn2执行完有个return false,就不会执行下面
+		cb.add(fn1,fn2,fn3);
+		cb.add(fn3);
+		cb.fire(); 
+
+	例：混合使用
+
+	   	function fn1(){
+			console.log('fn1');
+		}
+		function fn2(){
+			console.log('fn2');
+			return false;
+		}
+		function fn3(){
+			console.log('fn3');
+		}
+
+		var cb = $.Callbacks('memory','once');
+	    cb.add(fn1,fn2);
+		cb.fire();
+		cb.add(fn3);
+
+
+ 
+
+ 
+ 1:$.Deferred()延迟对象 相当于有状态的Callback();
+  
+  添加函数
+    
+  done            fail            progress
+
+  触发函数：
+
+  resolve         reject          notify
+
+     oDf.resolve()-->done(function (){})
+	 oDf.reject() -->fail(funciton (){})
+	 oDf.notify() --> progress(function (){})
+
+ done,fail  --> once memory
+ progress   ---> menory
+
+ nofity 进行时的意思成功失败的结果还没出现 所以此函数触发后done和fail还可以触发一个
+
+                 
+
+				 $.Deferred()延迟对象 相当于有状态的Callback();
+什么叫有状态的Callback();
+     比如我们在发送一个网络请求的时候，请求有两种情况，要么成功，要么失败
+     请求成功是一个成功的状态，失败是一个失败的状态，当它成功的时候会立刻
+	 调用成功的回调函数，那么失败的话，也会立刻调用失败的回调函数，成功和
+	 失败的函数都写好。那只要ajax的状态，要么成功，要么失败，就会触发这个
+	 回调函数，所以说ajax的状态，非常重要。如果ajax的状态没有成功也没有失败
+     那么成功和失败的函数就会调不了。
+	 Deferred管理有状态的Callback;
+	 向网络请求当中，请求回来了，就是成功了，请求不回来就是失败了，会自动的触发
+	 自动的改变状态
+
+	 我们怎样让一般函数变成一个有状态的Callback,有状态的函数呢？
+       
+      
+ 状态 resolve         reject          notify  
+        成功            失败           进行中
+	  
+状态后的操作	  done            fail            progress
+	              成功            失败             进行中
+	由于普通函数没有系统默认改变状态的行为，所以只能由人为的改变状态
+	
+	例：
+	 var dtd = $.Deferred();
+	  function aa(){
+		  dtd.resolve();//成功
+	  }
+	  aa();
+	  dtd
+	  .done(function (){//成功
+		  console.log('ok');
+	  })
+	  .fail(function (){//失败
+	    console.log('error');
+	  })
+	  .progress(function (){//进行中
+		  console.log('doing');
+	  })
+	 
+	例：模拟网络 1
+       只能输出两次加载，一次失败，状态为失败固定，不在转换状态、 
+	   在请求的时候，要么是成功，要么是失败，成功之后它的状态就不会变了
+	   失败之后它的状态也不会变了，如果是在进行中，后续的状态还可以继续改变
+	   所以当变成reject的时候，就不会再往后面改变成 resolve了
+	 var dtd = $.Deferred();
+      function aa(){
+		  setInterval(function (){
+			  dtd.notify();
+		  },500)
+		  setInterval(function (){
+			  dtd.reject();
+		  },1000)
+		  setInterval(function (){
+              dtd.resolve();
+		  },2000)
+	  }
+	  aa();
+	 //dtd.resolve()//如果这里写了这个代码，立马就变成成功的了，里面aa的改变状态就不会再变。
+	               //受到了外界的干扰了
+      dtd
+	   .done(function (){
+		   console.log('成功')
+	   })
+	   .fail(function (){
+		   console.log('失败')
+	   })
+	   .progress(function (){
+		   console.log('加载中')
+	   })
+	 
+	例：模拟网络2
+	 有这么一个问题，模拟的是一个网络请求，请求的时候，状态是不可以受外界干扰的。
+	 请求到的这个值就是成功了，请求不到就是失败了。不会受到外界的函数，干扰到
+	 网络请求的状态的。
+
+            这样实现也不好
+	 
+		  function aa(){
+			  var dtd = $.Deferred();
+			  setInterval(function (){
+				  dtd.notify();
+			  },500)
+			  setInterval(function (){
+				  dtd.reject();
+			  },1000)
+			  setInterval(function (){
+				  dtd.resolve();
+			  },2000)
+			  return dtd//aa()执行的时候，会首先return dtd;这个dtd是没状态的，
+			           //cd.resolve()这里立刻把它变成成功了
+			 }
+			var cb =  aa();
+      //cd.resolve();  //return出来还是可以改变状态的 也受到了外界的干扰了
+	  cb
+	   .done(function (){
+		   console.log('成功')
+	   })
+	   .fail(function (){
+		   console.log('失败')
+	   })
+	   .progress(function (){
+		   console.log('加载中')
+	   })
+
+	             
+			    比较好的实现
+    $.deferred.promise();返回的是一个只读的dtd也就是deferred;
+
+			 function aa(){
+				  var dtd = $.Deferred();
+				  setInterval(function (){
+					  dtd.notify();
+				  },500)
+				  setInterval(function (){
+					  dtd.reject();
+				  },1000)
+				  setInterval(function (){
+					  dtd.resolve();
+				  },2000)
+				  return dtd.promise();//返回一个只读的dtd(deferred);那么cb接受这个值；
+				                      //cb.resolve，就不能改了，执行报错；
+				 }           
+			   var cb =  aa();
+			//   cb.resolve();//执行报错 cb.resolve is not a function 
+			  cb
+			   .done(function (){
+				   console.log('成功')
+			   })
+			   .fail(function (){
+				   console.log('失败')
+			   })
+			   .progress(function (){
+				   console.log('加载中')
+			   })
+	 
+
+
+ 
+ $.deferred.promise() ----> 不能触发函数(无状态)
+     
+	   function aa(){
+		   var dtd = $.Deferred();
+		   setInterval(function (){dtd.reject('fail')},1000);
+		   return dtd.promise();
+	   }
+
+	   var bb = aa();
+	   bb.resolve('ok');
+	   bb.done(function (data){console.log(data)})
+	   .fail(function (data){console.log(data)})
+	  
+
+$.when()----->返回的是延迟对象 参数也是延迟对象 
+              当参数延迟对象全部触发done的时候最后
+			  会触发when返回延迟对象的done函数
+
+            1：延迟对象作用控制关键点 做链式运动的效果
+
+		    2：$.ajax这种有状态的异步操作核心是deferred
+
+			3：when当发生多个ajax请求的时候 因为都是异步的， 我们可以用
+			 
+			   使用多个deferred,每当ajax成功后,我们触发一个,最后全部成功我们
+
+			   可以在when后一并处理
+
+
+
+                   $.when
+when方法里面的参数也是deferred对象，when执行完之后，也会return deferred对象
+
+功能：
+    when的功能当里面传了几个deferred对象，同时都为成功的状态的情况下，才能
+	触发done里面的内容，但凡有一个失败了，都会之心fail里面的内容，回调函数
+
+ 
+  例：
+  
+     	function aa(){
+			var dtd = $.Deferred();
+			dtd.resolve();
+			return dtd.promise();
+		}
+		function bb(){
+			var dtd = $.Deferred();
+			dtd.reject();//一个失败都执行fail;
+			dtd.resolve();//全部成功执行done
+			return dtd.promise();
+		}
+		var cb = aa();
+		var cb1 = bb();
+		$.when(cb,cb1)//传入两个Deferred对象，返回的也是Deferred对象继续调用.done或fail,progress
+		.done(function (){
+			console.log('ok');
+		})
+		.fail(function (){
+			console.log('error');
+		})
+		.progress(function (){
+			console.log('loadding')
+		})
+
+
+
+
+------------------------------------------
+
+       .done(function (){ //这个地方也就是使用了回调函数，Callbacks
+			console.log('ok');//Deferred也就是用了Callbacks
+		})
+		.fail(function (){
+			console.log('error');
+		})
+		.progress(function (){
+			console.log('loadding')
+		})
+//ajax当做其实引用一个Deferred对象，因为ajax也是有状态的回调函数
+//ajax也是个Deferred对象，而Deferred对象当做，回调着，也是用着Callbacks
+
+
+		  */
+		 
+	
+	 
+
+		
+	  
+		
+	 </script>
+ </body>
+</html>

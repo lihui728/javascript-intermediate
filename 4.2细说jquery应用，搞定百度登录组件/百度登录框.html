@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+   *{
+    margin:0;
+	height:0;
+	list-style:none;
+   }
+    .warpper{
+	 width:360px;
+	 height:420px;
+	 position:absolute;
+	 top:50%;
+	 left:50%;
+	 margin-left:-180px;
+     margin-top:-210px;
+	 border:1px solid black;
+	}
+  .warpper .login{
+    width:100%;
+	height:80px;
+  }
+  .warpper .login span{
+     font-size:18px;
+     display:inline-block;
+	 vertical-align:middle;
+	 
+  }
+  .warpper .login .login-img{
+   width:128px;
+   height:60px;
+   margin-top:10px;
+   margin-left:30px;
+    background:url(https://passport.baidu.com/passApi/img/loginlogo.png) no-repeat left;
+  }
+  .warpper .login .login-right{
+    margin-left:-14px;
+  }
+  .user-input{
+    height:41%;
+  }
+  .user-input form input{
+     width:300px;
+	 height:35px;
+	 margin-top:20px;
+	 margin-left:25px;
+  }
+  .user-input form .check{
+     width:16px;
+	 height:16px;
+  }
+  .warpper .user-login{
+     width:302px;
+	 height:40px;
+	 margin-left:24px;
+	 color:#fcfcfc;
+	 text-align:center;
+	 line-height:40px;
+	 font-size:17px;
+	 background-color:#3f89ec;
+  }
+  .warpper span{
+    color:rgb(46,130,255);
+	font-size:12px;
+	margin-top:10px;
+  }
+  .warpper .forget-password{
+    float:left;
+	margin-left:23px;
+  }
+  .warpper .sms-login{
+    float:right;
+	margin-right:32px;
+  }
+  .warpper .other{
+     height:60px;
+	 width:100%;
+	 margin-top:68px;
+	 background-color:#f0f6ff;
+
+  }
+  .warpper .other span{
+    display:inline-block;
+	margin-left:20px;
+	margin-top:20px;
+  }
+  #button{
+    width:62px;
+	height:26px;
+  }
+
+  </style>
+ </head>
+ <body>
+    <button id='button'>登录</button>
+	<button id='button1'>关闭</button>
+	<script src='./jquery-3.3.1.js'></script>
+	<script>
+	 
+	  button.onclick = function (){
+         document.body.appendChild(div);
+	  }
+	  button1.onclick = function (){
+		  var warpper = document.getElementsByClassName('warpper')[0];
+		  console.log(warpper)
+		  if(warpper){
+			   warpper.remove();
+		  }
+		 
+	  }
+	   var str = "<div class='login'>\
+	       <span class='login-img'></span>\
+		   <span class='login-right'>用户名密码登录</span>\
+	   </div>\
+	   <div class='user-input'>\
+	   <form>\
+	      <input type='text' placeholder='手机/邮箱/用户名'>\
+		  <input type='text' placeholder='密码'>\
+		  <input type='checkbox' class='check'>下次自动登录\
+	   </form>\
+	   </div>\
+       	  <div class='user-login'>登录</div>\
+          <span class='forget-password'><a>忘记密码？</a></span>\
+		  <span class='sms-login'><a>短信快捷登录</a></span>\
+	   <div class='other'>\
+	      <span>扫码登录</span>\
+		  <span>|</span>\
+		  <span>qq</span>\
+		  <span>微信</span>\
+		  <span>立即注册</span>\
+	   </div>"
+	var div = document.createElement('div');
+	div.className = 'warpper';
+	div.innerHTML = str; 
+	
+
+	  //jq
+	/*  var str = "<div class='login'>\
+	       <span class='login-img'></span>\
+		   <span class='login-right'>用户名密码登录</span>\
+	   </div>\
+	   <div class='user-input'>\
+	   <form>\
+	      <input type='text' placeholder='手机/邮箱/用户名'>\
+		  <input type='text' placeholder='密码'>\
+		  <input type='checkbox' class='check'>下次自动登录\
+	   </form>\
+	   </div>\
+       	  <div class='user-login'>登录</div>\
+          <span class='forget-password'><a>忘记密码？</a></span>\
+		  <span class='sms-login'><a>短信快捷登录</a></span>\
+	   <div class='other'>\
+	      <span>扫码登录</span>\
+		  <span>|</span>\
+		  <span>qq</span>\
+		  <span>微信</span>\
+		  <span>立即注册</span>\
+	   </div>"
+	  
+	  
+	  $('#button').on('click',function (){
+         $('<div class="warpper"></div>').html(str).appendTo($('body'));
+	  })
+	  $('#button1').on('click',function(){
+		  console.log('a');
+		  $('.warpper').remove('.warpper');
+	  })*/
+	
+
+
+	</script>
+ </body>
+</html>

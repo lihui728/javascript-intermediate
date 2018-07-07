@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+     <iframe src="./demo.html"></iframe>
+	 <script>
+	 /*
+	              iframe
+ 1：iframe就是一个标签dom元素
+ 
+ 2：可以一个网页里嵌入另一个网页
+     导航栏tab切换页(古老的做法)，在线编辑器，广告植入
+
+ 3：历史记录管理，解决ajax化网站响应浏览器前进后退按钮的方案
+
+ 4：跨域通信等。
+     
+	            iframe利弊
+ 1：iframes阻塞页面加载
+
+      触发window的onload事件是非常重要的，onload事件触发使浏览器的“忙”指示器停止，
+	  告诉用户当前网页已经加载完毕。当onload事件加载延迟后，它给用户的感觉就是
+	  这个网页非常慢。
+	   
+	  window的onload事件需要在所有iframe加载完毕后(包含里面的元素)才会触发，通过
+	  javascript动态设置iframe的src可以避免这种阻塞情况
+
+	  解决跨域问题这个很牵强。。。其实他已经不怎么用了。
+
+	     
+		   如何获取iframe内的window
+  获取子窗口
+  1。document.getElementsByTagName('iframe')[0].ocntentWindow
+  2。document.gerElementsById('id').contentWindow
+  简易写法 
+  window.frames['iframe的name']
+
+  ie专用
+  3：document.iframes[name].contentWindow
+  4: document.iframes[i].contentWindow
+
+        
+		父子页面窗口的关系
+  
+  window.self
+  就是自己----》神经病的属性
+
+  window.parent
+  父级窗口对象
+
+  window.top
+  顶级窗口对象
+      
+	            父子窗口通信
+  父访问子(等待子iframe加载完成后可以通过iframe.contentWindow变量访问也会涉及跨域问题)
+
+  子访问父涉及跨域问题。
+
+       
+	      判断iframe加载完成
+ 1:非ie下使用onload事件
+  iframe(dom元素).onload = funciton (){}
+
+ 2:ie下使用onreadystatechangge或者设定计时器
+   
+   iframe.onreadystatechange = function (){
+	   if(iframe.readyState == "complete" || iframe.readyState == "loaded"){
+		   alert("Local iframe is now loaded");
+	   }
+   }
+
+ 
+ iframe跨域是受到同源策略的限制，那iframe是怎样跨域的？
+ 第一个方法借助哈希值#1,
+ 例：1:<iframe src="./ds.html#1" frameborder='0' name="ds"></iframe>
+     2:在子窗口location.hash获取哈希值。
+ 
+	 */
+
+	             非ie
+ 	var iframe = document.getElementsByTagName('iframe')[0];
+	var str = 'fu';
+	iframe.onload = function (){
+      console.log(iframe.contentWindow.arr);
+	}
+           
+		        ie
+	var iframe = document.getElementsByTagName('iframe')[0];
+	var str = 'fu';
+	iframe.onreadystatechange = function (){
+		if(iframe.readyState == "complete" || iframe.readyState == "loaded"){
+			console.log(iframe.contentWindow.arr);
+		}
+	}
+	 </script>
+ </body>
+</html>

@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    
+  </style>
+ </head>
+ <body>
+     <div class="demo item    aaa";></p>
+	 
+   <script>
+     /*
+	      	Doctype
+		   渲染模式
+     1：IE6诞生之前，没什么兼容性
+     2：随着web的发展，各浏览器产商发布了按照标准模式，
+     但考虑到之前建设的网站并不支持标准模式，所以各浏览器
+     在加入标准模式的同事也保留了混杂模式(即以前那种未按
+     照统一标准工作的模式，也叫怪异模式);
+     <!doctype html>(标准模式)  不写，不完整，写错(怪异模式)
+ 
+     document.compatMode//属性，查看文档模式 返回"CSS1Compat"(标准模式)或"BackCompat"(怪异模式)
+           
+
+	 在IE6还保留怪异模式，其他浏览器已经把怪异模式当做标准模式了
+	1:     标准模式
+	 在标准模式下，渲染盒子模型是从内向外的增加padding,border;
+	 (div:widht:100px,height:100px;增加padding和border各10;那么div的content还是一样)
+	       怪异模式
+	 在怪异模式下，渲染盒子模型是从外向内的增加padding,border;
+	 (div:widht:100px,height:100px;增加padding和border各10,那么div的content区域宽度60px,高度60px);
+	
+	2:标准模式下span不能设置width和height,在怪异模式下设置宽高生效
+
+	3：在标准模式margin：0 auto可以生效，在怪异模式下不生效
+
+	                  <label></label>
+           (label绑定input，当label点击的时候，input获得焦点，主要是label绑定input，input并没有绑定label)；
+      HTML:
+           <label  for="demo">usename:</label>
+           <input id="demo" type="text">
+		    
+
+			 
+			 属性映射HTML属性 映射到Element属性
+
+	 先天的属性值，可以把HTML元素和dom元素一一映射
+	 特性：先天就有的属性
+	 属性包括了特性
+             
+			 setAttribute
+	 如果不是先天的属性值，可以通过setAttribute('a','b')设置到HTML元素上,
+	 但是不能通过.(点)的方式操控这个dom， 可以通过getAttribute('a'),取值
+
+	        
+			     图片预加载
+
+	 监听oImg.onload的事件，当图片加载完了，再把它插入body，这种叫做图片预加载
+	 var oImg = new Image();
+	 oImg.src ='http://pic.netbian.com/uploads/allimg/180331/204415-152250025568b0.jpg';
+	 oImg.onload = function (){
+        document.body.appendChild(oImg);
+	 } 
+	          
+			    
+				图片懒加载(按需加载)
+	 var oBth = document.getElementsByTagName('button')[0];
+	oBth.onclick = function (){
+		var oImg = new Image();
+		oImg.src = 'http://pic.netbian.com/uploads/allimg/180331/204415-152250025568b0.jpg';
+		document.body.appendChild(oImg);
+	}
+
+				 
+			   
+				图片懒加载外加预加载
+	 
+	var oBth = document.getElementsByTagName('button')[0];
+	oBth.onclick = function (){
+		var img = new Image();
+		img.src='http://pic.netbian.com/uploads/allimg/180331/204415-152250025568b0.jpg';
+		img.onload = function (){
+			document.body.appendChild(img);
+		}
+	} 
+
+
+		 
+
+		        Math.random()//随机生成[0,1)(左闭右开,包含0,到1,取不到1)之间的数
+                取一定的范围的区间[4-10),乘以差值6，加最小值4,Math.random() * 6 + 4
+				Math.floor()//向下取整
+   
+
+             var arr = ['a','b','c','d','e'];
+	         var str = '';
+	         for(var i = 0;i < 3;i++){
+		    str += arr[Math.floor(Math.random() * 4)];
+	        }
+
+
+	    
+		
+		var num = Math.random() * 100;
+		num = num == 0.01?console.log('一等'):console.log('aa');
+	
+            
+    var num = Math.random() * 100;
+	if(num == 0.00001){
+		console.log('一等奖');
+	}else if(num == 0.001){
+		console.log('二等奖');
+	}else if(num == 0.01){
+		console.log('三等奖');
+	}else{
+		console.log('谢谢惠顾');
+	}
+	   
+
+	              
+
+
+				  文档碎片//document.createDocumentFragment()创建文档碎片
+	作用：对dom的集中操作，理论上提升页面的性能， 不占用dom结构
+
+    1:如下方法插入10000个li，页面渲染10000次，及其消耗性能，插入一个元素，页面重新渲染一下，禁止用
+	var date1 = new Date().getTime();
+	var oUl = document.getElementsByTagName('ul')[0];
+	for(var i = 0 ; i < 10000;i++){
+		var li = document.createElement('li');
+		li.innerHTML= i;
+		oUl.appendChild(li);
+	}
+	var date2 = new Date().getTime();
+	console.log(date2-date1);
+
+
+
+	2:破坏原来的HTML结构，禁用
+	var date1 = new Date().getTime();
+    var div = document.createElement('div');
+	var oUl = document.getElementsByTagName('ul')[0];
+	for(var i = 0 ; i < 10000;i++){
+		var li = document.createElement('li');
+		li.innerHTML= i;
+		div.appendChild(li);
+	}
+	oUl.appendChild(div);
+
+	var date2 = new Date().getTime();
+	console.log(date2-date1);
+
+	3：使用文档碎片
+	 var date1 = new Date().getTime();
+	 var oUl = document.getElementsByTagName('ul')[0];
+	 var ofraf =  document.createDocumentFragment();
+	 for(var i = 0 ; i < 10000;i++){
+	      var li = document.createElement('li');
+		  li.innerHTML = i;
+		  ofraf.appendChild(li);
+	 }
+	 oUl.appendChild(ofraf);
+	  var date2 = new Date().getTime();
+	  console.log(date2-date1);
+    
+
+	4:利用插入字符串 
+	 var oUl = document.getElementsByTagName('ul')[0];
+	 var str = '';
+	 for(var i = 0;i < 10000;i++){
+		 str +='<li>'+i+'</li>';
+	 }
+	 oUl.innerHTML = str;
+
+
+	           断点调试
+			debugger;
+		
+	  var oUl = document.getElementsByTagName('ul')[0];
+	 var str = '';
+	 debugger;
+	 for(var i = 0;i < 10000;i++){
+		 str +='<li>'+i+'</li>';
+	 }
+	 oUl.innerHTML = str;
+	      
+		      
+			 forEach()//数组循环
+	  var arr = ['a','b','c'];
+	 arr.forEach(function(ele,index,a){//第一个参数遍历数组内容，第2个对应的数组索引，第三个数组本身
+		 console.log(ele);
+		 console.log(index);
+		 console.log(a)
+	 });
+
+	         
+			  
+			  slice()//数组原型方法
+	 Array.prototype.sli = function (a,b){
+	   var arr = [];
+	   for(var i = a; i < b;i++){
+		   arr.push(this[i]);
+	   }
+	   return arr;
+    }
+			 
+			
+	
+	 
+	 */
+     
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    var str = ['ad','fsf','fls','fs']
+	console.log(str.slice(0,));
+
+	var div = document.getElementsByTagName('div')[0];
+	Document.prototype.getClassName = function (classname){
+           var label = document.getElementsByTagName('*');
+		   var str;
+		   for(var i = 0;i < label.length;i++){
+		      
+		  var str = label[i].className;
+		   Array.prototype.slice.call(str,0);
+		  console.log(str);
+		   }
+		   
+	}
+	*/
+	
+		
+	
+	
+	
+
+
+   </script>
+ </body>
+</html>

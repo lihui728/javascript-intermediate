@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+     *{
+	  margin:0;
+	  padding:0;
+	  list-style:none;
+	 }
+	 html,body{
+	    width:100%;
+		height:100%;
+	 }
+	 .wrapper{
+	   width:100%;
+	   height:100%;
+	   position:relative;
+	 }
+	 .slider-list{
+	   width:100%;
+	   height:100%;
+	 }
+	 .slider{
+	   width:100%;
+	   height:100%;
+	   padding:200px;
+	   box-sizing:border-box;
+	 }
+	 .slider-list .slider:nth-child(1){
+	    background:url("./img/1.jpg") no-repeat;
+		background-size:cover;
+		
+	 }
+	 .slider-list .slider:nth-child(2){
+	    background:url("./img/2.jpg") no-repeat;
+		background-size:cover; 
+		display:none;
+	 }
+	 .slider-list .slider:nth-child(3){
+	    background:url("./img/3.jpg") no-repeat;
+		background-size:cover;
+		display:none;
+	 }
+	 .slider-list .slider:nth-child(2) img,
+	 .slider-list .slider:nth-child(3) img{
+	    width:0%;
+	 }
+	 .slider .title{
+	   float:left;
+	   width:40%;
+	 }
+	 .slider .image{
+	   float:right;
+	   width:40%;
+	 }
+	 img{
+	   width:50%;
+	   height:50%;
+	 }
+	 .slider-btn{
+	    height:40px;
+		width:100%;
+		position:absolute;
+		top:50%;
+		margin-top:-20px;
+		font-size:60px;
+		color:#cc0033;
+		font-weight:900;
+	 }
+	.slider-btn .left-btn{
+	    float:left;
+		margin-left:100px;
+	}
+	.slider-btn .right-btn{
+	    float:right;
+		margin-right:100px;
+	}
+    .slider-order{
+	   width:100%;
+	   height:30px;
+	   position:absolute;
+	   bottom:100px;
+	   text-align:center;
+	}
+	.slider-order ul li{
+	   width:30px;
+	   height:30px;
+	   display:inline-block;
+	   border-radius:50%;
+	   background-color:#d2d2d2;
+	   margin-right:20px;
+	}
+	.active{
+	   background:red !important;
+	}
+
+  </style>
+ </head>
+ <body>
+    <div class="wrapper">
+	    <div class="slider-list">
+		   <div class="slider">
+				  <div class="title">
+					  <h2>标题一</h2>
+					  <p>第一页</p>
+				  </div>
+				  <div class="image">
+					 <img src="./img/4.jpeg" alt="">
+				  </div>
+		   </div>
+		     <div class="slider">
+				  <div class="title">
+					  <h2>标题二</h2>
+					  <p>第二页</p>
+				  </div>
+				  <div class="image">
+					 <img src="./img/5.jpg" alt="">
+				  </div>
+		   </div>
+		     <div class="slider">
+				  <div class="title">
+					  <h2>标题三</h2>
+					  <p>第三页</p>
+				  </div>
+				  <div class="image">
+					 <img src="./img/6.jpeg" alt="">
+				  </div>
+		   </div>
+		</div>
+		<!--<div class="slider-btn">
+		     <span class="left-btn"><</span>
+			 <span class="right-btn">></span>
+		</div>
+		<div class="slider-order">
+		   <ul>
+		     <li class="active"></li>
+			 <li></li>
+			 <li></li>
+		   </ul>
+		</div>-->
+		 
+	</div>
+    <script src="./jquery-3.3.1.js"></script>
+	<script>
+	   var ppt = {
+		   len:$('.slider').length,//判断ppt有多少页
+		   nowIndex : 0,
+		   lastIndex : undefined,
+		   key : true,
+		   timer : undefined,
+		   init : function (){
+                if(this.len > 1){//如果多页
+				   this.createDom(this.len);//动态生成左右箭头和小圆点,传入页数
+				   this.bindEvent();//左右箭头和小圆点绑定事件
+				}
+		   },
+		   //动态生成小圆点和左右btn
+		   createDom : function (len){
+               var str = "",btnstr = '';
+			   for(var i = 0;i < len; i++){
+				   if(i == 0){
+					   str = '<li class="active"></li>';
+				   }else{
+					  str += '<li></li>';
+				   }
+			   }
+			   str = '<div class="slider-order"><ul>' + str +'</ul>'; 
+			   btnstr = '<div class="slider-btn">\
+						 <span class="left-btn"><</span>\
+						 <span class="right-btn">></span>\
+						 </div>'
+		   $(".wrapper").append(btnstr).append(str);
+		   },
+		   bindEvent : function (){
+			   //点击获得index
+			   //left->index--  right-》index++ li->index();//点击不同，方法不同
+			   var self = this;
+			   $('li').add($('.left-btn')).add($('.right-btn')).on('click',function (){
+				  
+                   if($(this).attr('class') == "left-btn"){
+				      // self.getIndex('left');
+					     self.tool('left');
+				   }else if($(this).attr('class') == 'right-btn'){
+				      // self.getIndex('right');
+                         self.tool('right');
+				   }else{
+					 //  var that = this;
+                     //  self.getIndex($(this).index())
+					    self.tool($(this).index());
+					 
+				   }
+				// self.changeActive(self.nowIndex);//(self.nowIndex,that)
+				// $('.slider').eq(self.lastIndex).trigger('leave'); 
+				// $('.slider').eq(self.nowIndex).trigger('come');
+				 
+			   });
+			   $('.slider').on('leave',function (){
+				   $(this).fadeOut(300).find($('img')).animate({width:'0%'})
+				  
+			   })
+			   $('.slider').on('come',function (){
+				   $(this).fadeIn(300).find($('img')).animate({
+				     width : '40%'
+				   },300,'linear',function (){
+                       self.key = true;
+					   self.sliderAuto();
+				   })
+				 
+			   })
+			    
+		   },
+		   tool : function (text){
+			   var self = this;
+			   if(self.key){		   
+                    self.getIndex(text);
+					if(self.nowIndex !== self.lastIndex){
+						self.changeActive(self.nowIndex);
+						$('.slider').eq(self.lastIndex).trigger('leave'); 
+						$('.slider').eq(self.nowIndex).trigger('come');
+						self.key = false;
+                   	}
+			    }
+		   },
+		   getIndex : function (dir){
+			    this.lastIndex = this.nowIndex;
+			   if(dir == 'left'){
+			     this.nowIndex = this.nowIndex == 0 ? this.len -1 : this.nowIndex - 1;
+			   }else if(dir == 'right'){
+			     this.nowIndex = this.nowIndex == this.len - 1 ? 0 : this.nowIndex + 1; 
+			   }else{
+                 this.nowIndex = dir;
+			   }
+			    console.log(this.nowIndex);
+		   },
+		   changeActive : function (index,obj){
+			   $('.active').removeClass('active');
+			  // $(obj).addClass('active');
+			   $('li').eq(index).addClass('active');
+			  
+		   },
+		   sliderAuto : function (){
+                var self = this;
+				clearTimeout(self.timer);
+			    self.timer = setTimeout(function (){
+					self.tool('right');
+				},3000)
+		   }
+		  
+	   } 
+	   ppt.init();
+	</script>
+ </body>
+</html>
